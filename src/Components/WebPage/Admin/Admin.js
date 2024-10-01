@@ -6,6 +6,9 @@ import icon8 from '../../Astes/icon8.svg';
 import eye from '../../Astes/eye.svg';
 import download from '../../Astes/download.svg';
 import Refresh from '../../Astes/refresh.svg';
+import AddCustomer from '../../Popup/AddCustomer';
+import Success from '../../Popup/Success';
+import SummeryReport from '../../Popup/SummeryReport';
 
 const Admin = () => {
   return (
@@ -135,6 +138,12 @@ const Admin = () => {
           </div>
         </div>
       </div>
+      
+      <AddCustomer />
+      <Success/>
+      <SummeryReport />
+      
+      
       
     </>
   )
