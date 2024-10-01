@@ -1,0 +1,15 @@
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 7px 32px 7px 20px;
+}
+
+
+.logoutbtn{
+  border: none;
+  outline: none;
+  background:transparent;
+}

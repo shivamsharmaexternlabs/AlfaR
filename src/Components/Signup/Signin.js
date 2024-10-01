@@ -5,7 +5,7 @@ import appleIcon from "../Astes/appleIcon.svg"
 import googleIcon from "../Astes/googleIcon.svg"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-  import * as yup from "yup";
+import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { forgetPasswordSlice, SignInSlice } from '../Redux/slices/Authorisation';
 import PopupDetails from '../Popup/PopupDetails';
@@ -13,20 +13,14 @@ import AuthHeader from '../Layout/AuthHeader'
 
 
 const Signin = () => {
-
   const [forgetPopupToggle, setForgetPopupToggle] = useState(false)
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-
-
-
-  // Initial values for the Formik form
   const defaultValue = {
     email: "",
     password: "",
   };
-
 
   const Validate = yup.object({
     email: yup.string()
@@ -36,23 +30,13 @@ const Signin = () => {
   });
 
   const handleSubmit = async (values) => {
-
     let responseData = await dispatch(SignInSlice({ ...values }));
-
-    //navigate("/signup")
 
     if (responseData?.payload?.status === 200) {
       navigate("/profile#account-details")
       window.location.reload()
     }
   };
-
-
-
- 
-
-
-  
 
   const forgetPasswordFun = () => {
     navigate("/forgot")
@@ -70,7 +54,6 @@ const Signin = () => {
             <h2>Sign in</h2>
             <h3>Welcome Back</h3>
             <p>Elevate your fashion journey with Stofee – Your AI-powered style companion.</p>
-
             <Formik
               initialValues={defaultValue}
               validationSchema={Validate}

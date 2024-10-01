@@ -1,0 +1,57 @@
+.profileForm {
+  padding: 0px;
+}
+
+.profileForminner {
+  padding: 40px 10px;
+  width: 100%;
+  max-width: 726px;
+  margin: 0 auto;
+}
+
+.profileForminner h3 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+}
+
+.profileForminner .forminnerbox,
+.profileForminner .forminnerbox .formControl {
+  border-radius: 100px;
+}
+
+.formBtn {
+  margin-top: 100px;
+  width: 100%;
+  border-top: 1px solid #D9DBE9;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.canbtn {
+  padding: 8px 50px 8px 50px;
+  border-radius: 71px;
+  color: #000000;
+  padding: 8px 50px;
+  border: 1px solid #E5E6F3;
+  margin-right: 10px;
+}
+
+.canbtn:hover {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.scbtn {
+  padding: 8px 26px;
+  border-radius: 71px;
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #E5E6F3;
+}
+
+.scbtn:hover {
+  background-color: #fff;
+  color: #000;
+}

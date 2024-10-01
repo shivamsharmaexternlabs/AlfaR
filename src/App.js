@@ -11,6 +11,9 @@ import LoadingSpinner from './Components/WebPage/ReusableComponents/LoadingSpinn
 import GuardedRoute from './Components/RouteGuards/GuardedRoutes';
 import Forgot from './Components/Signup/Forgot';
 import RestPassword from './Components/Signup/RestPassword';
+import Admin from './Components/WebPage/Admin/Admin';
+import Employees from './Components/WebPage/Employees/Employees';
+import Profile from './Components/WebPage/Profile/Profile';
 
 
 function App() {
@@ -84,20 +87,14 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgot' element={<Forgot />} />
         <Route path='/resetpassword' element={<RestPassword />} />
-
         <Route path='/verification' element={<Verification />} />
-        {/* <Route path='/profile' element={<Index />} /> */}
-        {/* <Route path='/' element={<Home />} /> */}
-
-        <Route element={<GuardedRoute />}>
-          {/* <Route path='/design' element={<Design />} />
-          <Route path='/order' element={<Order />} /> */}
-        </Route>
-
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/employees' element={<Employees />} />
+        <Route path='/profile' element={<Profile />} />        
       </Routes>
+
       <ToastContainer autoClose={2000} />
 
-      {/* <ContactDetails /> */}
 
     </>
   );
