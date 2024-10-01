@@ -364,6 +364,14 @@ button {
 
 /************************** content Page ******************************/
 
+.sidebar ul li.active{
+  background-color: #000;
+} 
+
+.sidebar ul li.active a {
+  color: #fff;
+}
+
 .dasboardpage {
   display: flex;
   flex-wrap: wrap;
