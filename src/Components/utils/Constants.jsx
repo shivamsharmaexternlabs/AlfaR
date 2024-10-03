@@ -5,8 +5,8 @@ export const routes = {
 	VERIFICTAION: "/verification",
 	RESET_PASSWORD: "/resetpassword",
 	FORGOT_PASSOWRD: "/forgot",
-	ADMIN:"/admin",
-	EMPLOYEES:"/employees",
+	ADMIN:`/admin/1`,
+	EMPLOYEES:"/employees/1",
 	PROFILE:"/profile",
 } 
 

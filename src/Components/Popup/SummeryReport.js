@@ -39,7 +39,7 @@ const SummeryReport = () => {
   }
   return (
     <>
-      <PopupDetails PopupToggle={true} classNameProp='summurypopup'>
+      <PopupDetails PopupToggle={false} classNameProp='summurypopup'>
         <div className='popupinner'>
           <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
           <div className='SummeryTitle'>
