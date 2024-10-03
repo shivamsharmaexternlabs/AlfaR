@@ -15,12 +15,11 @@ import Admin from './Components/WebPage/Admin/Admin';
 import Employees from './Components/WebPage/Employees/Employees';
 import Profile from './Components/WebPage/Profile/Profile';
 import { toast } from "react-toastify";
+import { routes } from './Components/utils/Constants';
 
 
 function App() {
-
   const TokanValue = localStorage.getItem("Token", false)
-
   const [loadingValue, setLoadingValue] = useState(false)
 
   console.log("nsdsdsd", TokanValue)
@@ -86,14 +85,14 @@ function App() {
     <>
       <LoadingSpinner loadingValue={loadingValue} />
       <Routes>
-        <Route path='/' element={<Signin />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/forgot' element={<Forgot />} />
-        <Route path='/resetpassword' element={<RestPassword />} />
-        <Route path='/verification' element={<Verification />} />
-        <Route path='/admin' element={<Admin />} />
-        <Route path='/employees' element={<Employees />} />
-        <Route path='/profile' element={<Profile />} />        
+        <Route path={`${routes.ROOT}`} element={<Signin />} />
+        <Route path={`${routes.SIGNUP}`} element={<Signup />} />
+        <Route path={`${routes.FORGOT_PASSOWRD}`} element={<Forgot />} />
+        <Route path={`${routes.RESET_PASSWORD}`} element={<RestPassword />} />
+        <Route path={`${routes.VERIFICTAION}`} element={<Verification />} />
+        <Route path={`${routes.ADMIN}`} element={<Admin />} />
+        <Route path={`${routes.EMPLOYEES}`} element={<Employees />} />
+        <Route path={`${routes.PROFILE}`} element={<Profile />} />        
       </Routes>
       <ToastContainer autoClose={2000} />
     </>

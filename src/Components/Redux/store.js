@@ -4,6 +4,8 @@ import  userDetailsReducer   from "./slices/UserDetails";
 import OrderApis from "./slices/OrderApis";
 import DesignApis from "./slices/DesignApis";
 import  TogglesValuesReducer  from "./slices/Toggles-Values";
+import  employeesSlice  from "./slices/EmployeeSlice";
+import  customerSlice  from "./slices/CustomerSlice";
  
 
 export const store = configureStore({
@@ -12,7 +14,9 @@ export const store = configureStore({
      UserApiData:userDetailsReducer,
      OrderApisData:OrderApis,
      DesignApisData:DesignApis,
-     TogglesValuesData :TogglesValuesReducer
+     TogglesValuesData :TogglesValuesReducer,
+     EmployeesApiData :employeesSlice,
+     CustomerApiData :customerSlice,
   },
 });
 

@@ -1,0 +1,31 @@
+[
+	{
+	  "name": "User 1",
+	  "email": "abhishek.jain@coffeee.io",
+	  "title": "Sr. Accountant",
+	  "department": "Accounts",
+	  "status": "Inactive"
+	},
+	{
+	  "name": "User 2",
+	  "email": "abhishek.jain@coffeee.io",
+	  "title": "Sr. Accountant",
+	  "department": "Accounts",
+	  "status": "Active"
+	},
+	{
+	  "name": "User 3",
+	  "email": "abhishek.jain@coffeee.io",
+	  "title": "Sr. Accountant",
+	  "department": "Accounts",
+	  "status": "Inactive"
+	},
+	{
+	  "name": "User 4",
+	  "email": "abhishek.jain@coffeee.io",
+	  "title": "Sr. Accountant",
+	  "department": "Accounts",
+	  "status": "Active"
+	}
+  ]
+  
