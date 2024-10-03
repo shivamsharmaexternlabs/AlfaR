@@ -9,6 +9,7 @@ import Refresh from '../../Astes/refresh.svg';
 import AddCustomer from '../../Popup/AddCustomer';
 import Success from '../../Popup/Success';
 import SummeryReport from '../../Popup/SummeryReport';
+import RowData from '../../Popup/RowData';
 
 const Admin = () => {
   return (
@@ -142,6 +143,7 @@ const Admin = () => {
       <AddCustomer />
       <Success/>
       <SummeryReport />
+      <RowData />
       
       
       

@@ -1,14 +1,22 @@
 import React from 'react'
 import PopupDetails from './PopupDetails';
 import Closebtn from '../Astes/close.svg';
+import arrow2 from '../Astes/arrow2.svg';
 
 const SummeryReport = () => {
   return (
     <>
-      <PopupDetails PopupToggle={true} classNameProp='summurypopup'>
+      <PopupDetails PopupToggle={false} classNameProp='summurypopup'>
         <div className='popupinner'>
-          <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
-          <h2>Summary Report</h2>
+            <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
+          <div className='SummeryTitle'>
+            <h2>Summary Report</h2>
+            <div className='daterangebox'>
+              
+              <span className='datetext'>Date Range:</span> <span className='dateday'>8 Aug 2024 - 11 Sep 2024</span>
+              <button type='button' className='datearrow'> <img src={arrow2} alt='icon' /> </button>
+            </div>
+          </div>
           <div className=' summerytable '>
             <table>
               <tr>
@@ -45,9 +53,9 @@ const SummeryReport = () => {
               </tr>
             </table>
             <div className='text-end mt-5 mb-3'>
-                <button type='button' className='btnWh me-3'>Cancel</button>
-                <button type='button' className='btnBl'>Download</button>
-              </div>
+              <button type='button' className='btnWh me-3'>Cancel</button>
+              <button type='button' className='btnBl'>Download</button>
+            </div>
           </div>
         </div>
       </PopupDetails>

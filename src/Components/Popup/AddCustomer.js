@@ -66,9 +66,6 @@ const AddCustomer = () => {
             </Form>
           </Formik>
         </div>
-
-
-
       </PopupDetails>
     </>
   )
