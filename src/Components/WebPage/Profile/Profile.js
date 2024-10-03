@@ -139,8 +139,7 @@ const Profile = () => {
                   </button>
                   <button type="submit" className={`${Style.scbtn}`}>
                     {"Save Changes"}
-                  </button>
-                
+                  </button>                
                 </div>
               </Form>
             </Formik>

@@ -226,7 +226,7 @@ button {
 
 .applebtn img {
   position: absolute;
-  top: 2px;
+  top: 7px;
   left: 12px;
 }
 
@@ -297,7 +297,7 @@ button {
   font-weight: 400;
   font-size: 14px;
   color: #737B88;
-  margin:10px 0 0; 
+  margin: 10px 0 0;
   font-family: "Poppins", system-ui;
 }
 
@@ -510,7 +510,7 @@ button {
   width: 100%;
 }
 
-.alfartable table tr:nth-child(2n+1){
+.alfartable table tr:nth-child(2n+1) {
   background: #F9FAFB;
 }
 
@@ -541,7 +541,7 @@ button {
   position: relative;
 }
 
-.alfartable table .clbtn:hover{
+.alfartable table .clbtn:hover {
   background-color: #E4E7EC;
 }
 
@@ -582,7 +582,7 @@ button {
   display: flex;
 }
 
-.clbtn:hover::before { 
+.clbtn:hover::before {
   display: block;
 }
 
@@ -597,7 +597,7 @@ button {
 }
 
 
-.clbtn.vpbtn:hover::after{
+.clbtn.vpbtn:hover::after {
   content: "View Previous Fetch Balance";
   width: 132px;
   height: 60px;
@@ -606,7 +606,7 @@ button {
   bottom: 120%;
 }
 
-.clbtn.dpbtn:hover::after{ 
+.clbtn.dpbtn:hover::after {
   content: "Download Previous Fetch Balance";
   width: 165px;
   height: 60px;
@@ -615,7 +615,7 @@ button {
   bottom: 120%;
 }
 
-.clbtn.rebtn:hover::after{ 
+.clbtn.rebtn:hover::after {
   content: "Fetch New Balance";
   width: 165px;
   height: 38px;
@@ -634,14 +634,14 @@ button {
   position: relative;
   cursor: pointer;
   transition: all .3s ease;
-  margin-right: 5px ;
+  margin-right: 5px;
 }
 
-.toggleActive:hover{
-  background : #11B718;
+.toggleActive:hover {
+  background: #11B718;
 }
 
-.toggleActive:before{
+.toggleActive:before {
   transition: all .3s ease;
   content: "";
   position: absolute;
@@ -653,9 +653,112 @@ button {
   background-color: #fff;
 }
 
-.toggleActive:hover::before { 
+.toggleActive:hover::before {
   left: 15px;
 }
+
+/******************** popupinner *************************/
+
+.popupinner {
+  width: 90%;
+  max-width: 726px;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 32px 24px;
+  position: relative;
+}
+
+.popupinner>h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
+  border-bottom: 1px solid #DBDEEB;
+  padding-bottom: 16px;
+}
+
+.closebtn {
+  position: absolute;
+  top: 32px;
+  right: 35px;
+}
+
+.addCustomer .formbox .forminnerbox {
+  border-radius: 100px;
+}
+
+.btnWh {
+  border: 1px solid #E5E6F3;
+  padding: 8px 12px 8px 12px;
+  border-radius: 71px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 400;
+  min-width: 157px;
+}
+
+.btnWh:hover {
+  background: #000000;
+  color: #fff;
+}
+
+.btnBl {
+  border: 1px solid #000;
+  padding: 8px 12px 8px 12px;
+  border-radius: 71px;
+  font-size: 16px;
+  background-color: #000;
+  color: #fff;
+  font-weight: 400;
+  min-width: 169px;
+}
+
+.btnBl:hover {
+  border: 1px solid #E5E6F3;
+  background: #fff;
+  color: #000;
+}
+
+.successpopup h3 {
+  font-size: 40px;
+  font-weight: 500;
+  color: #000;
+  margin: 30px 0 25px;
+}
+
+.successpopup p {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  border-bottom: 1px solid #E5E6F3;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.summurypopup .popupinner {
+  max-width: 1319px;
+}
+.summerytable{
+  padding-top: 25px;
+}
+.summerytable table {
+  width: 100%;
+}
+.summerytable th {
+  border: 1px solid #E5E6F3;
+  font-size: 10px;
+  font-weight: 500;
+  color: #000;
+}
+
+.summerytable td {
+  border: 1px solid #E5E6F3;
+  font-size: 10px;
+  font-weight: 400;
+  color: #000;
+  text-align: right;
+
+}
+
 
 /************************** Scrollbar css ******** *****************************/
 
@@ -673,8 +776,8 @@ button {
 
 
 .dasboardpage>.content::-webkit-scrollbar-thumb,
-.accountbox>.rightpart::-webkit-scrollbar-thumb ,
-.verifyOuterbox::-webkit-scrollbar-thumb  {
+.accountbox>.rightpart::-webkit-scrollbar-thumb,
+.verifyOuterbox::-webkit-scrollbar-thumb {
   background: #b0b0b0;
   border-radius: 100px;
   border-radius: 10px;

@@ -4,9 +4,6 @@ import PopupDetails from '../../Popup/PopupDetails'
 
 const LoadingSpinner = ({loadingValue}) => {
 
-
-
-
     return (
         <PopupDetails PopupToggle={loadingValue}> 
             <span class="loader">  </span>

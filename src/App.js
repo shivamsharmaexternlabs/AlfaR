@@ -95,10 +95,7 @@ function App() {
         <Route path='/employees' element={<Employees />} />
         <Route path='/profile' element={<Profile />} />        
       </Routes>
-
       <ToastContainer autoClose={2000} />
-
-
     </>
   );
 }

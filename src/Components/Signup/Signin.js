@@ -3,12 +3,12 @@ import logo from "../Astes/logowh.svg"
 
 import appleIcon from "../Astes/appleIcon.svg"
 import googleIcon from "../Astes/googleIcon.svg"
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik"; 
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { forgetPasswordSlice, SignInSlice } from '../Redux/slices/Authorisation';
-import PopupDetails from '../Popup/PopupDetails';
+
 import AuthHeader from '../Layout/AuthHeader'
 
 
