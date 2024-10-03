@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EmployeeTable from './EmployeeTable'
+import ReactPaginate from 'react-paginate';
 
 const EmployeesContent = ({ setAddEmployeePopup, icon7, icon8, employeeData }) => {
+
 	return (
 		<div className='content'>
 			<div className='adminTitle'>
@@ -25,6 +27,8 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, icon8, employeeData }) =
 					<button type='button' className='addcusbtn'> {"Invite User"} </button>
 				</div>
 				: <EmployeeTable employeeData={employeeData} />}
+
+			
 		</div>
 	)
 }
