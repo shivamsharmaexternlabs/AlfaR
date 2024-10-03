@@ -12,6 +12,7 @@ const SummeryReport = () => {
           <div className='SummeryTitle'>
             <h2>Summary Report</h2>
             <div className='daterangebox'>
+              
               <span className='datetext'>Date Range:</span> <span className='dateday'>8 Aug 2024 - 11 Sep 2024</span>
               <button type='button' className='datearrow'> <img src={arrow2} alt='icon' /> </button>
             </div>
