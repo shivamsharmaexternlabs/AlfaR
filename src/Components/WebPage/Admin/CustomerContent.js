@@ -1,0 +1,30 @@
+import React from 'react'
+import CustomerTable from './CustomerTable'
+
+const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8 }) => {
+	return (
+		<div className='content'>
+			<div className='adminTitle'>
+				<h2> {"Customers"} </h2>
+				<button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>
+			</div>
+			<div className='customersTitle'>
+				<button type='button' className='tcbtn'> {"Total Customers:"} <span>0</span> </button>
+				<div className='searchbox'>
+					<input type='search' placeholder='Search...' />
+					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
+					<button type='button' className='searchbtn'> {"Search"} </button>
+				</div>
+			</div>
+			{customerData.length === 0
+				? <div className='addcusbox my-3'>
+					<img src={icon8} alt='icon8 img' />
+					<p>{"No customer added so far"}</p>
+					<button type='button' className='addcusbtn'> {"Add Customer"} </button>
+				</div>
+				: <CustomerTable customerData={customerData} />}
+		</div>
+	)
+}
+
+export default CustomerContent;
