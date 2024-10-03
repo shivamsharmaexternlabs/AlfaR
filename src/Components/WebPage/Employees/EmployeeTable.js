@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import ReactPaginate from 'react-paginate'
 
 const EmployeeTable = ({ employeeData }) => {
+	const [page, setPage] = useState(0);
+	const [filterData, setFilterData] = useState();
+	const n = 3
+	const paginateData = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","V", "W", "X", "Y", "Z"];
+
+
+	useEffect(() => {
+		setFilterData(
+			paginateData.filter((item, index) => {
+				return (index >= page * n) & (index < (page + 1) * n);
+			})
+		);
+	}, [page]);
+
 	return (
 		<div className='alfartableOuter'>
 			<div className='alfartableTitle'>
@@ -30,7 +45,37 @@ const EmployeeTable = ({ employeeData }) => {
 						})
 						: ""}
 				</table>
+
+				
 			</div>
+
+			<div className='alfarpegination'>
+				<span>{"Page 1 of 30"}</span>
+					<ReactPaginate
+						previousLabel={"< Previous"}
+						i18nIsDynamicList={true}
+						// nextLabel={"Next"}
+						nextLabel={"Next >"}
+						pageCount={Math.ceil(paginateData.length / n)}
+						// onPageChange={handlePageClick}
+						// forcePage={page}
+						disabledClassName={"disabled"}
+						pageClassName="page-item"
+						pageLinkClassName="page-link"
+						previousClassName="page-item"
+						previousLinkClassName="page-link"
+						nextClassName="page-item"
+						nextLinkClassName="page-link"
+						breakLabel="..."
+						breakClassName="page-item"
+						breakLinkClassName="page-link"
+						containerClassName="pagination"
+						activeClassName="active"
+						renderOnZeroPageCount={null}
+						onPageChange={(event) => setPage(event.selected)}
+
+					/>
+				</div>
 		</div>
 	)
 }

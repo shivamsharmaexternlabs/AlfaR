@@ -5,7 +5,7 @@ import Closebtn from '../Astes/close.svg'
 const RowData = () => {
   return (
     <>
-      <PopupDetails PopupToggle={true} classNameProp='rowdatapopup'>
+      <PopupDetails PopupToggle={false} classNameProp='rowdatapopup'>
         <div className='popupinner'>
           <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
           <h2>Raw Data</h2>

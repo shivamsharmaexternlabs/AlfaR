@@ -6,7 +6,7 @@ import { Route, Router, Routes } from 'react-router-dom';
 import Signin from './Components/Signup/Signin';
 import Signup from './Components/Signup/Signup';
 import Verification from './Components/Signup/Verification';
- import axios from 'axios';
+import axios from 'axios';
 import LoadingSpinner from './Components/WebPage/ReusableComponents/LoadingSpinner';
 import GuardedRoute from './Components/RouteGuards/GuardedRoutes';
 import Forgot from './Components/Signup/Forgot';
@@ -16,6 +16,10 @@ import Employees from './Components/WebPage/Employees/Employees';
 import Profile from './Components/WebPage/Profile/Profile';
 import { toast } from "react-toastify";
 import { routes } from './Components/utils/Constants';
+import Layout from './Components/Layout/Layout';
+import CustomerContent from './Components/WebPage/Admin/CustomerContent';
+import EmployeesContent from './Components/WebPage/Employees/EmployeesContent';
+import ProfileContent from './Components/WebPage/Profile/ProfileContent';
 
 
 function App() {
@@ -63,11 +67,11 @@ function App() {
         console.log("resolved------------resolved")
         // toast.success(response?.data?.message);
         return response;
-       }
-       ,
+      }
+      ,
       (error) => {
         setLoadingValue(false)
-        console.log("resolved+++++++++++++++reject",error)
+        console.log("resolved+++++++++++++++reject", error)
         toast.error(error?.response?.data?.message);
 
         if (error?.response?.status == 401) {
@@ -90,9 +94,34 @@ function App() {
         <Route path={`${routes.FORGOT_PASSOWRD}`} element={<Forgot />} />
         <Route path={`${routes.RESET_PASSWORD}`} element={<RestPassword />} />
         <Route path={`${routes.VERIFICTAION}`} element={<Verification />} />
-        <Route path={`${routes.ADMIN}`} element={<Admin />} />
-        <Route path={`${routes.EMPLOYEES}`} element={<Employees />} />
-        <Route path={`${routes.PROFILE}`} element={<Profile />} />        
+
+
+        <Route path={`${routes.ADMIN}`} element={<Layout />}>
+          {/* Main Admin page */}
+          <Route index element={<Admin />} />
+          {/* Nested route */}
+          <Route path="customer-content" element={<CustomerContent />} />
+        </Route>
+
+        <Route path={`${routes.EMPLOYEES}`} element={<Layout />}>
+          {/* Main Employees page */}
+          <Route index element={<Employees />} />
+          {/* Nested route under Employees */}
+          <Route path="employees-content" element={<EmployeesContent />} />
+        </Route>
+
+        <Route path={`${routes.PROFILE}`} element={<Layout />}>
+          {/* Main Employees page */}
+          <Route index element={<Profile />} />
+          {/* Nested route under Employees */}
+          <Route path="employees-content" element={<ProfileContent />} />
+        </Route>
+
+
+        {/* <Route path={`${routes.EMPLOYEES}`} element={<Employees />} /> */}
+        {/* <Route path={`${routes.ADMIN}`} element={<Admin />} /> */}
+        {/* <Route path={`${routes.PROFILE}`} element={<Profile />} /> */}
+
       </Routes>
       <ToastContainer autoClose={2000} />
     </>

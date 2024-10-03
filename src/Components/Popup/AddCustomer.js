@@ -2,19 +2,22 @@ import React from 'react'
 import PopupDetails from './PopupDetails'
 import Closebtn from '../Astes/close.svg'
 import * as yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 
+const AddCustomer = ({
+  addCustomerPopup,
+  setAddCustomerPopup,
+  setSuccessfulPopup
+}) => {
 
-const AddCustomer = () => {
   const defaultValue = {
-    email: "",
-    password: "",
+    exchange: "",
+    apiKey: "",
   };
   const Validate = yup.object({
-    email: yup.string()
-      .email('Invalid email format')
-      .required('Email is required'),
-    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
+    exchange: yup.string()
+      .required('Exchange is required'),
+    apiKey: yup.string().required("Api-Key is required")
   });
   const handleSubmit = async (values) => {
     // let responseData = await dispatch(SignInSlice({ ...values }));
@@ -28,10 +31,10 @@ const AddCustomer = () => {
 
   return (
     <>
-      <PopupDetails PopupToggle={false} classNameProp='addCustomer'>
+      <PopupDetails PopupToggle={addCustomerPopup} classNameProp='addCustomer'>
         <div className='popupinner'>
           <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
-          <h2>Add Customer</h2>
+          <h2>{"Add Customer"}</h2>
           <Formik
             initialValues={defaultValue}
             validationSchema={Validate}
@@ -40,28 +43,28 @@ const AddCustomer = () => {
               <div className="formbox mt-3">
                 <div className='forminnerbox'>
                   <Field
-                    name="email"
-                    type="email"
+                    name="exchange"
+                    type="name"
                     className={`form-control`}
                     required
                   />
-                  <label >Exchange</label>
+                  <label >{"Exchange"}</label>
                 </div>
               </div>
               <div className="formbox mt-3">
                 <div className='forminnerbox'>
                   <Field
-                    name="text"
+                    name="apikey"
                     type="text"
                     className={`form-control`}
                     required
                   />
-                  <label >API Key</label>
+                  <label >{"API Key"}</label>
                 </div>
               </div>
               <div className='text-end mt-5 mb-3'>
-                <button type='button' className='btnWh me-3'>Cancel</button>
-                <button type='button' className='btnBl'>Add</button>
+                <button type='button' className='btnWh me-3' onClick={() => setAddCustomerPopup(false)}>{"Cancel"}</button>
+                <button type='button' className='btnBl' onClick={() => setSuccessfulPopup(true)}>{"Add"}</button>
               </div>
             </Form>
           </Formik>
