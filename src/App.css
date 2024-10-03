@@ -734,15 +734,59 @@ button {
   margin-bottom: 20px;
 }
 
+.SummeryTitle {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.SummeryTitle h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  color: #000000;
+}
+
+.daterangebox .datetext {
+  color: #7E8082;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.daterangebox .dateday {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.10000000149011612px;
+  color: #344054;
+}
+
+
 .summurypopup .popupinner {
   max-width: 1319px;
 }
-.summerytable{
+
+.daterangebox {
+  border: 1px solid #DBDEEB;
+  padding: 2px 20px;
+  border-radius: 8px;
+}
+
+.datearrow{
+  display: inline-block;
+  border-left: 1px solid #E2E5EF;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.summerytable {
   padding-top: 25px;
 }
+
 .summerytable table {
   width: 100%;
 }
+
 .summerytable th {
   border: 1px solid #E5E6F3;
   font-size: 10px;
@@ -756,7 +800,16 @@ button {
   font-weight: 400;
   color: #000;
   text-align: right;
+}
 
+.rowdatapopup .popupinner{
+  word-break: break-all;
+}
+.rowdatapopup .popupinner p {
+  color: #000;
+  font-size: 15px;
+  font-weight: 400;
+  word-break: break-word;
 }
 
 
