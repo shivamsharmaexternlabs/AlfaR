@@ -35,13 +35,13 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
      localStorage.setItem("Token", response?.data?.token);
     localStorage.setItem("UserId", response?.data?.data?.userId);
     toast.success(response?.data?.message);
-
+    console.log("dhvjsfjsdf",response)
 
     return response;
 
   } catch (err) {
 
-
+    console.log("dhvjsfjsdf",err)
 
     toast.error(err?.response?.data?.error?.[0]);
 
@@ -65,8 +65,7 @@ export const forgetPasswordSlice = createAsyncThunk("forgetPasswordSlice", async
 
   } catch (err) {
 
-
-
+ 
     toast.error(err?.response?.data?.message);
 
 
@@ -80,18 +79,16 @@ export const forgetPasswordSlice = createAsyncThunk("forgetPasswordSlice", async
 //varification code
 
 export const VarificationCode = createAsyncThunk("VarificationCode", async (body, { rejectWithValue }) => {
-console.log("dcsdsdsd",body)
-
-
+ 
    try {
-    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user/otp-verify`, body,{
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user/otp-verify`,body,{
       headers: {
         "Accept": "*/*",
-        "Authorization": `Bearer ${body.Token}`
+        "Content-Type": "application/json"
       },
     });
 
-
+    console.log("mghvdchjsdsd---",response)
     toast.success(response?.data?.message);
 
 
@@ -99,9 +96,10 @@ console.log("dcsdsdsd",body)
 
   } catch (err) {
 
+    console.log("mghvdchjsdsd",err)
 
 
-    toast.error(err?.response?.data?.error?.[0]);
+    toast.error(err?.response?.data?.message);
 
 
 
@@ -202,6 +200,7 @@ export const signInReducer = createSlice({
         state.VarificationCodeData = (action.payload);
       }
       )
+       
 
 
 

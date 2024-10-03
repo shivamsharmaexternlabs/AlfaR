@@ -14,6 +14,7 @@ import RestPassword from './Components/Signup/RestPassword';
 import Admin from './Components/WebPage/Admin/Admin';
 import Employees from './Components/WebPage/Employees/Employees';
 import Profile from './Components/WebPage/Profile/Profile';
+import { toast } from "react-toastify";
 
 
 function App() {
@@ -61,12 +62,14 @@ function App() {
       (response) => {
         setLoadingValue(false)
         console.log("resolved------------resolved")
-
+        // toast.success(response?.data?.message);
         return response;
-      },
+       }
+       ,
       (error) => {
         setLoadingValue(false)
-        console.log("resolved+++++++++++++++reject")
+        console.log("resolved+++++++++++++++reject",error)
+        toast.error(error?.response?.data?.message);
 
         if (error?.response?.status == 401) {
 

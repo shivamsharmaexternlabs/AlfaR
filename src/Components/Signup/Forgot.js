@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useNavigate } from 'react-router-dom';
 import AuthHeader from '../Layout/AuthHeader';
+import { forgetPasswordSlice } from '../Redux/slices/Authorisation';
 
 
 const Forgot = () => {
@@ -27,8 +28,7 @@ const Forgot = () => {
 
     const handleSubmitForgetPassword = async (values) => {
         localStorage.setItem("verify-email", values.email)
-        let responseData
-        // = await dispatch(forgetPasswordSlice({ ...values }));
+        let responseData = await dispatch(forgetPasswordSlice({ ...values }));
 
         if (responseData.payload.status == 200) {
             navigate("/verification")
