@@ -1,20 +1,104 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import PopupDetails from './PopupDetails';
 import Closebtn from '../Astes/close.svg';
 import arrow2 from '../Astes/arrow2.svg';
+import DatePicker, { DateObject } from "react-multi-date-picker";
+
+
+import Footer from "react-multi-date-picker/plugins/range_picker_footer";
 
 const SummeryReport = () => {
+
+
+  const [value1, setValue1] = useState([]);
+  const [value, setValue] = useState({
+    from: "",
+    to: ""
+  });
+  const datePickerRef = useRef();
+
+  const DateRangeFun = (date) => {
+    setValue1(date)
+    setValue({
+      from: `${date[0]?.day} ${date[0]?.month?.shortName} ${date[0]?.year}`,
+      to: `${date[1]?.day} ${date[1]?.month?.shortName} ${date[1]?.year}`
+    })
+    console.log("mnbdcsdfsd", date[1])
+  }
+
+  let undefinedData = "undefined undefined undefined"
+
+  console.log("mbdsvjsds", value?.from != "" || value?.to != "")
+
+  const clearDate = () => {
+    setValue1([])
+    setValue({
+      from: "",
+      to: ""
+    })
+  }
   return (
     <>
-      <PopupDetails PopupToggle={false} classNameProp='summurypopup'>
+      <PopupDetails PopupToggle={true} classNameProp='summurypopup'>
         <div className='popupinner'>
-            <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
+          <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' /> </button>
           <div className='SummeryTitle'>
             <h2>Summary Report</h2>
             <div className='daterangebox'>
-              
-              <span className='datetext'>Date Range:</span> <span className='dateday'>8 Aug 2024 - 11 Sep 2024</span>
-              <button type='button' className='datearrow'> <img src={arrow2} alt='icon' /> </button>
+
+              <span className='datetext'>Date Range : </span>
+
+              {value?.from != undefinedData && <span className='dateday'>
+
+                {value?.from}
+              </span>}
+              {value?.from != "" || value?.to != "" ? <span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M12 5L19 12L12 19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>:""}
+
+              {value?.to != undefinedData && <span> {value?.to}</span>}
+
+
+              <button type='button' className='datearrow'  > <img className="date-range-arrow" src={arrow2} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
+
+                <DatePicker //https://npm.runkit.com/react-multi-date-picker
+                  value={value1}
+                  // onChange={setValue}
+                  onChange={DateRangeFun}
+                  ref={datePickerRef}
+                  range
+                  numberOfMonths={2}
+                  plugins={[
+                    <Footer
+
+                      position="bottom"
+                      format="MMM DD"
+                      names={{
+                        selectedDates: " ",
+                        from: "From :",
+                        to: "To :",
+                        selectDate: "select",
+                        close: "close",
+
+                        separator: "-",
+
+                      }}
+
+                    />
+                  ]}
+                />
+
+              </button>
+
+              {/* <button  onClick={clearDate}>
+                clear
+              </button>*/}
+              {/* <button onClick={() => datePickerRef.current.closeCalendar()}>
+                Close
+              </button>   */}
             </div>
           </div>
           <div className=' summerytable '>

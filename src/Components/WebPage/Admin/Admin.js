@@ -42,10 +42,10 @@ const Admin = () => {
         </div>
       </div>
       
-      <AddCustomer />
-      <Success/>
+      {/* <AddCustomer /> */}
+      {/* <Success/> */}
       <SummeryReport />
-      <RowData />
+      {/* <RowData /> */}
       
       
       

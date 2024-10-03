@@ -194,6 +194,22 @@ button {
   top: 2px;
   color: #737B88;
 }
+.rmdp-range{
+  background-color: rgb(43, 38, 38) !important;
+}
+.rmdp-button {
+  padding: 4px 16px !important;
+}
+.rmdp-input{ 
+  display:  none !important;
+  width: 20px;
+  color: white;
+  border: none !important;
+  padding: 0px !important;
+  cursor: pointer !important;
+  
+
+}
 
 
 .formbox .forminnerbox .changebtn {
