@@ -25,3 +25,7 @@ export const exchanges = {
 	OKX:"okx",
 	COINBASE:"coinbase",
 }
+
+export const eyeIcon = require("../Astes/eye.svg").default;
+export const downloadIcon = require("../Astes/download.svg").default;
+export const refreshIcon = require("../Astes/refresh.svg").default;

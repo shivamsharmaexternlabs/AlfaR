@@ -1,0 +1,14 @@
+[
+	{
+		"customer_name": "Customer 1",
+		"exchange": "Binance"
+	},
+	{
+		"customer_name": "Customer 2",
+		"exchange": "Coinbase"
+	},
+	{
+		"customer_name": "Customer 3",
+		"exchange": "Kraken"
+	}
+]

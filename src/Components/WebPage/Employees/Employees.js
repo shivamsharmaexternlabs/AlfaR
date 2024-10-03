@@ -7,6 +7,9 @@ import eye from '../../Astes/eye.svg';
 import download from '../../Astes/download.svg';
 import Refresh from '../../Astes/refresh.svg';
 
+import employeeData from "../Employees/employeejson/employee.json"
+import EmployeeTable from './EmployeeTable';
+
 const Employees = () => {
   return (
     <>
@@ -16,75 +19,27 @@ const Employees = () => {
         <div className='content'>
           <div className='adminTitle'>
             <h2> Employees </h2>
-            <button type='button' className='addcusbtn'> Add Customer </button>
+            <button type='button' className='addcusbtn'> {"Add Customer"} </button>
           </div>
           <div className='customersTitle'>
-            <button type='button' className='tcbtn'> Total Customers: <span>0</span> </button>
+            <button type='button' className='tcbtn'> {"Total Customers:"} <span>{"0"}</span> </button>
 
             <div className='searchbox'>
               <input type='search' placeholder='Search...' />
-              <img src={icon7} about='icon' className='searchIcon' />
-              <button type='button' className='searchbtn'> Search </button>
+              <img src={icon7} about='icon' className='searchIcon' alt="search-icon"/>
+              <button type='button' className='searchbtn'> {"Search"} </button>
             </div>
           </div>
 
-          <div className='addcusbox my-3'>
-            <img src={icon8} alt='icon8 img' />
-            <p>No customer added so far</p>
-            <button type='button' className='addcusbtn'> Invite User </button>
-          </div>
-
-          <div className='alfartableOuter'>
-            <div className='alfartableTitle'>
-              <h3>Users List</h3>
-              <p>This is a list of all users.</p>
+          {employeeData.length === 0
+            ? <div className='addcusbox my-3'>
+              <img src={icon8} alt='icon8 img' />
+              <p>{"No customer added so far"}</p>
+              <button type='button' className='addcusbtn'> {"Invite User"} </button>
             </div>
-            <div className='alfartable'>
-              <table>
-                <tr>
-                  <th>NAME </th>
-                  <th>EMAIL</th>
-                  <th>TITLE</th>
-                  <th>DEPARTMENT</th>
-                  <th>STATUS</th> 
-                </tr> 
-                <tr>
-                  <td>  User 1 </td>
-                  <td>abhishek.jain@coffeee.io</td>
-                  <td>Sr. Accountant</td>
-                  <td>Accounts</td>
-                  <td> <span className='toggleActive'></span> Inactive </td>
-                </tr>
-                <tr>
-                  <td>  User 2 </td>
-                  <td>abhishek.jain@coffeee.io</td>
-                  <td>Sr. Accountant</td>
-                  <td>Accounts</td>
-                  <td> <span className='toggleActive'></span> Active </td>
-                </tr>
-                <tr>
-                  <td>  User 3 </td>
-                  <td>abhishek.jain@coffeee.io</td>
-                  <td>Sr. Accountant</td>
-                  <td>Accounts</td>
-                  <td> <span className='toggleActive'></span> Inactive </td>
-                </tr>
-                <tr>
-                  <td>  User 4 </td>
-                  <td>abhishek.jain@coffeee.io</td>
-                  <td>Sr. Accountant</td>
-                  <td>Accounts</td>
-                  <td> <span className='toggleActive'></span> Active </td>
-                </tr>               
-              </table>
-            </div>
-          </div>
-
-
+            : <EmployeeTable employeeData={employeeData} />}
         </div>
       </div>
-
-
     </>
 
   )
