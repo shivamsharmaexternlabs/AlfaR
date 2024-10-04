@@ -3,7 +3,7 @@ export const routes = {
 	ROOT: "/",
 	SIGNUP: "/signup",
 	VERIFICTAION: "/verification",
-	RESET_PASSWORD: "/resetpassword",
+	RESET_PASSWORD: "/resetpassword/:id",
 	FORGOT_PASSOWRD: "/forgot",
 	ADMIN:`/admin/1`,
 	EMPLOYEES:"/employees/1",
@@ -25,6 +25,12 @@ export const exchanges = {
 	OKX:"okx",
 	COINBASE:"coinbase",
 }
+
+export const exchangesOptions = [
+	{ name: "binance", value: "binance" },
+	{ name: "coinbase", value: "coinbase" },
+	{ name: "okx", value: "okx" },
+];
 
 export const eyeIcon = require("../Astes/eye.svg").default;
 export const downloadIcon = require("../Astes/download.svg").default;

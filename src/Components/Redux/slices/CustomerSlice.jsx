@@ -4,50 +4,73 @@ import { toast } from "react-toastify";
 
 
 
+
 export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (body, { rejectWithValue }) => {
 	try {
-	  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customers`, {
-		headers: {
-		  "Accept": "*/*",
-		  "Authorization": `Bearer ${body.Token_LS}`
-		},
-	  });
-  
-	  return response;
-  
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customers`, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${body.Token_LS}`
+			},
+		});
+
+		return response;
+
 	} catch (err) {
-	  toast.error(err?.response?.data?.message);
-	  return rejectWithValue(err);
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
 	}
-  }
-  );
+}
+);
+
+export const CreateCustomer = createAsyncThunk("CreateCustomer", async (body, { rejectWithValue }) => {
+	let Token = localStorage.getItem("Token");
+	try {
+		const response = await axios.post(`${process.env.REACT_APP_BASE_URL}customer/add`,body, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${Token}`
+			},
+		});
+
+		return response;
+
+	} catch (err) {
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
+	}
+}
+);
 
 
 export const customerSlice = createSlice({
 	name: "customerSlice",
 	initialState: {
 		employeeDetailsData: [],
+		createdCustomer:[],
 		loading: false,
 		error: null,
 	},
 	reducers: {},
 
-	
+
 	extraReducers: (builder) => {
 
-		//   builder
+		builder
 
-		// .addCase(UserDetilsByIdSlice.fulfilled, (state, action) => {
-		//   state.loading = false;
-		//   state.userDetilsByIdData = (action.payload);
-		// }
-		// )
+			.addCase(CreateCustomer.pending, (state) => {
+				state.loading = true;
+			})
 
-		// .addCase(UserDetilsPatchByIdSlice.fulfilled, (state, action) => {
-		//   state.loading = false;
-		//   state.userDetilsPatchByIdData = (action.payload);
-		// }
-		// )
+			.addCase(CreateCustomer.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.createdCustomer = payload;
+			})
+
+			.addCase(CreateCustomer.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
 
 
 
