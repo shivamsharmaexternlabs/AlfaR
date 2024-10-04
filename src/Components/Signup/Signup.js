@@ -57,7 +57,7 @@ const Signup = () => {
     let responseData = await dispatch(SignUpSlice({ ...newValue }));
 
     if (responseData?.payload?.status === 201) {
-      navigate("/signin")
+      navigate("/verification")
     }
   };
 

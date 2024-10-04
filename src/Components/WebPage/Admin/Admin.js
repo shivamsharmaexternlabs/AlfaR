@@ -5,8 +5,7 @@ import icon7 from '../../Astes/Icon7.svg';
 import icon8 from '../../Astes/icon8.svg';
 import AddCustomer from '../../Popup/AddCustomer';
 import Success from '../../Popup/Success';
-import SummeryReport from '../../Popup/SummeryReport';
-import RowData from '../../Popup/RowData';
+ import RowData from '../../Popup/RowData';
 import customerData from "./customerJson/customer.json";
 // import CustomerTable from './CustomerTable';
 import CustomerContent from './CustomerContent';
@@ -37,7 +36,7 @@ const Admin = () => {
         setAddCustomerPopup={setAddCustomerPopup}
       />
 
-      <SummeryReport />
+      
       <RowData />
     </>
   )

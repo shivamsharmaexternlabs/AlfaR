@@ -3,13 +3,14 @@ import logo from "../Astes/logowh.svg"
 
 import appleIcon from "../Astes/appleIcon.svg"
 import googleIcon from "../Astes/googleIcon.svg"
-import { Formik, Form, Field, ErrorMessage } from "formik"; 
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { forgetPasswordSlice, SignInSlice } from '../Redux/slices/Authorisation';
-
+import {GoogleLogin} from '@react-oauth/google';
 import AuthHeader from '../Layout/AuthHeader'
+import { jwtDecode } from "jwt-decode";
 
 
 const Signin = () => {
@@ -44,7 +45,7 @@ const Signin = () => {
 
   return (
     <>
-    <AuthHeader />
+      <AuthHeader />
       <div className='accountbox'>
         <div className='leftpart'>
           <img src={logo} alt='img' />
@@ -100,16 +101,19 @@ const Signin = () => {
                 forget password
               </button>
             </div>
-
+{/* 
             <button type='button' className='applebtn'> <img src={appleIcon} alt='appleIcon' /> Sign in with Apple </button>
-            <button type='button' className='googlebtn'> <img src={googleIcon} alt='googleIcon' /> Sign in with Google </button>
+            <button type='button' className='googlebtn'>
+               <img src={googleIcon} alt='googleIcon' /> 
+              Sign in with Google  </button> */}
+
             <div className='newadd'>New here? <button type='button' onClick={() => { navigate("/signup") }}>Create an account</button></div>
           </div>
         </div>
 
       </div>
 
-     
+
     </>
   )
 }

@@ -31,7 +31,7 @@ const Forgot = () => {
         let responseData = await dispatch(forgetPasswordSlice({ ...values }));
 
         if (responseData.payload.status == 200) {
-            navigate("/verification")
+            // navigate("/")
         }
     }
 
