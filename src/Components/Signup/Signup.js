@@ -56,7 +56,8 @@ const Signup = () => {
 
     let responseData = await dispatch(SignUpSlice({ ...newValue }));
 
-    if (responseData?.payload?.status === 201) {
+    if (responseData?.payload?.status === 201|| responseData?.payload?.status === 200) {
+      localStorage.setItem("verify-email", values.email)
       navigate("/verification")
     }
   };

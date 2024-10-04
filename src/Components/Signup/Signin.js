@@ -37,6 +37,10 @@ const Signin = () => {
       navigate("/profile#account-details")
       window.location.reload()
     }
+    else if(responseData?.payload?.status === 202){
+      localStorage.setItem("verify-email", values.email)
+      navigate("/verification")
+    }
   };
 
   const forgetPasswordFun = () => {

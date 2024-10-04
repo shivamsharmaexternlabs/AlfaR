@@ -31,7 +31,7 @@ const Verification = () => {
     if (responseData?.payload?.status === 200) {
       localStorage.setItem("Token", responseData?.data?.token);
       localStorage.setItem("UserId", responseData?.data?.data?.userId);
-      navigate("/admin")
+      navigate("/admin/1")
     }
      
 
