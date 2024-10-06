@@ -3,47 +3,49 @@ import PopupDetails from './PopupDetails'
 import Closebtn from '../Astes/close.svg'
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { exchanges, exchangesOptions } from '../utils/Constants';
-import { CreateCustomer } from '../Redux/slices/CustomerSlice';
+import { CUSTOMERS, exchanges, exchangesOptions } from '../utils/Constants';
+import { CreateCustomer, EditCustomer, GetCustomerDetails } from '../Redux/slices/CustomerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddCustomer = ({
   addCustomerPopup,
   setAddCustomerPopup,
-  setSuccessfulPopup
+  setSuccessfulPopup,
+  popupMethod,
+  setMessage,
+  editCustomerData
 }) => {
   const dispatch = useDispatch();
 
-  const { createdCustomer } = useSelector((state) => state.CustomerApiData);
+  ;
 
   const [selectedExchange, setSelectedExcahnge] = useState('');
-
-  console.log("createdCustomer", createdCustomer);
+  console.log("editCustomerData", editCustomerData);
 
   const defaultValue = {
-    name: "",
-    platform: "",
-    secret_key: "",
-    api_password: "",
-    api_key: "",
+    name: editCustomerData?.name === undefined ? "" : editCustomerData?.name,
+    platform: editCustomerData?.platform === undefined ? "" : editCustomerData?.platform,
+    secretKey: editCustomerData?.secretKey === undefined ? "" : editCustomerData?.secretKey,
+    apiPassword: editCustomerData?.apiPassword === undefined ? "" : editCustomerData?.apiPassword,
+    apiKey: editCustomerData?.apiKey === undefined ? "" : editCustomerData?.apiKey,
   };
 
   const Validate = yup.object().shape({
     name: yup.string().required("Name is required"),
     platform: yup.string().required('Exchange is required'),
-    secret_key: yup.string().nullable()
+    secretKey: yup.string().nullable()
       .when('platform', ([platform], schema) => {
         if (platform === exchanges.BINANCE || platform === exchanges.OKX || platform === exchanges.COINBASE)
           return yup.string().required('Secret-Key is required');
         return schema;
       }),
-    api_password: yup.string().nullable()
+    apiPassword: yup.string().nullable()
       .when('platform', ([platform], schema) => {
         if (platform === exchanges.OKX)
           return yup.string().required("Api-Password is required");
         return schema;
       }),
-    api_key: yup.string().nullable()
+    apiKey: yup.string().nullable()
       .when('platform', ([platform], schema) => {
         if (platform === exchanges.BINANCE || platform === exchanges.OKX || platform === exchanges.COINBASE)
           return yup.string().required("Api-Key is required");
@@ -55,11 +57,12 @@ const AddCustomer = ({
 
     console.log("values", values)
 
+
     let finalPayload = {
       name: values.name,
       platform: values.platform,
-      api_key: values.api_key,
-      secret_key: values.secret_key,
+      apiKey: values.apiKey,
+      secretKey: values.secretKey,
     }
 
     let payload = (selectedExchange === exchanges.BINANCE || selectedExchange === exchanges.COINBASE)
@@ -67,7 +70,26 @@ const AddCustomer = ({
       : values;
 
     if (values) {
-      dispatch(CreateCustomer({ ...payload })).then((res) => console.log("res.data", res.data));
+      if (popupMethod === CUSTOMERS.ADD_CUSTOMER) {
+        dispatch(CreateCustomer({ ...payload })).then((res) => {
+          console.log("ress", res)
+          if (res?.payload?.data?.message === "Customer added successfully") {
+            setSuccessfulPopup(true);
+            dispatch(GetCustomerDetails())
+            setMessage(res?.payload?.data?.message)
+          }
+        });
+      } else {
+        dispatch(EditCustomer({ ...payload, id: editCustomerData?._id })).then((res) => {
+          console.log("ress", res)
+          if (res?.payload?.data?.message === "Customer updated successfully") {
+            setSuccessfulPopup(true);
+            dispatch(GetCustomerDetails())
+            setMessage(res?.payload?.data?.message);
+          }
+        });
+      }
+
     }
 
     // if (responseData?.payload?.status === 200) {
@@ -87,15 +109,13 @@ const AddCustomer = ({
       <PopupDetails PopupToggle={addCustomerPopup} classNameProp='addCustomer'>
         <div className='popupinner'>
           <button type='button' className='closebtn' onClick={handleClosePopup}><img src={Closebtn} alt='close btn' /> </button>
-          <h2>{"Add Customer"}</h2>
+          <h2>{popupMethod}</h2>
           <Formik
             initialValues={defaultValue}
             validationSchema={Validate}
             onSubmit={handleSubmit}>
 
             {({ setFieldValue, errors }) => {
-
-              console.log("EEErrors", errors)
 
               return <Form>
                 <div className="formbox mt-3">
@@ -117,10 +137,10 @@ const AddCustomer = ({
 
                 <div className="formbox mt-3">
                   <div className='forminnerbox'>
-                    <label>{"Exchange"}</label>
+                    {/* <label>{"Exchange"}</label> */}
                     <select
                       name="platform"
-                      value={selectedExchange}
+                      value={selectedExchange || editCustomerData?.platform}
 
                       onChange={(e) => {
                         setFieldValue("platform", e.target.value)
@@ -129,7 +149,7 @@ const AddCustomer = ({
                       // onBlur={field.onBlur}
                       className="form-control"
                     >
-                      <option value="" label="Select device type" />
+                      <option value="" label="Select Exchange" />
                       {exchangesOptions.map((option) => (
                         <option key={option.value} value={option.value}>
                           {option.name}
@@ -144,11 +164,11 @@ const AddCustomer = ({
 
                 <>
 
-                  {(selectedExchange === exchanges.BINANCE || selectedExchange === exchanges.COINBASE || selectedExchange === exchanges.OKX) && <>
+                  {((selectedExchange || editCustomerData?.platform) === exchanges.BINANCE || (selectedExchange || editCustomerData?.platform) === exchanges.COINBASE || (selectedExchange || editCustomerData?.platform) === exchanges.OKX) && <>
                     <div className="formbox mt-3">
                       <div className='forminnerbox'>
                         <Field
-                          name="secret_key"
+                          name="secretKey"
                           type="text"
                           className={`form-control`}
                           required
@@ -156,7 +176,7 @@ const AddCustomer = ({
                         <label >{"Secret Key"}</label>
                       </div>
                       <p className="text-danger">
-                        <ErrorMessage name="secret_key" />
+                        <ErrorMessage name="secretKey" />
                       </p>
 
                     </div>
@@ -164,7 +184,7 @@ const AddCustomer = ({
                     <div className="formbox mt-3">
                       <div className='forminnerbox'>
                         <Field
-                          name="api_key"
+                          name="apiKey"
                           type="text"
                           className={`form-control`}
                           required
@@ -173,17 +193,17 @@ const AddCustomer = ({
                       </div>
 
                       <p className="text-danger">
-                        <ErrorMessage name="api_key" />
+                        <ErrorMessage name="apiKey" />
                       </p>
 
                     </div>
 
                   </>}
 
-                  {selectedExchange === exchanges.OKX && <div className="formbox mt-3">
+                  {(selectedExchange || editCustomerData?.platform) === exchanges.OKX && <div className="formbox mt-3">
                     <div className='forminnerbox'>
                       <Field
-                        name="api_password"
+                        name="apiPassword"
                         type="text"
                         className={`form-control`}
                         required
@@ -191,7 +211,7 @@ const AddCustomer = ({
                       <label >{"Api Password"}</label>
                     </div>
                     <p className="text-danger">
-                      <ErrorMessage name="api_password" />
+                      <ErrorMessage name="apiPassword" />
                     </p>
                   </div>}
 

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
- 
+
 
 // SignUp
 export const SignUpSlice = createAsyncThunk("SignUpSlice", async (body, { rejectWithValue }) => {
@@ -32,16 +32,23 @@ export const SignUpSlice = createAsyncThunk("SignUpSlice", async (body, { reject
 export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/signin`, body,);
-     localStorage.setItem("Token", response?.data?.token);
-    localStorage.setItem("UserId", response?.data?.data?.userId);
-    toast.success(response?.data?.message);
-    console.log("dhvjsfjsdf",response)
+    localStorage.setItem("Token", response?.data?.token);
+    localStorage.setItem("Role", response?.data?.user?.role);
+    localStorage.setItem("Email", response?.data?.user?.email);
+    localStorage.setItem("Name", response?.data?.user?.name);
+
+    if (response?.data?.message === "Please change your password") {
+      toast.warn(response?.data?.message)
+    } else {
+      toast.success(response?.data?.message);
+    }
+    // console.log("dhvjsfjsdf",response)
 
     return response;
 
   } catch (err) {
 
-    console.log("dhvjsfjsdf",err)
+    console.log("dhvjsfjsdf", err)
 
     toast.error(err?.response?.data?.error?.[0]);
 
@@ -65,7 +72,7 @@ export const forgetPasswordSlice = createAsyncThunk("forgetPasswordSlice", async
 
   } catch (err) {
 
- 
+
     toast.error(err?.response?.data?.message);
 
 
@@ -75,29 +82,49 @@ export const forgetPasswordSlice = createAsyncThunk("forgetPasswordSlice", async
 }
 );
 
+export const ChangePassword = createAsyncThunk("ChangePassword", async (body, { rejectWithValue }) => {
+
+  let Token = localStorage.getItem("Token");
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/change-password`, body, {
+      headers: {
+        "Accept": "*/*",
+        "Authorization": `Bearer ${Token}`
+      },
+    });
+    toast.success(response?.data?.message);
+    return response;
+
+  } catch (err) {
+    toast.error(err?.response?.data?.message);
+    return rejectWithValue(err);
+  }
+}
+);
+
 
 //varification code
 
 export const VarificationCode = createAsyncThunk("VarificationCode", async (body, { rejectWithValue }) => {
- 
-   try {
-    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/verify-otp`,body,{
+
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/verify-otp`, body, {
       headers: {
         "Accept": "*/*",
         "Content-Type": "application/json"
       },
     });
 
-    console.log("mghvdchjsdsd---",response)
+    console.log("mghvdchjsdsd---", response)
     toast.success(response?.data?.message);
 
 
     return response;
 
   } catch (err) {
-  
 
-    console.log("mghvdchjsdsd",err)
+
+    console.log("mghvdchjsdsd", err)
 
 
     toast.error(err?.response?.data?.message);
@@ -112,8 +139,8 @@ export const VarificationCode = createAsyncThunk("VarificationCode", async (body
 
 export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice", async (body, { rejectWithValue }) => {
 
-   try {
-    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/reset-password/`, body?.values,{
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/reset-password/`, body?.values, {
       headers: {
         "Accept": "*/*",
         "Authorization": `Bearer ${body.Token}`
@@ -149,8 +176,8 @@ export const signInReducer = createSlice({
   initialState: {
     signInData: [],
     signUpData: [],
-    forgetPasswordData:[],
-    VarificationCodeData:[],
+    forgetPasswordData: [],
+    VarificationCodeData: [],
     loading: false,
     error: null,
     ResetPasswordData: []
@@ -201,7 +228,7 @@ export const signInReducer = createSlice({
         state.VarificationCodeData = (action.payload);
       }
       )
-       
+
 
 
 
