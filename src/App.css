@@ -41,12 +41,21 @@ button {
   justify-content: center;
 }
 
+
 .accountbox {
   display: flex;
   align-items: center;
-  width: 100%;
-  height: calc(100vh - 108px);
+  justify-content: center;
+  width: 50%;
+  margin: 30px auto;  /* Adjust centering */
+  height: calc(100vh - 200px);
   overflow: auto;
+  border-radius: 20px;
+  background-color: #fff;  /* Ensure there's a background */
+  
+  /* Add box-shadow for border effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), /* subtle shadow */
+              0 6px 20px rgba(0, 0, 0, 0.1); /* deeper shadow for effect */
 }
 
 .accountbox>.leftpart {
@@ -62,7 +71,7 @@ button {
   width: 54%;
   overflow: auto;
   height: 100%;
-  padding: 20px 0;
+  padding: 53px 4px;
 }
 
 .accountinfo {
@@ -194,20 +203,23 @@ button {
   top: 2px;
   color: #737B88;
 }
-.rmdp-range{
+
+.rmdp-range {
   background-color: rgb(43, 38, 38) !important;
 }
+
 .rmdp-button {
   padding: 4px 16px !important;
 }
-.rmdp-input{ 
-  display:  none !important;
+
+.rmdp-input {
+  display: none !important;
   width: 20px;
   color: white;
   border: none !important;
   padding: 0px !important;
   cursor: pointer !important;
-  
+
 
 }
 
@@ -631,6 +643,15 @@ button {
   bottom: 120%;
 }
 
+.clbtn.editbtn:hover::after{
+  content: "Edit Customer";
+  width: 132px;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  bottom: 120%;
+}
+
 .clbtn.dpbtn:hover::after {
   content: "Download Previous Fetch Balance";
   width: 165px;
@@ -649,7 +670,7 @@ button {
   bottom: 120%;
 }
 
-.toggleActive {
+.toggleNotActive {
   display: inline-block;
   vertical-align: middle;
   width: 33px;
@@ -662,7 +683,16 @@ button {
   margin-right: 5px;
 }
 
-.toggleActive:hover {
+.toggleActive {
+  display: inline-block;
+  vertical-align: middle;
+  width: 33px;
+  height: 20px;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: all .3s ease;
+  margin-right: 5px;
   background: #11B718;
 }
 
@@ -678,9 +708,21 @@ button {
   background-color: #fff;
 }
 
-.toggleActive:hover::before {
-  left: 15px;
+.toggleNotActive:before {
+  transition: all .3s ease;
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #fff;
 }
+
+/* .toggleNotActive:hover::before {
+  left: 15px;
+} */
 
 /******************** popupinner *************************/
 
@@ -844,6 +886,7 @@ button {
   text-align: center;
   position: relative;
 }
+
 .alfarpegination span {
   color: #667185;
   position: absolute;
@@ -890,7 +933,7 @@ button {
 }
 
 .alfarpegination .pagination .page-item:first-child .page-link:hover,
-.alfarpegination .pagination .page-item:last-child .page-link:hover  {
+.alfarpegination .pagination .page-item:last-child .page-link:hover {
   background-color: #000;
   color: #fff;
 }

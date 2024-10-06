@@ -1,7 +1,8 @@
 import { ErrorMessage, Field, Formik, Form } from 'formik'
 import React from 'react'
+import { roles } from '../../utils/Constants'
 
-const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style }) => {
+const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName, userEmail, roleName }) => {
 	return (
 		<div className='content'>
 			<div className='adminTitle'>
@@ -14,97 +15,104 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style }) => {
 					initialValues={defaultValue}
 					validationSchema={Validate}
 					onSubmit={handleSubmit}>
-
-					<Form>
-						<div className={`${Style.profileForminner}`}>
-							<h3>{"Your Details"}</h3>
-							<div className="formbox mt-3">
-								<div className={`forminnerbox ${Style.forminnerbox}`}>
-									<Field
-										name="name"
-										type="text"
-										className={`form-control`}
-										required
-										autocomplete="off"
-									/>
-									<label>{"Name"}</label>
-								</div>
-								<span className="text-danger text-small mb-0">
+					{({ setFieldValue, errors, resetForm }) => {
+					 return	<Form>
+							<div className={`${Style.profileForminner}`}>
+								<h3>{"Your Details"}</h3>
+								<div className="formbox mt-3">
+									<div className={`forminnerbox ${Style.forminnerbox}`}>
+										<Field
+											name="name"
+											type="text"
+											className={`form-control`}
+											autocomplete="off"
+											disabled
+										/>
+										<label>{userName}</label>
+									</div>
+									{/* <span className="text-danger text-small mb-0">
 									<ErrorMessage name="email" />
-								</span>
-							</div>
-
-							<div className="formbox mt-3">
-								<div className={`forminnerbox ${Style.forminnerbox}`}>
-									<Field
-										name="email"
-										type="text"
-										className={`form-control ${Style.formControl}`}
-										required
-										autocomplete="off"
-									/>
-									<label >{"Email Address"}</label>
+								</span> */}
 								</div>
-								<span className="text-danger text-small mb-0">
+
+								<div className="formbox mt-3">
+									<div className={`forminnerbox ${Style.forminnerbox}`}>
+										<Field
+											name="email"
+											type="text"
+											className={`form-control ${Style.formControl}`}
+											autocomplete="off"
+											disabled
+										/>
+										<label >{userEmail}</label>
+									</div>
+									{/* <span className="text-danger text-small mb-0">
 									<ErrorMessage name="email" />
-								</span>
+								</span> */}
+								</div>
+
+								{roleName === roles.ADMIN && <>
+									<h3 className='mt-5'>{"Change Password"}</h3>
+
+									<div className="formbox mt-3">
+										<div className={`forminnerbox ${Style.forminnerbox}`}>
+											<Field
+												name="password"
+												type="password"
+												className={`form-control ${Style.formControl}`}
+												required
+											/>
+											<label>{"Password"}</label>
+										</div>
+										<span className="text-danger text-small mb-0">
+											<ErrorMessage name="password" />
+										</span>
+									</div>
+									<div className="formbox mt-3">
+										<div className={`forminnerbox ${Style.forminnerbox}`}>
+											<Field
+												name="newPassword"
+												type="password"
+												className={`form-control ${Style.formControl}`}
+												required
+											/>
+											<label>{"New Password"}</label>
+										</div>
+										<span className="text-danger text-small mb-0">
+											<ErrorMessage name="newPassword" />
+										</span>
+									</div>
+
+									<div className="formbox mt-3">
+										<div className={`forminnerbox ${Style.forminnerbox}`}>
+											<Field
+												name="confirmPassword"
+												type="password"
+												className={`form-control ${Style.formControl}`}
+												required
+											/>
+											<label>{"Confirm Password"}</label>
+										</div>
+										<span className="text-danger text-small mb-0">
+											<ErrorMessage name="confirmPassword" />
+										</span>
+									</div>
+
+
+
+								</>}
 							</div>
 
-							<h3 className='mt-5'>{"Change Password"}</h3>
-
-							<div className="formbox mt-3">
-								<div className={`forminnerbox ${Style.forminnerbox}`}>
-									<Field
-										name="password"
-										type="password"
-										className={`form-control ${Style.formControl}`}
-										required
-									/>
-									<label>Password</label>
-								</div>
-								<span className="text-danger text-small mb-0">
-									<ErrorMessage name="password" />
-								</span>
+							<div className={`${Style.formBtn}`}>
+								<button type="button" className={`${Style.canbtn}`} onClick={() => resetForm()} >
+									{"Cancel"}
+								</button>
+								<button type="submit" className={`${Style.scbtn}`}>
+									{"Save Changes"}
+								</button>
 							</div>
-							<div className="formbox mt-3">
-								<div className={`forminnerbox ${Style.forminnerbox}`}>
-									<Field
-										name="password"
-										type="password"
-										className={`form-control ${Style.formControl}`}
-										required
-									/>
-									<label>{"Password"}</label>
-								</div>
-								<span className="text-danger text-small mb-0">
-									<ErrorMessage name="password" />
-								</span>
-							</div>
-							<div className="formbox mt-3">
-								<div className={`forminnerbox ${Style.forminnerbox}`}>
-									<Field
-										name="password"
-										type="password"
-										className={`form-control ${Style.formControl}`}
-										required
-									/>
-									<label>{"Password"}</label>
-								</div>
-								<span className="text-danger text-small mb-0">
-									<ErrorMessage name="password" />
-								</span>
-							</div>
-						</div>
-
-						<div className={`${Style.formBtn}`}>
-							<button type="button" className={`${Style.canbtn}`}>
-								{"Cancel"}
-							</button>
-							<button type="submit" className={`${Style.scbtn}`}>
-								{"Save Changes"}
-							</button>
-						</div>
-					</Form>
+						</Form>
+					}}
 				</Formik>
 
 			</div>
