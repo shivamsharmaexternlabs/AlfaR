@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { useNavigate } from 'react-router-dom';
 
-const EmployeeTable = ({ employeeData, handlePageClick, currentPage , handleStatusUpdate }) => {
+const EmployeeTable = ({ employeeData, handlePageClick, currentPage, handleStatusUpdate }) => {
 
 	return (
 		<div className='alfartableOuter'>
@@ -27,17 +27,17 @@ const EmployeeTable = ({ employeeData, handlePageClick, currentPage , handleStat
 									<td>{item.email}</td>
 									<td>{item.title}</td>
 									<td>{item.department}</td>
-									<td> <span onClick={()=>handleStatusUpdate(item._id,item.isActive)} className={item.isActive === false ? 'toggleNotActive' : 'toggleActive'}></span>{item.isActive}</td>
+									<td> <span onClick={() => handleStatusUpdate(item._id, item.isActive)} className={item.isActive === false ? 'toggleNotActive' : 'toggleActive'}></span>{" "} {item.isActive === false ? "Inactive" : "Active"} </td>
 								</tr>
 							)
 						})
-						:<tr>
+						: <tr>
 							<td colSpan={5}>
 
-							<span className='d-flex justify-content-center align-items-center text-bold'><b> {"No Data Found"}</b></span>
+								<span className='d-flex justify-content-center align-items-center text-bold'><b> {"No Data Found"}</b></span>
 							</td>
 
-						</tr> }
+						</tr>}
 				</table>
 
 

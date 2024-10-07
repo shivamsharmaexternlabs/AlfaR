@@ -13,7 +13,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import AuthHeader from '../Layout/AuthHeader'
 import { jwtDecode } from "jwt-decode";
 import { toast } from 'react-toastify';
-import { closeIcon, eyeIcon, roles } from '../utils/Constants';
+import { closeIcon, eyeIcon, roles, routes } from '../utils/Constants';
 
 
 
@@ -49,7 +49,7 @@ const Signin = () => {
             if (res.payload.data.user.isPasswordValid === false) {
               setChangePasswordScreen(true)
             } else {
-              navigate("/profile#account-details")
+              navigate(routes.ADMIN)
               window.location.reload()
             }
           }
@@ -61,7 +61,7 @@ const Signin = () => {
 
 
           else {
-            navigate("/profile#account-details")
+            navigate(routes.ADMIN)
             window.location.reload()
           }
 

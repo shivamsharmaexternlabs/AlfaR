@@ -764,7 +764,7 @@ input[type="search"]::-webkit-search-results-decoration {
   content: "";
   position: absolute;
   top: 3px;
-  left: 4px;
+  left: 15px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
