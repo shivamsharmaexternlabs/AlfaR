@@ -75,6 +75,7 @@ const AddCustomer = ({
           console.log("ress", res)
           if (res?.payload?.data?.message === "Customer added successfully") {
             setSuccessfulPopup(true);
+            setAddCustomerPopup(false);
             dispatch(GetCustomerDetails())
             setMessage(res?.payload?.data?.message)
           }

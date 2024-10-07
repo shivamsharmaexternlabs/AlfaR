@@ -2,7 +2,7 @@ import React from 'react'
 import CustomerTable from './CustomerTable'
 import { customerBlack, roles } from '../../utils/Constants'
 
-const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName }) => {
+const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName,handleDayEndBalance }) => {
 	return (
 		<div className='content'>
 			<div className='adminTitle'>
@@ -28,7 +28,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 					<p>{"No customer added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 				</div>
-				: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} />}
+				: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} handleDayEndBalance={handleDayEndBalance} />}
 		</div>
 	)
 }

@@ -3,7 +3,7 @@ import { downloadIcon, editIcon, eyeIcon, refreshIcon } from '../../utils/Consta
 import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
 
-const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage }) => {
+const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance }) => {
 
 	const [summeryReportToggle, setSummeryReportToggle] = useState(false)
 
@@ -45,7 +45,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 										<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' /> </button>
 									</td>
 									<td>
-										<button type='button' className='clbtn me-2 vpbtn'> <img src={eyeIcon} alt='img' /> </button>
+										<button type='button' className='clbtn me-2 vpbtn'> <img src={eyeIcon} alt='img' onClick={() => handleDayEndBalance(item?._id)} /> </button>
 										<button type='button' className='clbtn me-2 dpbtn '> <img src={downloadIcon} alt='img' /> </button>
 										<button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' /> </button>
 									</td>

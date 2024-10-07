@@ -80,6 +80,28 @@ export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { reje
 }
 );
 
+export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body, { rejectWithValue }) => {
+	
+	let Token = localStorage.getItem("Token");
+	console.log('.........................',Token)
+
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-day-end-balance?customerId=${body?.customerId}`, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${Token}`
+			},
+		});
+
+		return response;
+
+	} catch (err) {
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
+	}
+}
+);
+
 
 
 export const customerSlice = createSlice({
@@ -88,6 +110,7 @@ export const customerSlice = createSlice({
 		customerDetailsData: [],
 		createdCustomer: [],
 		updatedCustomer: [],
+		dayEndBalanceData:[],
 		loading: false,
 		error: null,
 	},
@@ -139,6 +162,21 @@ export const customerSlice = createSlice({
 			})
 
 			.addCase(EditCustomer.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			//DAY END BALANCE
+			.addCase(GetDayEndBalance.pending, (state) => {
+				state.loading = true;
+			})
+
+			.addCase(GetDayEndBalance.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.customerDetailsData = payload?.data;
+			})
+
+			.addCase(GetDayEndBalance.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.error.message;
 			})

@@ -58,6 +58,7 @@ export const exchangesOptions = [
 ];
 
 export const eyeIcon = require("../Astes/eye.svg").default;
+export const closeIcon = require("../Astes/closeeye.svg").default;
 export const downloadIcon = require("../Astes/download.svg").default;
 export const refreshIcon = require("../Astes/refresh.svg").default;
 export const editIcon = require("../Astes/editIcon.svg").default;

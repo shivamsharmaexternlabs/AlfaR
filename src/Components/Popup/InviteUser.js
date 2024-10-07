@@ -41,6 +41,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 				console.log("ress", res)
 				if (res?.payload?.data?.message === "User created successfully") {
 					setSuccessfulPopup(true);
+					setAddEmployeePopup(false);
 					dispatch(GetEmployeeDetails());
 					setMessage(res?.payload?.data?.message)
 				}

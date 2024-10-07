@@ -9,15 +9,18 @@ import Success from '../../Popup/Success';
 import RowData from '../../Popup/RowData';
 import customerData from "./customerJson/customer.json";
 import CustomerContent from './CustomerContent';
-import { GetCustomerDetails } from '../../Redux/slices/CustomerSlice';
+import { GetCustomerDetails, GetDayEndBalance } from '../../Redux/slices/CustomerSlice';
+import DayEndBalance from '../../Popup/DayEndBalance';
+import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
 
 const Admin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   let roleName = localStorage.getItem("Role");
+  let Token = localStorage.getItem("Token");
 
-  const { customerDetailsData, createdCustomer } = useSelector((state) => state.CustomerApiData);
+  const { customerDetailsData, dayEndBalanceData, loading } = useSelector((state) => state.CustomerApiData);
 
   const [addCustomerPopup, setAddCustomerPopup] = useState(false);
   const [editCustomerPopup, setEditCustomerPopup] = useState(false);
@@ -27,12 +30,16 @@ const Admin = () => {
   const [searchItem, setSearchItem] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [dayBalancePopup, setDayBalancePopup] = useState(false);
+
+  console.log("customerDetailsData",customerDetailsData)
+
   // Extract the page number from the URL
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const page = parseInt(params.get('page')) || 1;
     setCurrentPage(page);
-    
+
     // Dispatch API call for the page from URL
     // dispatch(GetCustomerDetails({ page }));
   }, [location.search, dispatch]);
@@ -59,13 +66,26 @@ const Admin = () => {
   const handlePageClick = (selectedPage) => {
     const page = selectedPage.selected + 1;  // React-paginate uses 0-based indexing
     setCurrentPage(page);
-    
+
     // Update the URL with the new page number
     navigate(`/admin?page=${page}`);
 
     // Dispatch API call with new page
     // dispatch(GetCustomerDetails({ page }));
   };
+
+  console.log("dayEndBalanceData", dayEndBalanceData)
+
+  const handleDayEndBalance = (customerId) => {
+    setDayBalancePopup(true)
+    let payload = {
+      customerId: customerId,
+      Token: Token
+    }
+    if (Token) {
+      dispatch(GetDayEndBalance(payload))
+    }
+  }
 
   return (
     <>
@@ -81,6 +101,8 @@ const Admin = () => {
         handlePageClick={handlePageClick}
         currentPage={currentPage - 1} // For 0-based pagination
         roleName={roleName}
+        handleDayEndBalance={handleDayEndBalance}
+
       />
 
       {(addCustomerPopup || editCustomerPopup) && (
@@ -91,6 +113,7 @@ const Admin = () => {
           popupMethod={addCustomerPopup ? "Add Customer" : "Edit Customer"}
           setMessage={setMessage}
           editCustomerData={editCustomerData}
+
         />
       )}
 
@@ -101,7 +124,11 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
+      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData} setDayBalancePopup={setDayBalancePopup} />}
+
       <RowData />
+
+      <LoadingSpinner loadingValue={loading} />
     </>
   );
 };
@@ -168,7 +195,7 @@ export default Admin;
 
 
 //   const handlePageClick = (selectedPage) => {
-//     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.  
+//     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
 //     setCurrentPage(page);
 //     setPage(page - 1);
 

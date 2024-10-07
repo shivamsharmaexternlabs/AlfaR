@@ -12,7 +12,8 @@ import { GoogleLogin } from '@react-oauth/google';
 import AuthHeader from '../Layout/AuthHeader'
 import { jwtDecode } from "jwt-decode";
 import { toast } from 'react-toastify';
-import { roles } from '../utils/Constants';
+import { closeIcon, eyeIcon, roles } from '../utils/Constants';
+
 
 
 const Signin = () => {
@@ -20,6 +21,8 @@ const Signin = () => {
   const [changePasswordScreen, setChangePasswordScreen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const defaultValue = {
     email: "",
@@ -38,28 +41,31 @@ const Signin = () => {
 
       dispatch(SignInSlice({ ...values })).then((res) => {
         console.log("res", res)
-        if (res.payload.data.user.role === roles.USER) {
-          if (res.payload.data.user.isPasswordValid === false) {
-            setChangePasswordScreen(true)
-          } else {
+        if (res.payload !== undefined) {
+          if (res.payload.data.user.role === roles.USER) {
+            if (res.payload.data.user.isPasswordValid === false) {
+              setChangePasswordScreen(true)
+            } else {
+              navigate("/profile#account-details")
+              window.location.reload()
+            }
+          }
+
+          // else if(res?.payload?.status === 202){
+          //   localStorage.setItem("verify-email", values.email)
+          //   navigate("/verification")
+          // }
+
+
+          else {
             navigate("/profile#account-details")
             window.location.reload()
           }
-        } 
-        
-        // else if(res?.payload?.status === 202){
-        //   localStorage.setItem("verify-email", values.email)
-        //   navigate("/verification")
-        // }
 
-
-        else {
-          navigate("/profile#account-details")
-          window.location.reload()
         }
       });
     }
-    
+
 
     // // if (responseData?.payload?.status === 200) {
     // navigate("/profile#account-details")
@@ -113,7 +119,7 @@ const Signin = () => {
             <p>{"Please sign in to manage client accounts and company operations."}</p>
 
             {!changePasswordScreen ?
-              <div style={{marginTop:"10px"}}>
+              <div style={{ marginTop: "10px" }}>
                 <Formik
                   initialValues={defaultValue}
                   validationSchema={Validate}
@@ -137,11 +143,18 @@ const Signin = () => {
                       <div className='forminnerbox'>
                         <Field
                           name="password"
-                          type="password"
+                          // type="password"
+                          type={showPassword ? "text" : "password"}
                           className={`form-control`}
                           required
                         />
                         <label>{"Password"}</label>
+
+                        <span className="imgcloseeye"
+
+                        >
+                          {showPassword ? <img src={closeIcon} alt="imgOpen" onClick={() => setShowPassword(false)}/> : <img src={eyeIcon} alt="imgOpen" onClick={() => setShowPassword(true)} />}
+                        </span>
                       </div>
                       <span className="text-danger text-small mb-0">
                         <ErrorMessage name="password" />
