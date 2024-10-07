@@ -5,12 +5,13 @@ import close from '../../Astes/close.svg';
 
 const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName, handleDayEndBalance, handleRawData, rawData, handleDownloadRawData, setSearchItem, setCloseIcon, closeIcon }) => {
 	return (
-		<div className='content'>
+		<div className='content customerPage'>
 			<div className='adminTitle'>
 				<h2> {"Customers"} </h2>
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 			</div>
 			<div className='customersTitle'>
+				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers === undefined ? 0 : customerData?.totalUsers}</span> </button>
 				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers === undefined ? 0 : customerData?.totalUsers}</span> </button>
 				<div className='searchbox'>
 					<input
@@ -18,7 +19,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 						placeholder='Search...'
 						value={searchItem}
 						onChange={(e) => hanldeSearch(e)}
-					/>
+					/> 
 					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
 					{closeIcon
 						&& <button type='button' className='closeBtn' onClick={() => {
