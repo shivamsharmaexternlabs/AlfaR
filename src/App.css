@@ -494,6 +494,7 @@ input[type="search"]::-webkit-search-results-decoration {
   color: #000;
 }
 
+
 .customersTitle {
   display: flex;
   align-items: center;
@@ -506,14 +507,19 @@ input[type="search"]::-webkit-search-results-decoration {
   border: 1px solid #DBDEEB;
   color: #71717A;
   border-radius: 8px;
-  padding: 12px 5px 12px 15px;
-  min-width: 180px;
-  text-align: left
+  padding: 12px 15px;
+  min-width: 150px;
+  text-align: left;
+  font-size: 14px;
 }
+
+.tcbtn span {
+  color: #000;
+} 
 
 .searchbox {
   position: relative;
-  width: calc(100% - 210px);
+  width: 85%;
   border: 1px solid #DBDEEB;
   border-radius: 8px;
 }
@@ -527,7 +533,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .searchbox input {
   width: 100%;
   display: block;
-  padding: 12px 135px 12px 50px;
+  padding: 11px 135px 11px 50px;
   border: none;
   outline: none;
   box-shadow: none;
@@ -559,6 +565,18 @@ input[type="search"]::-webkit-search-results-decoration {
   position: absolute;
   top: 9px;
   right: 20px;
+} 
+
+.customerPage .customersTitle .tcbtn {
+  min-width: 180px;
+}
+
+.customerPage .customersTitle .searchbox { 
+  width: calc(100% - 210px);
+}
+
+.employePage .customersTitle .searchbox { 
+  width: calc(100% - 180px);
 }
 
 .addcusbox {
@@ -571,10 +589,9 @@ input[type="search"]::-webkit-search-results-decoration {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
 }
 
-.addcusbox>p {
+.addcusbox>p { 
   margin: 16px 0 24px;
   font-size: 16px;
   color: #000;
@@ -695,7 +712,6 @@ input[type="search"]::-webkit-search-results-decoration {
   height: 38px;
   display: flex;
 }
-
 
 .clbtn.vpbtn:hover::after {
   content: "View Previous Fetch Balance";

@@ -5,20 +5,20 @@ import close from '../../Astes/close.svg';
 
 const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName }) => {
 	return (
-		<div className='content'>
+		<div className='content customerPage'>
 			<div className='adminTitle'>
 				<h2> {"Customers"} </h2>
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers}</span> </button>
+				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers}555</span> </button>
 				<div className='searchbox'>
 					<input
 						type='search'
 						placeholder='Search...'
 						value={searchItem}
 						onChange={(e) => hanldeSearch(e)}
-					/>
+					/> 
 					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
 					<button type='button' className='closeBtn' ><img src={close} alt='icon' /> </button>
 					<button type='button' className='searchbtn' onClick={() => handleSearchApiCall()} > {"Search"} </button>

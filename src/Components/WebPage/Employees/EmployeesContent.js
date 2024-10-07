@@ -5,13 +5,13 @@ import { roles } from '../../utils/Constants';
 
 const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employeeData, handleSearchApiCall, hanldeSearch, searchItem, handlePageClick, currentPage, roleName }) => {
 	return (
-		<div className='content'>
+		<div className='content employePage'>
 			<div className='adminTitle'>
 				<h2> {"Employees"} </h2>
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers}</span> </button>
+				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers} 555</span> </button> 
 
 				<div className='searchbox'>
 					<input type='search' placeholder='Search...' value={searchItem} onChange={(e) => hanldeSearch(e)} />
