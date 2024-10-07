@@ -21,7 +21,7 @@ const SummeryReport = ({summeryReportToggle,SummeryReportToggleFun}) => {
       from: `${date[0]?.day} ${date[0]?.month?.shortName} ${date[0]?.year}`,
       to: `${date[1]?.day} ${date[1]?.month?.shortName} ${date[1]?.year}`
     })
-    console.log("mnbdcsdfsd", date[1])
+    // console.log("mnbdcsdfsd", date[1])
   }
 
   let undefinedData = "undefined undefined undefined"

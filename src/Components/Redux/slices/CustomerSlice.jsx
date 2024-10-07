@@ -62,7 +62,7 @@ export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (
 export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { rejectWithValue }) => {
 	let Token = localStorage.getItem("Token");
 
-	console.log("bhsdhb", body)
+	// console.log("bhsdhb", body)
 	try {
 		const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}customer/update/${body?.id}`, body, {
 			headers: {
@@ -85,7 +85,7 @@ export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { reje
 export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body, { rejectWithValue }) => {
 	
 	let Token = localStorage.getItem("Token");
-	console.log('.........................',Token)
+	// console.log('.........................',Token)
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-day-end-balance?customerId=${body?.customerId}`, {
@@ -109,7 +109,7 @@ export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body
 export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWithValue }) => {
 	
 	let Token = localStorage.getItem("Token");
-	console.log('.........................',Token)
+	// console.log('.........................',Token)
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${body?.customerId}`, {
@@ -133,7 +133,7 @@ export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWi
 export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body, { rejectWithValue }) => {
 	
 	let Token = localStorage.getItem("Token");
-	console.log('.........................',Token)
+	// console.log('.........................',Token)
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${body?.customerId}`, {

@@ -26,7 +26,6 @@ function App() {
   const TokanValue = localStorage.getItem("Token", false)
   const [loadingValue, setLoadingValue] = useState(false)
 
-  console.log("nsdsdsd", TokanValue)
   useEffect(() => {
 
 
@@ -52,7 +51,7 @@ function App() {
 
     axios.interceptors.request.use(function (config) {
       // Do something before request is sent
-      console.log("resolved------------before")
+      // console.log("resolved------------before")
       setLoadingValue(true)
       return config;
     }, function (error) {
@@ -64,14 +63,14 @@ function App() {
     axios.interceptors.response.use(
       (response) => {
         setLoadingValue(false)
-        console.log("resolved------------resolved")
+        // console.log("resolved------------resolved")
         // toast.success(response?.data?.message);
         return response;
       }
       ,
       (error) => {
         setLoadingValue(false)
-        console.log("resolved+++++++++++++++reject", error)
+        // console.log("resolved+++++++++++++++reject", error)
         toast.error(error?.response?.data?.message);
 
         if (error?.response?.status == 401) {

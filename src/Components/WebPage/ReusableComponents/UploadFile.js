@@ -9,7 +9,7 @@ const UploadFileFun =(e)=>{
 }
 
 
-console.log("xmbfghjhsdv",uploadFileData)
+// console.log("xmbfghjhsdv",uploadFileData)
     return (
         <div className='uploadbox'>
             <img src={upload} alt='img' />

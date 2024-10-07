@@ -38,7 +38,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 	const handleSubmit = async (values) => {
 		if (values) {
 			dispatch(CreateEmployees({ ...values })).then((res) => {
-				console.log("ress", res)
+				// console.log("ress", res)
 				if (res?.payload?.data?.message === "User created successfully") {
 					setSuccessfulPopup(true);
 					setAddEmployeePopup(false);

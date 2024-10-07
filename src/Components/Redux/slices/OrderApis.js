@@ -15,7 +15,7 @@ export const FabricNameSlice = createAsyncThunk("FabricNameSlice", async (body, 
         });
         
 
-        console.log("mbnfdff",response)
+        // console.log("mbnfdff",response)
         return response;
 
     } catch (err) {
@@ -106,7 +106,7 @@ export const CreateOrderSlice = createAsyncThunk("CreateOrderSlice", async (body
         formData.append(key, value);   
     })
 
-    console.log("sghcdhsd",formData)
+    // console.log("sghcdhsd",formData)
     // {
     //     "brand": "rebock",
     //     "quantity": "2",

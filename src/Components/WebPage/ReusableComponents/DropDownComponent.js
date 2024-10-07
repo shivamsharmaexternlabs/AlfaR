@@ -19,7 +19,7 @@ const SelectAndSearchComponent = ({ ManageOrderTableSelectorDataProp, newFun, Ed
   const dropdownRef = useRef(null);
 
 
-console.log("ghdcjsdsff",ManageOrderTableSelectorDataProp)
+// console.log("ghdcjsdsff",ManageOrderTableSelectorDataProp)
 
   const onChange = (e) => {
 
@@ -44,7 +44,7 @@ console.log("ghdcjsdsff",ManageOrderTableSelectorDataProp)
       array.push(items?.name);
     });
 
-    console.log("sbdvhsdsd", array)
+    // console.log("sbdvhsdsd", array)
     setCompanyFilterData(array);
   };
 
@@ -132,7 +132,7 @@ console.log("ghdcjsdsff",ManageOrderTableSelectorDataProp)
   useEffect(() => {
 
     if (value || CompanyName) {
-      console.log("hsdfhgsd", CompanyName ?? value)
+      // console.log("hsdfhgsd", CompanyName ?? value)
       newFun({
         "value": CompanyName ?? value,
         "error": CompanyName,
@@ -142,7 +142,7 @@ console.log("ghdcjsdsff",ManageOrderTableSelectorDataProp)
 
   }, [CompanyName, value])
 
-  console.log("dvbnbsdmdss", CompanyName, value)
+  // console.log("dvbnbsdmdss", CompanyName, value)
 
   useEffect(() => {
     // setCompanyName(EditTableData?.category)
@@ -169,7 +169,7 @@ console.log("ghdcjsdsff",ManageOrderTableSelectorDataProp)
 
   }, [OnchangeValue]);
 
-  console.log("mdvjddefwe", CompanyFilterData)
+  // console.log("mdvjddefwe", CompanyFilterData)
 
   // CompanyName??value =CompanyName - if you are not selected and the drop down is open the the value is null
   // value - every intered value is printed

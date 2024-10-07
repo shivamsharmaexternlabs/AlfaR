@@ -8,7 +8,7 @@ export const PaginationPageValueSlice = createAsyncThunk("PaginationPageValueSli
 
 export const ToggleEffectOnSearchClickPaginationSlice = createAsyncThunk("ToggleEffectOnSearchClickPaginationSlice", async (body, { rejectWithValue }) => {
 
-    console.log("sndvchsjds",body)
+    // console.log("sndvchsjds",body)
     if(body===true){
         return false
     }

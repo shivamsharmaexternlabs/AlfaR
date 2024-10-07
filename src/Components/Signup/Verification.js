@@ -16,7 +16,7 @@ const Verification = () => {
   const varifyEmail = localStorage.getItem("verify-email", false)
   // VarificationCode
 
-  console.log(otp.length)
+  // console.log(otp.length)
 
   // useEffect(() => {
   //     if (otp.length === 4) {

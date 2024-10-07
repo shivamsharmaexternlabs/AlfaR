@@ -20,7 +20,7 @@ const AddCustomer = ({
   ;
 
   const [selectedExchange, setSelectedExcahnge] = useState('');
-  console.log("editCustomerData", editCustomerData);
+  // console.log("editCustomerData", editCustomerData);
 
   const defaultValue = {
     name: editCustomerData?.name === undefined ? "" : editCustomerData?.name,
@@ -55,7 +55,7 @@ const AddCustomer = ({
 
   const handleSubmit = async (values) => {
 
-    console.log("values", values)
+    // console.log("values", values)
 
 
     let finalPayload = {
@@ -72,7 +72,7 @@ const AddCustomer = ({
     if (values) {
       if (popupMethod === CUSTOMERS.ADD_CUSTOMER) {
         dispatch(CreateCustomer({ ...payload })).then((res) => {
-          console.log("ress", res)
+          // console.log("ress", res)
           if (res?.payload?.data?.message === "Customer added successfully") {
             setSuccessfulPopup(true);
             setAddCustomerPopup(false);
@@ -82,7 +82,7 @@ const AddCustomer = ({
         });
       } else {
         dispatch(EditCustomer({ ...payload, id: editCustomerData?._id })).then((res) => {
-          console.log("ress", res)
+          // console.log("ress", res)
           if (res?.payload?.data?.message === "Customer updated successfully") {
             setSuccessfulPopup(true);
             dispatch(GetCustomerDetails())

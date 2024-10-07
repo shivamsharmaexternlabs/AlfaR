@@ -34,7 +34,7 @@ const Admin = () => {
   const [dayBalancePopup, setDayBalancePopup] = useState(false);
   const [rawDataPopup, setRawDataPopup] = useState(false);
 
-  console.log("customerDetailsData", customerDetailsData)
+  // console.log("customerDetailsData", customerDetailsData)
 
   // Extract the page number from the URL
   useEffect(() => {
@@ -81,7 +81,7 @@ const Admin = () => {
     // dispatch(GetCustomerDetails({ page }));
   };
 
-  console.log("dayEndBalanceData", dayEndBalanceData)
+  // console.log("dayEndBalanceData", dayEndBalanceData)
 
   const handleDayEndBalance = (customerId) => {
     setDayBalancePopup(true)

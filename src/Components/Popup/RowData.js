@@ -3,7 +3,7 @@ import PopupDetails from './PopupDetails'
 import Closebtn from '../Astes/close.svg'
 
 const RowData = ({ rawData, rawDataPopup, setRawDataPopup,handleDownload }) => {
-  console.log("rawData", rawData)
+  // console.log("rawData", rawData)
   // Function to handle downloading the JSON data
 
   return (

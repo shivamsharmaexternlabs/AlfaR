@@ -32,7 +32,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 						{customerData?.customers?.length > 0
 							? customerData?.customers?.map((item) => {
 
-								console.log("jhsdjbds", item)
+								// console.log("jhsdjbds", item)
 								return (<tr>
 									<td>  {item.name} </td>
 									<td>{item.platform}</td>

@@ -43,7 +43,7 @@ const Signin = () => {
     if (values) {
 
       dispatch(SignInSlice({ ...values })).then((res) => {
-        console.log("res", res)
+        // console.log("res", res)
         if (res.payload !== undefined) {
           if (res.payload.data.user.role === roles.USER) {
             if (res.payload.data.user.isPasswordValid === false) {
@@ -183,7 +183,7 @@ const Signin = () => {
                 onSubmit={handlePasswordSubmit}>
                 {({ setFieldValue, errors }) => {
 
-                  console.log("errors", errors)
+                  // console.log("errors", errors)
                   return <Form>
 
                     <div className="formbox mt-3">

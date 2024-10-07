@@ -48,7 +48,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
 
   } catch (err) {
 
-    console.log("dhvjsfjsdf", err)
+    // console.log("dhvjsfjsdf", err)
 
     toast.error(err?.response?.data?.error?.[0]);
 
@@ -115,7 +115,7 @@ export const VarificationCode = createAsyncThunk("VarificationCode", async (body
       },
     });
 
-    console.log("mghvdchjsdsd---", response)
+    // console.log("mghvdchjsdsd---", response)
     toast.success(response?.data?.message);
 
 
@@ -124,7 +124,7 @@ export const VarificationCode = createAsyncThunk("VarificationCode", async (body
   } catch (err) {
 
 
-    console.log("mghvdchjsdsd", err)
+    // console.log("mghvdchjsdsd", err)
 
 
     toast.error(err?.response?.data?.message);

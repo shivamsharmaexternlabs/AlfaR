@@ -31,7 +31,7 @@ export const UserDetilsByIdSlice = createAsyncThunk("UserDetilsByIdSlice", async
 
 export const UserDetilsPatchByIdSlice = createAsyncThunk("UserDetilsPatchByIdSlice", async (body, { rejectWithValue }) => {
 
-  console.log("zmndcnvsndmcsd",body)
+  // console.log("zmndcnvsndmcsd",body)
   try {
     const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}user/${body?.user_id}`,
       body,
