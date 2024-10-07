@@ -47,11 +47,9 @@ const SummeryReport = ({summeryReportToggle,SummeryReportToggleFun}) => {
           <div className='SummeryTitle'>
             <h2>Summary Report</h2>
             <div className='daterangebox'>
-
               <span className='datetext'>Date Range : </span>
 
               {value?.from != undefinedData && <span className='dateday'>
-
                 {value?.from}
               </span>}
               {value?.from != "" || value?.to != "" ? <span>
@@ -63,8 +61,8 @@ const SummeryReport = ({summeryReportToggle,SummeryReportToggleFun}) => {
 
               {value?.to != undefinedData && <span> {value?.to}</span>}
 
-
-              <button type='button' className='datearrow'  > <img className="date-range-arrow" src={arrow2} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
+              <button type='button' className='datearrow'>
+                  <img className="date-range-arrow" src={arrow2} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
 
                 <DatePicker //https://npm.runkit.com/react-multi-date-picker
                   value={value1}
@@ -75,7 +73,6 @@ const SummeryReport = ({summeryReportToggle,SummeryReportToggleFun}) => {
                   numberOfMonths={2}
                   plugins={[
                     <Footer
-
                       position="bottom"
                       format="MMM DD"
                       names={{
@@ -84,11 +81,8 @@ const SummeryReport = ({summeryReportToggle,SummeryReportToggleFun}) => {
                         to: "To :",
                         selectDate: "select",
                         close: "close",
-
                         separator: "-",
-
                       }}
-
                     />
                   ]}
                 />
@@ -103,7 +97,7 @@ const SummeryReport = ({summeryReportToggle,SummeryReportToggleFun}) => {
               </button>   */}
             </div>
           </div>
-          <div className=' summerytable '>
+          <div className='summerytable '>
             <table>
               <tr>
                 <th> </th>
