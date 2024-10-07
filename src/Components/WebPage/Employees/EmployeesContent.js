@@ -12,18 +12,22 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers === undefined ? 0 : employeeData?.totalUsers} </span> </button> 
+				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers === undefined ? 0 : employeeData?.totalUsers} </span> </button>
 
 				<div className='searchbox'>
 					<input type='search' placeholder='Search...' value={searchItem} onChange={(e) => hanldeSearch(e)} />
 
 					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
-					{closeIcon
+					{/* {closeIcon
 						&& <button type='button' className='closeBtn' onClick={() => {
 							setSearchItem('')
 							setCloseIcon(false)
-						}}><img src={close} alt='icon' /> </button>}
-					<button type='button' className='searchbtn' onClick={() => handleSearchApiCall()}> {"Search"} </button>
+						}}><img src={close} alt='icon' /> </button>} */}
+					{closeIcon
+						? <button type='button' className='searchbtn' onClick={() => {
+							setSearchItem('')
+							setCloseIcon(false)
+						}}>{"Clear"}  </button> : <button type='button' className='searchbtn' onClick={() => handleSearchApiCall()}> {"Search"} </button>}
 				</div>
 			</div>
 

@@ -3,7 +3,7 @@ import { downloadIcon, editIcon, eyeIcon, refreshIcon } from '../../utils/Consta
 import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
 
-const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData,handleDownloadRawData }) => {
+const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData }) => {
 
 	const [summeryReportToggle, setSummeryReportToggle] = useState(false)
 
@@ -38,7 +38,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 									<td>{item.platform}</td>
 									<td>
 										<button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button>
-										<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={()=>handleDownloadRawData()} /> </button>
+										<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleDownloadRawData()} /> </button>
 									</td>
 									<td>
 										<button type='button' className='clbtn me-2 viewbtn' onClick={(e) => summeryReportFun(e)}> <img src={eyeIcon} alt='img' /> </button>
@@ -67,7 +67,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 					</table>
 				</div>
 
-				{customerData?.customers?.length > 10 ? <div className='alfarpegination'>
+				{customerData?.totalCustomers > 0 ? <div className='alfarpegination'>
 					<span>{`Page ${customerData?.currentPage} of ${customerData?.totalPages}`}</span>
 					<ReactPaginate
 						previousLabel={"< Previous"}

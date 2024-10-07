@@ -34,15 +34,24 @@ const Signin = () => {
 
   const Validate = yup.object({
     email: yup.string()
-      .email('Invalid email format')
-      .required('Email is required'),
-    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
+      .required('Email is required') // No need for domain validation now
+      .matches(/^[a-zA-Z0-9._%+-]+$/, 'Invalid email format before @alfar-group.com'), // Validate only the part before @
+    password: yup.string()
+      .required("Password is required")
+      .matches(/^\S*$/, 'Password must not contain spaces'),
   });
-
   const handleSubmit = async (values) => {
-    if (values) {
+    console.log("valkfnnk", values)
 
-      dispatch(SignInSlice({ ...values })).then((res) => {
+    const modifiedValues = {
+      ...values,
+      email: values.email + '@alfar-group.com',
+    };
+
+    console.log("modifiedValues", modifiedValues)
+    if (modifiedValues) {
+
+      dispatch(SignInSlice({ ...modifiedValues })).then((res) => {
         // console.log("res", res)
         if (res.payload !== undefined) {
           if (res.payload.data.user.role === roles.USER) {
@@ -89,6 +98,8 @@ const Signin = () => {
   });
 
   const handlePasswordSubmit = (values) => {
+
+
     if (values) {
       dispatch(ChangePassword({ ...values })).then((res) => {
         if (res.payload.data.message === "Password changed successfully") {
@@ -126,49 +137,70 @@ const Signin = () => {
                   initialValues={defaultValue}
                   validationSchema={Validate}
                   onSubmit={handleSubmit}>
-                  <Form >
-                    <div className="formbox mt-3">
-                      <div className='forminnerbox'>
-                        <Field
-                          name="email"
-                          type="text"
-                          className={` form-control`}
-                          required
-                        />
-                        <label >{"Email"}</label>
-                      </div>
-                      <span className="text-danger  small  mb-0">
-                        <ErrorMessage name="email" />
-                      </span>
-                    </div>
-                    <div className="formbox mt-3">
-                      <div className='forminnerbox passwordBox'>
-                        <Field
-                          name="password"
-                          // type="password"
-                          type={showPassword ? "text" : "password"}
-                          className={`form-control`}
-                          required
-                        />
-                        <label>{"Password"}</label>
-                        <div className='passEye'>
-                          {showPassword
-                            ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(false)} />
-                            : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(true)} />}
 
+                  {({ values, handleChange }) => (
+                    <Form >
+                      <div className="formbox mt-3">
+                        {/* <div className='forminnerbox'>
+                          <Field
+                            name="email"
+                            type="text"
+                            className={` form-control`}
+                            required
+                          />
+                          <label >{"Email"}</label>
                         </div>
-                      </div>
-                      <span className="text-danger  small  mb-0">
-                        <ErrorMessage name="password" />
-                      </span>
-                    </div>
+                        <span className="text-danger  small  mb-0">
+                          <ErrorMessage name="email" />
+                        </span> */}
+                        <div className='forminnerbox input-group'>
+                          <Field
+                            name="email"
+                            type="text"
+                            value={values.email}
+                            className={` form-control`}
+                            onChange={handleChange}
+                            required
+                            // placeholder="Enter your email"
+                          />
+                          <label >{"Email"}</label>
+                          <div class="input-group-append">
+                            <span class="input-group-text">{"@alfar-group.com"}</span>
+                          </div>
+                        </div>
 
-                    <div className="text-center">
-                      <button type="submit" className="signbtn">
-                        {"Sign in"}
-                      </button>
-                    </div>
-                  </Form>
+                        <span className="text-danger  small  mb-0">
+                          <ErrorMessage name="email" component="div" />
+                        </span>
+                      </div>
+                      <div className="formbox mt-3">
+                        <div className='forminnerbox passwordBox'>
+                          <Field
+                            name="password"
+                            // type="password"
+                            type={showPassword ? "text" : "password"}
+                            className={`form-control`}
+                            required
+                          />
+                          <label>{"Password"}</label>
+                          <div className='passEye'>
+                            {showPassword
+                              ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(false)} />
+                              : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(true)} />}
+
+                          </div>
+                        </div>
+                        <span className="text-danger  small  mb-0">
+                          <ErrorMessage name="password" />
+                        </span>
+                      </div>
+
+                      <div className="text-center">
+                        <button type="submit" className="signbtn">
+                          {"Sign in"}
+                        </button>
+                      </div>
+                    </Form>)}
                 </Formik>
                 <div className='text-center'>
                   <button type='button' onClick={() => forgetPasswordFun()} className='forgotbtn'>

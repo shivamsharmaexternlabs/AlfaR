@@ -142,6 +142,7 @@ const Admin = () => {
         closeIcon={closeIcon}
         setSearchItem={setSearchItem}
         setCloseIcon={setCloseIcon}
+   
 
       />
 
@@ -153,7 +154,7 @@ const Admin = () => {
           popupMethod={addCustomerPopup ? "Add Customer" : "Edit Customer"}
           setMessage={setMessage}
           editCustomerData={editCustomerData}
-
+          setEditCustomerData={setEditCustomerData}
         />
       )}
 

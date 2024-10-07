@@ -13,7 +13,8 @@ const AddCustomer = ({
   setSuccessfulPopup,
   popupMethod,
   setMessage,
-  editCustomerData
+  editCustomerData,
+  setEditCustomerData,
 }) => {
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const AddCustomer = ({
   };
 
   const Validate = yup.object().shape({
-    name: yup.string().required("Name is required"),
+    // name: yup.string().required("Name is required"),
     platform: yup.string().required('Exchange is required'),
     secretKey: yup.string().nullable()
       .when('platform', ([platform], schema) => {
@@ -59,7 +60,7 @@ const AddCustomer = ({
 
 
     let finalPayload = {
-      name: values.name,
+      // name: values.name,
       platform: values.platform,
       apiKey: values.apiKey,
       secretKey: values.secretKey,
@@ -103,6 +104,7 @@ const AddCustomer = ({
 
   const handleClosePopup = () => {
     setAddCustomerPopup(false);
+    setEditCustomerData("");
   }
 
   return (
@@ -121,13 +123,16 @@ const AddCustomer = ({
               return <Form>
                 <div className="formbox mt-3">
                   <div className='forminnerbox'>
+                  <label>{"Name"}</label>
                     <Field
                       name="name"
                       type="name"
                       className={`form-control`}
-                      required
+                      // required
+
+                      disabled
                     />
-                    <label >{"Name"}</label>
+                   
                   </div>
 
                   <p className="text-danger  small ">
