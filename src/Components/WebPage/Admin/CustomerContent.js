@@ -3,7 +3,7 @@ import CustomerTable from './CustomerTable';
 import { customerBlack, roles } from '../../utils/Constants';
 import close from '../../Astes/close.svg';
 
-const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName, handleDayEndBalance, handleRawData, rawData, handleDownloadRawData, setSearchItem, setCloseIcon, closeIcon }) => {
+const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName, handleDayEndBalance, handleRawData, rawData, handleDownloadRawData, setSearchItem, setCloseIcon, closeIcon, handlRefreshDay,handleDayEndBalanceCsv }) => {
 	return (
 		<div className='content customerPage'>
 			<div className='adminTitle'>
@@ -18,7 +18,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 						placeholder='Search...'
 						value={searchItem}
 						onChange={(e) => hanldeSearch(e)}
-					/> 
+					/>
 					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
 					{closeIcon
 						&& <button type='button' className='closeBtn' onClick={() => {
@@ -34,7 +34,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 					<p>{"No customer added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 				</div>
-				: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} handleDayEndBalance={handleDayEndBalance} handleRawData={handleRawData} rawData={rawData} handleDownloadRawData={handleDownloadRawData} />}
+				: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} handleDayEndBalance={handleDayEndBalance} handleRawData={handleRawData} rawData={rawData} handleDownloadRawData={handleDownloadRawData} handlRefreshDay={handlRefreshDay} handleDayEndBalanceCsv={handleDayEndBalanceCsv} />}
 		</div>
 	)
 }

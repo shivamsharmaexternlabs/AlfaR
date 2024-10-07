@@ -24,7 +24,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 	const Validate = yup.object({
 		name: yup.string().required("Name is required"),
 		email: yup.string()
-			.email('Invalid email format')
+			// .email('Invalid email format')
 			.required('Email is required'),
 		title: yup.string().required("Title is required"),
 		department: yup.string().nullable()
@@ -36,8 +36,18 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 	});
 
 	const handleSubmit = async (values) => {
-		if (values) {
-			dispatch(CreateEmployees({ ...values })).then((res) => {
+		if (!values.email) {
+			console.error("Email is missing");
+			return; // Early return or handle error
+		}
+
+		const modifiedValues = {
+			...values,
+			email: values.email + '@alfar-group.com',
+		};
+
+		if (modifiedValues) {
+			dispatch(CreateEmployees({ ...modifiedValues })).then((res) => {
 				// console.log("ress", res)
 				if (res?.payload?.data?.message === "User created successfully") {
 					setSuccessfulPopup(true);
@@ -64,7 +74,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 						initialValues={defaultValue}
 						validationSchema={Validate}
 						onSubmit={handleSubmit}>
-						{({ setFieldValue, errors }) => {
+						{({ setFieldValue, errors, values, handleChange }) => {
 							return <Form>
 								<div className="formbox mt-3">
 									<div className='forminnerbox'>
@@ -81,14 +91,19 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 									</p>
 								</div>
 								<div className="formbox mt-3">
-									<div className='forminnerbox'>
+									<div className='forminnerbox input-group'>
 										<Field
 											name="email"
-											type="email"
+											type="text"
 											className={`form-control`}
 											required
+											value={values.email}
+											onChange={handleChange}
 										/>
 										<label >{"Email"}</label>
+										<div className="input-group-append">
+											<span className="input-group-text">{"@alfar-group.com"}</span>
+										</div>
 									</div>
 
 									<p className="text-danger  small mb-0 small">
@@ -140,7 +155,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 
 								<div className='text-end mt-5 mb-3'>
 									<button type='button' className='btnWh me-3' onClick={() => handleClosePopup()}>{"Cancel"}</button>
-									<button type='submit' className='btnBl' onClick={() => handleSubmit()}>{"Add"}</button>
+									<button type='submit' className='btnBl'>{"Add"}</button>
 								</div>
 							</Form>
 						}}

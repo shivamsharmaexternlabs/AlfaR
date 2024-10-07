@@ -72,8 +72,8 @@ const Forgot = () => {
                                             />
                                             <label >Email</label>
                                             <label >{"Email"}</label>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">{"@alfar-group.com"}</span>
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">{"@alfar-group.com"}</span>
                                             </div>
                                         </div>
                                         <span className="text-danger  small  mb-0">

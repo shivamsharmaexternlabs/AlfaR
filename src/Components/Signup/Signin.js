@@ -42,14 +42,12 @@ const Signin = () => {
       .matches(/^\S*$/, 'Password must not contain spaces'),
   });
   const handleSubmit = async (values) => {
-    console.log("valkfnnk", values)
 
     const modifiedValues = {
       ...values,
       email: values.email + '@alfar-group.com',
     };
 
-    console.log("modifiedValues", modifiedValues)
     if (modifiedValues) {
 
       dispatch(SignInSlice({ ...modifiedValues })).then((res) => {
@@ -167,8 +165,8 @@ const Signin = () => {
                           // placeholder="Enter your email"
                           />
                           <label >{"Email"}</label>
-                          <div class="input-group-append">
-                            <span class="input-group-text">{"@alfar-group.com"}</span>
+                          <div className="input-group-append">
+                            <span className="input-group-text">{"@alfar-group.com"}</span>
                           </div>
                         </div>
 

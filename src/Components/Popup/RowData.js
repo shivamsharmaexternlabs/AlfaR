@@ -5,9 +5,9 @@ import Closebtn from '../Astes/close.svg'
 const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, handleDownload }) => {
 
   // Format the date range and the rawData for display
-  const formattedData = JSON.stringify(rawData, null, 2);
-
-   return (
+  // const formattedData = JSON.stringify(rawData);
+  // console.log('rawData', rawData)
+  return (
     <>
       <PopupDetails PopupToggle={rawDataPopup} classNameProp='rowdatapopup'>
         <div className='popupinner'>
@@ -16,9 +16,18 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
           {/* <p>{rawData} </p> */}
 
           {/* Display the JSON data in a preformatted block */}
-          <pre style={{ maxHeight: '300px', overflowY: 'scroll' }}>
-          <span style={{ color: '#249EE2' }}>{"2024/10/05 18:29:57"} - {"2024/10/07 18:29:56"}  - </span>{formattedData}
-          </pre>
+          <div style={{ maxHeight: 300, height: '90%', overflow: 'auto' }}>
+          {
+            rawData?.rawData?.map((item) => {
+              return <p>
+                <span style={{ color: '#249EE2' }}>{new Date(item.startDate).toUTCString()} - {new Date(item.endDate).toUTCString()}  - </span>
+                {item.rawData} - 
+                <span style={{color: 'yellowgreen'}}>{item.apiEndpoint}</span>
+            </p>
+  
+            })
+          }
+          </div>
           <div className='text-end mt-4 mb-3'>
             <button type='button' className='btnWh me-4' onClick={() => setRawDataPopup(false)}>{"Cancel"} </button>
             <button type='button' className='btnBl' onClick={handleDownload}>{"Download"}</button>

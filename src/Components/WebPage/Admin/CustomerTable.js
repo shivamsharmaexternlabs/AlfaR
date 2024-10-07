@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { downloadIcon, editIcon, eyeIcon, refreshIcon } from '../../utils/Constants'
 import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
+import { useSelector } from 'react-redux'
 
-const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData }) => {
-
+const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay,handleDayEndBalanceCsv }) => {
 	const [summeryReportToggle, setSummeryReportToggle] = useState(false)
-
 
 	const summeryReportFun = (e) => {
 		setSummeryReportToggle(o => !o)
@@ -16,11 +15,13 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 		<>
 			<div className='alfartableOuter'>
 				<div className='alfartableTitle'>
+				
 					<h3>{"Customer List"}</h3>
 					<p>{"This is a list of all customers."}</p>
 				</div>
 				<div className='alfartable'>
 					<table>
+						<thead>
 						<tr>
 							<th>{"CUSTOMER UID"}</th>
 							<th>{"EXCHANGE"}</th>
@@ -29,12 +30,14 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 							<th>{"DAY END BALANCE"}</th>
 							<th>{"ACTION"}</th>
 						</tr>
+						</thead>
+						<tbody>
 						{customerData?.customers?.length > 0
 							? customerData?.customers?.map((item) => {
 
 								// console.log("jhsdjbds", item)
-								return (<tr>
-									<td>  {item.name} </td>
+								return (<tr key={item._id}> 
+									<td>  {item.customerUId} </td>
 									<td>{item.platform}</td>
 									<td>
 										<button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button>
@@ -46,9 +49,11 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 									</td>
 									<td>
 										<button type='button' className='clbtn me-2 vpbtn'> <img src={eyeIcon} alt='img' onClick={() => handleDayEndBalance(item?._id)} /> </button>
-										<button type='button' className='clbtn me-2 dpbtn '> <img src={downloadIcon} alt='img' /> </button>
-										<button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' /> </button>
+										<button type='button' className='clbtn me-2 dpbtn ' ><img src={downloadIcon} alt='img' onClick={()=>handleDayEndBalanceCsv()}/></button>
+										<button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' onClick={() => handlRefreshDay(item?._id)} /> </button>
 									</td>
+									
+									
 									<td>
 										<button type='button' className='clbtn me-2 editbtn'> <img src={editIcon} alt='img' onClick={() => {
 											setEditItemData(item)
@@ -64,15 +69,15 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 								</td>
 							</tr>
 						}
+						</tbody>
 					</table>
 				</div>
-
 				{customerData?.totalCustomers > 0 ? <div className='alfarpegination'>
 					<span>{`Page ${customerData?.currentPage} of ${customerData?.totalPages}`}</span>
 					<ReactPaginate
-						previousLabel={"< Previous"}
+						previousLabel={"Previous"}
 						i18nIsDynamicList={true}
-						nextLabel={"Next >"}
+						nextLabel={"Next"}
 						pageCount={customerData?.totalPages}
 						onPageChange={handlePageClick}
 						forcePage={currentPage}

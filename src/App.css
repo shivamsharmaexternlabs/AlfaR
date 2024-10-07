@@ -1077,6 +1077,14 @@ input[type="search"]::-webkit-search-results-decoration {
   word-break: break-word;
 }
 
+.dayendBlPopup .popupinner>h2>i {
+  font-size: 15px;
+  font-weight: 400;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+
 .dayendBlPopup .dayendTable {
   width: 100%;
   margin: 32px 0 48px;
@@ -1109,7 +1117,6 @@ input[type="search"]::-webkit-search-results-decoration {
 
 }
 
-.dayendBlPopup .dayendTable t
 
 /* /-------pagination--------/ */
 .alfarpegination {
@@ -1146,14 +1153,36 @@ input[type="search"]::-webkit-search-results-decoration {
   right: 100px;
 }
 
+.alfarpegination .pagination .page-item:first-child .page-link:after {
+  background: url(./Components/Astes/backArrow.svg) top center no-repeat;
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  width: 24px;
+  height: 12px;
+  background-size: 100% 100%;
+}
+
 .alfarpegination .pagination .page-item:last-child {
   position: absolute;
   right: 0;
 }
 
+.alfarpegination .pagination .page-item:last-child .page-link:after {
+  background: url(./Components/Astes/nextArrow.svg) top center no-repeat;
+  content: "";
+  position: absolute;
+  right: 7px;
+  top: 10px;
+  width: 24px;
+  height: 12px;
+  background-size: 100% 100%;
+}
+
 .alfarpegination .pagination .page-item:first-child .page-link,
 .alfarpegination .pagination .page-item:last-child .page-link {
-  color: #71717A;
+  color: #000000;
   border: 1px solid #D0D5DD;
   outline: none;
   box-shadow: none;
@@ -1161,6 +1190,15 @@ input[type="search"]::-webkit-search-results-decoration {
   cursor: pointer;
   padding: 4px 20px;
   height: auto;
+  position: relative;
+}
+
+.alfarpegination .pagination .page-item:first-child .page-link {
+  padding: 4px 20px 4px 35px;
+}
+
+.alfarpegination .pagination .page-item:last-child .page-link {
+  padding: 4px 35px 4px 20px;
 }
 
 .alfarpegination .pagination .page-item:first-child .page-link:hover,
@@ -1168,6 +1206,14 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: #000;
   color: #fff;
 }
+
+.alfarpegination .pagination .page-item:first-child .page-link:hover::after  {
+  background: url(./Components/Astes/whiteBackArrow.svg) top center no-repeat;
+}
+.alfarpegination .pagination .page-item:last-child .page-link:hover::after  {
+  background: url(./Components/Astes/whiteNextArrow.svg) top center no-repeat;
+}
+ 
 
 .alfarpegination .page-item .page-link {
   border: none;

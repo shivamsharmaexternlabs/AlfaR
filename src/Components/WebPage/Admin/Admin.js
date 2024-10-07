@@ -9,7 +9,7 @@ import Success from '../../Popup/Success';
 import RowData from '../../Popup/RowData';
 import customerData from "./customerJson/customer.json";
 import CustomerContent from './CustomerContent';
-import { GetCustomerDetails, GetDayEndBalance, GetRawData } from '../../Redux/slices/CustomerSlice';
+import { GetCustomerDetails, GetDayEndBalance, GetRawData, RefreshDayBalance } from '../../Redux/slices/CustomerSlice';
 import DayEndBalance from '../../Popup/DayEndBalance';
 import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
 
@@ -20,7 +20,7 @@ const Admin = () => {
   let roleName = localStorage.getItem("Role");
   let Token = localStorage.getItem("Token");
 
-  const { customerDetailsData, dayEndBalanceData, loading, rawData } = useSelector((state) => state.CustomerApiData);
+  const { customerDetailsData, dayEndBalanceData, loading, rawData, refreshDayBalanceData } = useSelector((state) => state.CustomerApiData);
 
   const [addCustomerPopup, setAddCustomerPopup] = useState(false);
   const [editCustomerPopup, setEditCustomerPopup] = useState(false);
@@ -52,6 +52,8 @@ const Admin = () => {
       dispatch(GetCustomerDetails({ page: currentPage }));
     }
   }, [dispatch, searchItem, currentPage]);
+
+
 
   const hanldeSearch = (e) => {
     setSearchItem(e.target.value);
@@ -105,6 +107,17 @@ const Admin = () => {
     }
   }
 
+  const handlRefreshDay = (customerId) => {
+
+    let payload = {
+      customerId: customerId,
+      Token: Token
+    }
+    if (Token) {
+      dispatch(RefreshDayBalance(payload))
+    }
+  }
+
   const handleDownloadRawData = () => {
     // Convert the rawData object to a string (plain text)
     const textStr = JSON.stringify(rawData, null, 2); // Keeps the JSON format readable in the text file
@@ -119,6 +132,87 @@ const Admin = () => {
     URL.revokeObjectURL(url); // Clean up the URL after download
   }
 
+  const convertToCSV = (objArray) => {
+    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+
+    // Add custom headers
+    const headers = ['Status', 'Balance', 'Wallet'];
+    str += headers.join(',') + '\r\n';
+
+    for (let i = 0; i < array.length; i++) {
+      let line = '';
+      // Adjust this part based on your actual data structure
+      line += array[i].activate + ','; // Status
+      line += array[i].balance + ',';  // Balance
+      line += array[i].walletName;           // Wallet (last value, no comma needed)
+
+      str += line + '\r\n';
+    }
+    return str;
+  };
+
+  let finalData = refreshDayBalanceData?.data?.map((value) => {
+    let activate = value.activate ? 'Active' : 'Inactive';
+    return { ...value, activate: activate }; // Ensure value has balance and wallet properties
+  });
+
+  // Assuming finalData includes the properties you want to download
+  const downloadCSV = (newData) => {
+    if (finalData?.length > 0) {
+      const csvData = new Blob([convertToCSV(finalData)], { type: 'text/csv' });
+      const csvURL = URL.createObjectURL(csvData);
+      const link = document.createElement('a');
+      link.href = csvURL;
+      link.download = `dayendbalance.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else if (newData?.length > 0) {
+      const csvData = new Blob([convertToCSV(newData)], { type: 'text/csv' });
+      const csvURL = URL.createObjectURL(csvData);
+      const link = document.createElement('a');
+      link.href = csvURL;
+      link.download = `dayendbalance.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+
+  // const convertToCSV = (objArray) => {
+  //   const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+  //   let str = '';
+
+  //   for (let i = 0; i < array.length; i++) {
+  //     let line = '';
+  //     for (let index in array[i]) {
+  //       if (line !== '') line += ',';
+
+  //       line += array[i][index];
+  //     }
+  //     str += line + '\r\n';
+  //   }
+  //   return str;
+  // };
+
+
+  // let finalData = refreshDayBalanceData?.data?.map((value) => {
+  //   let activate = value.activate ? 'Active' : 'Inactive'
+  //   return { ...value, activate: activate }
+  // })
+
+  // const downloadCSV = () => {
+  //   const csvData = new Blob([convertToCSV(finalData)], { type: 'text/csv' });
+  //   const csvURL = URL.createObjectURL(csvData);
+  //   const link = document.createElement('a');
+  //   link.href = csvURL;
+  //   link.download = `dayendbalance.csv`;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
 
   return (
@@ -142,7 +236,8 @@ const Admin = () => {
         closeIcon={closeIcon}
         setSearchItem={setSearchItem}
         setCloseIcon={setCloseIcon}
-
+        handlRefreshDay={handlRefreshDay}
+        handleDayEndBalanceCsv={downloadCSV}
 
       />
 
@@ -165,7 +260,7 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.dailyBalance} setDayBalancePopup={setDayBalancePopup} />}
+      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.dailyBalance} setDayBalancePopup={setDayBalancePopup} downloadCSV={downloadCSV} />}
 
       {rawDataPopup && <RowData rawDataPopup={rawDataPopup} setRawDataPopup={setRawDataPopup} rawData={rawData} handleDownload={handleDownloadRawData} />}
 

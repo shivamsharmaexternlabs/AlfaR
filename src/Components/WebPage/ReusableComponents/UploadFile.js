@@ -15,7 +15,7 @@ const UploadFileFun =(e)=>{
             <img src={upload} alt='img' />
             <h4>Drag your file(s) to start uploading</h4>
             <h5>OR</h5>
-            <div class="upload-btn-wrapper">
+            <div className="upload-btn-wrapper">
                 <button type='button'>Browse files</button>
                 <input type="file" name="myfile" onChange={(e)=>UploadFileFun(e)} />
             </div>

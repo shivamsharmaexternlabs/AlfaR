@@ -6,7 +6,7 @@ const LoadingSpinner = ({loadingValue}) => {
 
     return (
         <PopupDetails PopupToggle={loadingValue}> 
-            <span class="loader">  </span>
+            <span className="loader">  </span>
         </PopupDetails>
 
     )

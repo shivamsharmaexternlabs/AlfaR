@@ -84,7 +84,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun }) => {
                         from: "From :",
                         to: "To :",
                         selectDate: "select",
-                        close: "close",
+                        close: "Reset",
                         separator: "-",
                       }}
                     />

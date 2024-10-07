@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { useNavigate } from 'react-router-dom';
-
+import arrow from '../../Astes/arrow.svg'
 const EmployeeTable = ({ employeeData, handlePageClick, currentPage, handleStatusUpdate }) => {
 
 	return (
@@ -47,9 +47,9 @@ const EmployeeTable = ({ employeeData, handlePageClick, currentPage, handleStatu
 				? <div className='alfarpegination'>
 					<span>{`Page ${employeeData?.currentPage} of ${employeeData?.totalPages}`}</span>
 					<ReactPaginate
-						previousLabel={"< Previous"}
+						previousLabel={`Previous`}
 						i18nIsDynamicList={true}
-						nextLabel={"Next >"}
+						nextLabel={"Next"}
 						pageCount={employeeData?.totalPages}
 						onPageChange={handlePageClick}
 						forcePage={currentPage}
