@@ -928,6 +928,9 @@ input[type="search"]::-webkit-search-results-decoration {
   display: flex;
   align-items: center;
   gap: 30px;
+  border-bottom: 1px solid #E5E6F3;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .SummeryTitle h2 {
@@ -956,6 +959,7 @@ input[type="search"]::-webkit-search-results-decoration {
   max-width: 1319px;
 }
 
+
 .daterangebox {
   border: 1px solid #DBDEEB;
   padding: 2px 20px;
@@ -970,8 +974,32 @@ input[type="search"]::-webkit-search-results-decoration {
   padding-left: 10px;
 }
 
+.summurypopup .rmdp-arrow-container {}
+
+.summeryTabs .nav {
+  display: inline-flex;
+  border: 1px solid #D9DBE9;
+  background: #FAFBFC;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 8px;
+}
+
+.summeryTabs .nav .nav-link {
+  color: #000;
+  border-radius: 8px;
+  border: 1px solid #FAFBFC;
+  font-size: 16px;
+  padding: 6px 16px;
+
+}
+
+.summeryTabs .nav .nav-link.active {
+  border: 1px solid #D9DBE9;
+}
+
 .summerytable {
-  padding-top: 25px;
+  padding-top: 32px;
 }
 
 .summerytable table {
@@ -999,7 +1027,6 @@ input[type="search"]::-webkit-search-results-decoration {
   font-weight: 400;
 }
 
-.summurypopup .rmdp-arrow-container {}
 
 .summurypopup .rmdp-arrow-container .rmdp-arrow {
   color: #000;
@@ -1022,6 +1049,22 @@ input[type="search"]::-webkit-search-results-decoration {
 .summurypopup .rmdp-button {
   background-color: #000;
 }
+
+.summurypopup .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+  background-color: rgb(43, 38, 38);
+  color: #fff;
+
+}
+
+.summurypopup .rmdp-range {
+  border-radius: 0%;
+}
+
+.summurypopup .rmdp-day.rmdp-today span {
+  background-color: gray;
+  color: #fff;
+}
+
 
 .rowdatapopup .popupinner {
   word-break: break-all;
