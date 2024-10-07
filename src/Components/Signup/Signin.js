@@ -34,8 +34,9 @@ const Signin = () => {
 
   const Validate = yup.object({
     email: yup.string()
-      .required('Email is required') // No need for domain validation now
-      .matches(/^[a-zA-Z0-9._%+-]+$/, 'Invalid email format before @alfar-group.com'), // Validate only the part before @
+      // .email("Invalid Email")
+      .required('Email is required'), // No need for domain validation now
+      // .matches(/^[a-zA-Z0-9._%+-]+$/, 'Invalid email format before @alfar-group.com'), // Validate only the part before @
     password: yup.string()
       .required("Password is required")
       .matches(/^\S*$/, 'Password must not contain spaces'),
@@ -163,7 +164,7 @@ const Signin = () => {
                             className={` form-control`}
                             onChange={handleChange}
                             required
-                            // placeholder="Enter your email"
+                          // placeholder="Enter your email"
                           />
                           <label >{"Email"}</label>
                           <div class="input-group-append">
