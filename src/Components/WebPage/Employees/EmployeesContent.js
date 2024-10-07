@@ -12,7 +12,6 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers === undefined ? 0 : employeeData?.totalUsers}</span> </button>
 				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers === undefined ? 0 : employeeData?.totalUsers} </span> </button> 
 
 				<div className='searchbox'>
