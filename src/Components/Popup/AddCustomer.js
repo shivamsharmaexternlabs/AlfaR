@@ -166,21 +166,6 @@ const AddCustomer = ({
                 <>
 
                   {((selectedExchange || editCustomerData?.platform) === exchanges.BINANCE || (selectedExchange || editCustomerData?.platform) === exchanges.COINBASE || (selectedExchange || editCustomerData?.platform) === exchanges.OKX) && <>
-                    <div className="formbox mt-3">
-                      <div className='forminnerbox'>
-                        <Field
-                          name="secretKey"
-                          type="text"
-                          className={`form-control`}
-                          required
-                        />
-                        <label >{"Secret Key"}</label>
-                      </div>
-                      <p className="text-danger  small ">
-                        <ErrorMessage name="secretKey" />
-                      </p>
-
-                    </div>
 
                     <div className="formbox mt-3">
                       <div className='forminnerbox'>
@@ -198,6 +183,24 @@ const AddCustomer = ({
                       </p>
 
                     </div>
+
+                    <div className="formbox mt-3">
+                      <div className='forminnerbox'>
+                        <Field
+                          name="secretKey"
+                          type="text"
+                          className={`form-control`}
+                          required
+                        />
+                        <label >{"Secret Key"}</label>
+                      </div>
+                      <p className="text-danger  small ">
+                        <ErrorMessage name="secretKey" />
+                      </p>
+
+                    </div>
+
+
 
                   </>}
 

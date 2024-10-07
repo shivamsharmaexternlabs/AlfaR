@@ -11,7 +11,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers}</span> </button>
+				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers === undefined ? 0 : customerData?.totalUsers}</span> </button>
 				<div className='searchbox'>
 					<input
 						type='search'
