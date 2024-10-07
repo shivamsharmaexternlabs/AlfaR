@@ -37,7 +37,7 @@ const EmployeeTable = ({ employeeData, handlePageClick, currentPage , handleStat
 
 			</div>
 
-			{employeeData?.users?.length > 0
+			{employeeData?.users?.length > 10
 				? <div className='alfarpegination'>
 					<span>{`Page ${employeeData?.currentPage} of ${employeeData?.totalPages}`}</span>
 					<ReactPaginate

@@ -100,17 +100,19 @@ const Admin = () => {
   }
 
   const handleDownloadRawData = () => {
-    const jsonStr = JSON.stringify(rawData, null, 2);
-    const blob = new Blob([jsonStr], { type: 'application/json' });
+    // Convert the rawData object to a string (plain text)
+    const textStr = JSON.stringify(rawData, null, 2); // Keeps the JSON format readable in the text file
+    const blob = new Blob([textStr], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-
+  
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'rawData.json';
+    a.download = 'rawData.txt'; // Set the file extension to .txt
     a.click();
-
+  
     URL.revokeObjectURL(url); // Clean up the URL after download
   }
+  
 
 
   return (

@@ -63,7 +63,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 					</table>
 				</div>
 
-				{customerData?.customers?.length > 0 ? <div className='alfarpegination'>
+				{customerData?.customers?.length > 10 ? <div className='alfarpegination'>
 					<span>{`Page ${customerData?.currentPage} of ${customerData?.totalPages}`}</span>
 					<ReactPaginate
 						previousLabel={"< Previous"}
