@@ -149,12 +149,6 @@ const Signin = () => {
                           required
                         />
                         <label>{"Password"}</label>
-
-                        <span className="imgcloseeye"
-
-                        >
-                          {showPassword ? <img src={closeIcon} alt="imgOpen" onClick={() => setShowPassword(false)}/> : <img src={eyeIcon} alt="imgOpen" onClick={() => setShowPassword(true)} />}
-                        </span>
                       </div>
                       <span className="text-danger text-small mb-0">
                         <ErrorMessage name="password" />
