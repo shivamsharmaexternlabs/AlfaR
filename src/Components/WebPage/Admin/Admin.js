@@ -29,6 +29,7 @@ const Admin = () => {
   const [message, setMessage] = useState('');
   const [searchItem, setSearchItem] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [closeIcon, setCloseIcon] = useState(false);
 
   const [dayBalancePopup, setDayBalancePopup] = useState(false);
   const [rawDataPopup, setRawDataPopup] = useState(false);
@@ -59,7 +60,12 @@ const Admin = () => {
   const handleSearchApiCall = () => {
     let payload = { search: searchItem };
     if (searchItem) {
-      dispatch(GetCustomerDetails(payload));
+      dispatch(GetCustomerDetails(payload)).then((res)=> {
+        if(res?.payload?.status===200){
+          setCloseIcon(true);
+        }
+      }
+      );
     }
   };
 
@@ -133,6 +139,9 @@ const Admin = () => {
         handleRawData={handleRawData}
         handleDownloadRawData={handleDownloadRawData}
         rawData={rawData}
+        closeIcon={closeIcon}
+        setSearchItem={setSearchItem}
+        setCloseIcon={setCloseIcon}
 
       />
 

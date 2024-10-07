@@ -4,7 +4,7 @@ import employeeData from "../Employees/employeejson/employee.json"
 import InviteUser from '../../Popup/InviteUser';
 import Success from '../../Popup/Success';
 import EmployeesContent from './EmployeesContent';
-import { GetEmployeeDetails , UpdateStatus } from '../../Redux/slices/EmployeeSlice';
+import { GetEmployeeDetails, UpdateStatus } from '../../Redux/slices/EmployeeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { employeesBlack } from '../../utils/Constants';
@@ -17,7 +17,7 @@ const Employees = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { employeeDetailsData, createdCustomer  ,updatedStatus } = useSelector((state) => state.EmployeesApiData);
+  const { employeeDetailsData, createdCustomer, updatedStatus } = useSelector((state) => state.EmployeesApiData);
 
 
   const [addEmployeePopup, setAddEmployeePopup] = useState(false);
@@ -25,6 +25,7 @@ const Employees = () => {
   const [message, setMessage] = useState('');
   const [searchItem, setSearchItem] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [closeIcon, setCloseIcon] = useState(false);
 
   // Extract the page number from the URL
   useEffect(() => {
@@ -41,7 +42,7 @@ const Employees = () => {
     if (searchItem === "") {
       dispatch(GetEmployeeDetails({ page: currentPage }));
     }
-  }, [dispatch, searchItem, currentPage, updatedStatus ]);
+  }, [dispatch, searchItem, currentPage, updatedStatus]);
 
   const hanldeSearch = (e) => {
     setSearchItem(e.target.value);
@@ -50,7 +51,11 @@ const Employees = () => {
   const handleSearchApiCall = () => {
     let payload = { search: searchItem };
     if (searchItem) {
-      dispatch(GetEmployeeDetails(payload));
+      dispatch(GetEmployeeDetails(payload)).then((res) => {
+        if (res?.payload?.status === 200) {
+          setCloseIcon(true)
+        }
+      });
     }
   };
 
@@ -66,10 +71,10 @@ const Employees = () => {
     // dispatch(GetCustomerDetails({ page }));
   };
 
-  const handleStatusUpdate = (userId,state) => {
+  const handleStatusUpdate = (userId, state) => {
     let status = state ? false : true
-    let payload = { status , id:userId};
-    if(userId){
+    let payload = { status, id: userId };
+    if (userId) {
       dispatch(UpdateStatus(payload));
     }
   };
@@ -88,6 +93,9 @@ const Employees = () => {
         handlePageClick={handlePageClick}
         currentPage={currentPage - 1}
         roleName={roleName} // For 0-based pagination
+        closeIcon={closeIcon}
+        setSearchItem={setSearchItem}
+        setCloseIcon={setCloseIcon}
       />
 
       <InviteUser
