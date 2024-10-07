@@ -3,7 +3,7 @@ import EmployeeTable from './EmployeeTable'
 import ReactPaginate from 'react-paginate';
 import { roles } from '../../utils/Constants';
 
-const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employeeData, handleSearchApiCall, hanldeSearch, searchItem, handlePageClick, currentPage, roleName }) => {
+const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employeeData, handleSearchApiCall, hanldeSearch, searchItem, handlePageClick, currentPage, roleName , handleStatusUpdate }) => {
 	return (
 		<div className='content'>
 			<div className='adminTitle'>
@@ -27,7 +27,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 					<p>{"No employees added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 				</div>
-				: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} />}
+				: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} handleStatusUpdate={handleStatusUpdate} />}
 		</div>
 	)
 }

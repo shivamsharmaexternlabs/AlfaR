@@ -78,6 +78,25 @@ export const EditEmployee = createAsyncThunk("EditCustomer", async (body, { reje
 }
 );
 
+export const UpdateStatus = createAsyncThunk("updateStatus", async (body, { rejectWithValue }) => {
+	let Token = localStorage.getItem("Token");
+
+	try {
+		const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}user/update-status/${body?.id}`, {status:body.status}, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${Token}`
+			},
+		});
+
+		return response;
+
+	} catch (err) {
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
+	}
+}
+);
 
 export const employeesSlice = createSlice({
 	name: "employeesSlice",
@@ -85,6 +104,7 @@ export const employeesSlice = createSlice({
 		employeeDetailsData: [],
 		createdEmployee: [],
 		updatedEmployee: [],
+		updatedStatus:[],
 		loading: false,
 		error: null,
 	},
@@ -136,6 +156,21 @@ export const employeesSlice = createSlice({
 			})
 
 			.addCase(EditEmployee.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			//UPDATE STATUS
+			.addCase(UpdateStatus.pending, (state) => {
+				state.loading = false;
+			})
+
+			.addCase(UpdateStatus.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.updatedStatus = payload;
+			})
+
+			.addCase(UpdateStatus.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.error.message;
 			})

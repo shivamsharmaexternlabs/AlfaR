@@ -4,7 +4,7 @@ import employeeData from "../Employees/employeejson/employee.json"
 import InviteUser from '../../Popup/InviteUser';
 import Success from '../../Popup/Success';
 import EmployeesContent from './EmployeesContent';
-import { GetEmployeeDetails } from '../../Redux/slices/EmployeeSlice';
+import { GetEmployeeDetails , UpdateStatus } from '../../Redux/slices/EmployeeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { employeesBlack } from '../../utils/Constants';
@@ -17,7 +17,8 @@ const Employees = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { employeeDetailsData, createdCustomer } = useSelector((state) => state.EmployeesApiData);
+  const { employeeDetailsData, createdCustomer  ,updatedStatus } = useSelector((state) => state.EmployeesApiData);
+
 
   const [addEmployeePopup, setAddEmployeePopup] = useState(false);
   const [succesfulPopup, setSuccessfulPopup] = useState(false);
@@ -40,7 +41,7 @@ const Employees = () => {
     if (searchItem === "") {
       dispatch(GetEmployeeDetails({ page: currentPage }));
     }
-  }, [dispatch, searchItem, currentPage]);
+  }, [dispatch, searchItem, currentPage, updatedStatus ]);
 
   const hanldeSearch = (e) => {
     setSearchItem(e.target.value);
@@ -65,10 +66,19 @@ const Employees = () => {
     // dispatch(GetCustomerDetails({ page }));
   };
 
+  const handleStatusUpdate = (userId,state) => {
+    let status = state ? false : true
+    let payload = { status , id:userId};
+    if(userId){
+      dispatch(UpdateStatus(payload));
+    }
+  };
+
   return (
     <>
       <EmployeesContent
         employeeData={employeeDetailsData}
+        handleStatusUpdate={handleStatusUpdate}
         setAddEmployeePopup={setAddEmployeePopup}
         icon7={icon7}
         employeesBlack={employeesBlack}
