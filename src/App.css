@@ -31,6 +31,14 @@ button {
   background-color: transparent;
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+
 /***************************** Header Css End ****************************/
 
 .profileHeader {
@@ -498,7 +506,7 @@ button {
   border: 1px solid #DBDEEB;
   color: #71717A;
   border-radius: 8px;
-  padding:  12px 5px 12px 15px ;
+  padding: 12px 5px 12px 15px;
   min-width: 180px;
   text-align: left
 }
@@ -519,7 +527,7 @@ button {
 .searchbox input {
   width: 100%;
   display: block;
-  padding: 12px 115px 12px 50px;
+  padding: 12px 135px 12px 50px;
   border: none;
   outline: none;
   box-shadow: none;
@@ -528,6 +536,17 @@ button {
 
 .searchbox input::placeholder {
   color: #000;
+}
+
+.searchbox .closeBtn {
+  height: auto;
+  width: auto;
+  position: absolute;
+  top: 14px;
+  right: 120px;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 9;
 }
 
 .searchbox .searchbtn {
@@ -801,7 +820,7 @@ button {
 .popupinner .formbox label {
   top: 15px;
   left: 16px;
-} 
+}
 
 .popupinner .formbox .form-control:focus~label,
 .popupinner .formbox .form-control:valid~label {

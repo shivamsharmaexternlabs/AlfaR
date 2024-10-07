@@ -47,7 +47,7 @@ const Admin = () => {
 
   // Fetch customer details without search term
   useEffect(() => {
-    if (searchItem === "") {
+    if (searchItem === "") { 
       dispatch(GetCustomerDetails({ page: currentPage }));
     }
   }, [dispatch, searchItem, currentPage]);
