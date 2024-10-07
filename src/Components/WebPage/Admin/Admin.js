@@ -9,7 +9,7 @@ import Success from '../../Popup/Success';
 import RowData from '../../Popup/RowData';
 import customerData from "./customerJson/customer.json";
 import CustomerContent from './CustomerContent';
-import { GetCustomerDetails, GetDayEndBalance } from '../../Redux/slices/CustomerSlice';
+import { GetCustomerDetails, GetDayEndBalance, GetRawData } from '../../Redux/slices/CustomerSlice';
 import DayEndBalance from '../../Popup/DayEndBalance';
 import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
 
@@ -20,7 +20,7 @@ const Admin = () => {
   let roleName = localStorage.getItem("Role");
   let Token = localStorage.getItem("Token");
 
-  const { customerDetailsData, dayEndBalanceData, loading } = useSelector((state) => state.CustomerApiData);
+  const { customerDetailsData, dayEndBalanceData, loading, rawData } = useSelector((state) => state.CustomerApiData);
 
   const [addCustomerPopup, setAddCustomerPopup] = useState(false);
   const [editCustomerPopup, setEditCustomerPopup] = useState(false);
@@ -31,8 +31,9 @@ const Admin = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [dayBalancePopup, setDayBalancePopup] = useState(false);
+  const [rawDataPopup, setRawDataPopup] = useState(false);
 
-  console.log("customerDetailsData",customerDetailsData)
+  console.log("customerDetailsData", customerDetailsData)
 
   // Extract the page number from the URL
   useEffect(() => {
@@ -87,6 +88,33 @@ const Admin = () => {
     }
   }
 
+  const handleRawData = (customerId) => {
+    setRawDataPopup(true)
+    let payload = {
+      customerId: customerId,
+      Token: Token
+    }
+    if (Token) {
+      dispatch(GetRawData(payload))
+    }
+  }
+
+  const handleDownloadRawData = () => {
+    // Convert the rawData object to a string (plain text)
+    const textStr = JSON.stringify(rawData, null, 2); // Keeps the JSON format readable in the text file
+    const blob = new Blob([textStr], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+  
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rawData.txt'; // Set the file extension to .txt
+    a.click();
+  
+    URL.revokeObjectURL(url); // Clean up the URL after download
+  }
+  
+
+
   return (
     <>
       <CustomerContent
@@ -102,6 +130,9 @@ const Admin = () => {
         currentPage={currentPage - 1} // For 0-based pagination
         roleName={roleName}
         handleDayEndBalance={handleDayEndBalance}
+        handleRawData={handleRawData}
+        handleDownloadRawData={handleDownloadRawData}
+        rawData={rawData}
 
       />
 
@@ -124,9 +155,9 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData} setDayBalancePopup={setDayBalancePopup} />}
+      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.snapshots?.spotBalance} setDayBalancePopup={setDayBalancePopup} />}
 
-      <RowData />
+      {rawDataPopup && <RowData rawDataPopup={rawDataPopup} setRawDataPopup={setRawDataPopup} rawData={rawData} handleDownload={handleDownloadRawData}/>}
 
       <LoadingSpinner loadingValue={loading} />
     </>
@@ -134,119 +165,3 @@ const Admin = () => {
 };
 
 export default Admin;
-
-
-
-// import React, { useEffect, useState } from 'react'
-// import Header from '../../Layout/Header';
-// import Sidebar from '../Sidebar/Sidebar';
-// import icon7 from '../../Astes/Icon7.svg';
-// import icon8 from '../../Astes/icon8.svg';
-// import AddCustomer from '../../Popup/AddCustomer';
-// import Success from '../../Popup/Success';
-// import RowData from '../../Popup/RowData';
-// import customerData from "./customerJson/customer.json";
-// // import CustomerTable from './CustomerTable';
-// import CustomerContent from './CustomerContent';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { GetCustomerDetails } from '../../Redux/slices/CustomerSlice';
-// import { useLocation, useNavigate } from 'react-router-dom';
-
-// const Admin = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   const { customerDetailsData, createdCustomer } = useSelector((state) => state.CustomerApiData);
-
-//   const [addCustomerPopup, setAddCustomerPopup] = useState(false);
-//   const [editCustomerPopup, setEditCustomerPopup] = useState(false);
-//   const [succesfulPopup, setSuccessfulPopup] = useState(false);
-//   const [editCustomerData, setEditCustomerData] = useState('');
-//   const [message, setMessage] = useState('');
-//   const [searchItem, setSearchItem] = useState('');
-//   const [page, setPage] = useState(0);
-//   const [currentPage, setCurrentPage] = useState(1);
-
-//   console.log("customerDetailsData", customerDetailsData)
-//   console.log("createdCustomer", createdCustomer)
-
-//   useEffect(() => {
-//     if (searchItem === "") {
-//       dispatch(GetCustomerDetails());
-//     }
-//   }, [dispatch, searchItem])
-
-//   const hanldeSearch = (e) => {
-//     setSearchItem(e.target.value)
-//   }
-
-//   const handleSearchApiCall = () => {
-//     let payload = {
-//       search: searchItem
-//     }
-//     if (searchItem)
-//       dispatch(GetCustomerDetails(payload));
-//   }
-
-//   // const n = 3
-//   // const paginateData = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "V", "W", "X", "Y", "Z"];
-
-//   const locationPath = useLocation();
-
-
-//   const handlePageClick = (selectedPage) => {
-//     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
-//     setCurrentPage(page);
-//     setPage(page - 1);
-
-//     let payload = {
-//       page: page
-//     }
-
-//     dispatch(GetCustomerDetails(payload))
-//     // apiGetSuperviserFun(page)
-//     // navigate(`/admin/${page}`)
-
-//   }
-
-//   console.log("locationPath",locationPath)
-
-//   return (
-//     <>
-//       <CustomerContent
-//         setAddCustomerPopup={setAddCustomerPopup}
-//         setEditCustomerPopup={setEditCustomerPopup}
-//         customerData={customerDetailsData}
-//         setEditItemData={setEditCustomerData}
-//         icon7={icon7}
-//         icon8={icon8}
-//         hanldeSearch={hanldeSearch}
-//         searchItem={searchItem}
-//         handleSearchApiCall={handleSearchApiCall}
-//         handlePageClick={handlePageClick}
-//         currentPage={page}
-//       />
-
-//       {(addCustomerPopup || editCustomerPopup) && <AddCustomer
-//         addCustomerPopup={addCustomerPopup ? addCustomerPopup : editCustomerPopup}
-//         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
-//         setSuccessfulPopup={setSuccessfulPopup}
-//         popupMethod={addCustomerPopup ? "Add Customer" : "Edit Customer"}
-//         setMessage={setMessage}
-//         editCustomerData={editCustomerData}
-//       />}
-
-//       <Success
-//         succesfulPopup={succesfulPopup}
-//         setSuccessfulPopup={setSuccessfulPopup}
-//         message={message}
-//         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
-//       />
-
-
-//       <RowData />
-//     </>
-//   )
-// }
-
-// export default Admin

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { useNavigate } from 'react-router-dom';
 
-const EmployeeTable = ({ employeeData, handlePageClick, currentPage }) => {
+const EmployeeTable = ({ employeeData, handlePageClick, currentPage , handleStatusUpdate }) => {
 
 	return (
 		<div className='alfartableOuter'>
@@ -22,12 +22,12 @@ const EmployeeTable = ({ employeeData, handlePageClick, currentPage }) => {
 					{employeeData?.users?.length > 0
 						? employeeData?.users?.map((item) => {
 							return (
-								<tr>
+								<tr key={item._id} >
 									<td>  {item.name} </td>
 									<td>{item.email}</td>
 									<td>{item.title}</td>
 									<td>{item.department}</td>
-									<td> <span className={item.isActive === false ? 'toggleNotActive' : 'toggleActive'}></span>{item.isActive}</td>
+									<td> <span onClick={()=>handleStatusUpdate(item._id,item.isActive)} className={item.isActive === false ? 'toggleNotActive' : 'toggleActive'}></span>{item.isActive}</td>
 								</tr>
 							)
 						})
@@ -43,7 +43,7 @@ const EmployeeTable = ({ employeeData, handlePageClick, currentPage }) => {
 
 			</div>
 
-			{employeeData?.users?.length > 0
+			{employeeData?.users?.length > 10
 				? <div className='alfarpegination'>
 					<span>{`Page ${employeeData?.currentPage} of ${employeeData?.totalPages}`}</span>
 					<ReactPaginate

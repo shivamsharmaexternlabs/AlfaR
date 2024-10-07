@@ -80,6 +80,8 @@ export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { reje
 }
 );
 
+
+// GET DAY END BALANCE
 export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body, { rejectWithValue }) => {
 	
 	let Token = localStorage.getItem("Token");
@@ -87,6 +89,54 @@ export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-day-end-balance?customerId=${body?.customerId}`, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${Token}`
+			},
+		});
+
+		return response;
+
+	} catch (err) {
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
+	}
+}
+);
+
+
+// GET RAW DATA
+export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWithValue }) => {
+	
+	let Token = localStorage.getItem("Token");
+	console.log('.........................',Token)
+
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${body?.customerId}`, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${Token}`
+			},
+		});
+
+		return response;
+
+	} catch (err) {
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
+	}
+}
+);
+
+
+// GET SUMMARY REPORT
+export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body, { rejectWithValue }) => {
+	
+	let Token = localStorage.getItem("Token");
+	console.log('.........................',Token)
+
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${body?.customerId}`, {
 			headers: {
 				"Accept": "*/*",
 				"Authorization": `Bearer ${Token}`
@@ -111,6 +161,8 @@ export const customerSlice = createSlice({
 		createdCustomer: [],
 		updatedCustomer: [],
 		dayEndBalanceData:[],
+		rawData:[],
+		summaryReportData:[],
 		loading: false,
 		error: null,
 	},
@@ -173,10 +225,40 @@ export const customerSlice = createSlice({
 
 			.addCase(GetDayEndBalance.fulfilled, (state, { payload }) => {
 				state.loading = false;
-				state.customerDetailsData = payload?.data;
+				state.dayEndBalanceData = payload?.data;
 			})
 
 			.addCase(GetDayEndBalance.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			// Raw Data
+			.addCase(GetRawData.pending, (state) => {
+				state.loading = true;
+			})
+
+			.addCase(GetRawData.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.rawData = payload?.data;
+			})
+
+			.addCase(GetRawData.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			//  Summary Report
+			.addCase(GetSummaryReport.pending, (state) => {
+				state.loading = true;
+			})
+
+			.addCase(GetSummaryReport.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.summaryReportData = payload?.data;
+			})
+
+			.addCase(GetSummaryReport.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.error.message;
 			})
