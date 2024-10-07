@@ -24,6 +24,8 @@ const Signin = () => {
   const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const defaultValue = {
     email: "",
@@ -150,8 +152,10 @@ const Signin = () => {
                         />
                         <label>{"Password"}</label>
                         <div className='passEye'>
-                          <img src={passShow} alt='passShow img' className='passShow' />
-                          <img src={passHide} alt='passHide img' className='passHide' />
+                          {showPassword
+                            ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(false)} />
+                            : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(true)} />}
+
                         </div>
                       </div>
                       <span className="text-danger  small  mb-0">
@@ -183,7 +187,7 @@ const Signin = () => {
                   return <Form>
 
                     <div className="formbox mt-3">
-                      <div className='forminnerbox'>
+                      <div className='forminnerbox passwordBox'>
                         <Field
                           name="password"
                           type="password"
@@ -191,8 +195,12 @@ const Signin = () => {
                           required
                         />
                         <label>{"Old Password"}</label>
-                        <div className=''>
-                          <img src='' alt='img' />
+
+                        <div className='passEye'>
+                          {showPassword
+                            ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(false)} />
+                            : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(true)} />}
+
                         </div>
                       </div>
                       <span className="text-danger  small  mb-0">
@@ -200,7 +208,7 @@ const Signin = () => {
                       </span>
                     </div>
                     <div className="formbox mt-3">
-                      <div className='forminnerbox'>
+                      <div className='forminnerbox passwordBox'>
                         <Field
                           name="newPassword"
                           type="password"
@@ -208,13 +216,19 @@ const Signin = () => {
                           required
                         />
                         <label>{"New Password"}</label>
+                        <div className='passEye'>
+                          {showNewPassword
+                            ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowNewPassword(false)} />
+                            : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowNewPassword(true)} />}
+
+                        </div>
                       </div>
                       <span className="text-danger  small  mb-0">
                         <ErrorMessage name="newPassword" />
                       </span>
                     </div>
                     <div className="formbox mt-3">
-                      <div className='forminnerbox'>
+                      <div className='forminnerbox passwordBox'>
                         <Field
                           name="confirmPassword"
                           type="password"
@@ -222,6 +236,12 @@ const Signin = () => {
                           required
                         />
                         <label>{"Confirm Passowrd"}</label>
+                        <div className='passEye'>
+                          {showConfirmPassword
+                            ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowConfirmPassword(false)} />
+                            : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowConfirmPassword(true)} />}
+
+                        </div>
                       </div>
                       <span className="text-danger  small  mb-0">
                         <ErrorMessage name="confirmPassword" />
