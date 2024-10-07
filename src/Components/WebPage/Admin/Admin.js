@@ -48,7 +48,7 @@ const Admin = () => {
 
   // Fetch customer details without search term
   useEffect(() => {
-    if (searchItem === "") { 
+    if (searchItem === "") {
       dispatch(GetCustomerDetails({ page: currentPage }));
     }
   }, [dispatch, searchItem, currentPage]);
@@ -60,8 +60,8 @@ const Admin = () => {
   const handleSearchApiCall = () => {
     let payload = { search: searchItem };
     if (searchItem) {
-      dispatch(GetCustomerDetails(payload)).then((res)=> {
-        if(res?.payload?.status===200){
+      dispatch(GetCustomerDetails(payload)).then((res) => {
+        if (res?.payload?.status === 200) {
           setCloseIcon(true);
         }
       }
@@ -110,15 +110,15 @@ const Admin = () => {
     const textStr = JSON.stringify(rawData, null, 2); // Keeps the JSON format readable in the text file
     const blob = new Blob([textStr], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-  
+
     const a = document.createElement('a');
     a.href = url;
     a.download = 'rawData.txt'; // Set the file extension to .txt
     a.click();
-  
+
     URL.revokeObjectURL(url); // Clean up the URL after download
   }
-  
+
 
 
   return (
@@ -142,7 +142,7 @@ const Admin = () => {
         closeIcon={closeIcon}
         setSearchItem={setSearchItem}
         setCloseIcon={setCloseIcon}
-   
+
 
       />
 
@@ -165,10 +165,9 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {/* {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.snapshots?.spotBalance} setDayBalancePopup={setDayBalancePopup} />} */}
-      <DayEndBalance />
+      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.dailyBalance} setDayBalancePopup={setDayBalancePopup} />}
 
-      {rawDataPopup && <RowData rawDataPopup={rawDataPopup} setRawDataPopup={setRawDataPopup} rawData={rawData} handleDownload={handleDownloadRawData}/>}
+      {rawDataPopup && <RowData rawDataPopup={rawDataPopup} setRawDataPopup={setRawDataPopup} rawData={rawData} handleDownload={handleDownloadRawData} />}
 
       <LoadingSpinner loadingValue={loading} />
     </>
