@@ -94,8 +94,6 @@ function App() {
         <Route path={`${routes.FORGOT_PASSOWRD}`} element={<Forgot />} />
         <Route path={`${routes.RESET_PASSWORD}`} element={<RestPassword />} />
         <Route path={`${routes.VERIFICTAION}`} element={<Verification />} />
-
-
         <Route path={`${routes.ADMIN}`} element={<Layout />}>
           {/* Main Admin page */}
           <Route index element={<Admin />} />

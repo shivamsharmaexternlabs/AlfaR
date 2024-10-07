@@ -57,9 +57,13 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 									</td>
 								</tr>)
 							})
-							: <tr className='d-flex justify-content-center align-items-center bolder text-black fw-500'>
-								<td>{"No Data Found"}</td>
-							</tr>}
+							:
+							<tr>
+								<td colSpan={5}>
+									<span className='d-flex justify-content-center align-items-center text-bold'><b> {"No Data Found"}</b></span>
+								</td>
+							</tr>
+						}
 					</table>
 				</div>
 

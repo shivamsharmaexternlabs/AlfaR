@@ -56,7 +56,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 
 	return (
 		<>
-			<PopupDetails PopupToggle={addEmployeePopup} classNameProp='addCustomer'>
+			<PopupDetails PopupToggle={addEmployeePopup} classNameProp='addCustomer inviteUser'>
 				<div className='popupinner'>
 					<button type='button' className='closebtn' onClick={handleClosePopup}><img src={Closebtn} alt='close btn' /> </button>
 					<h2>{"Invite User"}</h2>
@@ -76,7 +76,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 										/>
 										<label >{"Name"}</label>
 									</div>
-									<p className="text-danger mb-0">
+									<p className="text-danger  small mb-0 small">
 										<ErrorMessage name="name" />
 									</p>
 								</div>
@@ -91,7 +91,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 										<label >{"Email"}</label>
 									</div>
 
-									<p className="text-danger mb-0">
+									<p className="text-danger  small mb-0 small">
 										<ErrorMessage name="email" />
 									</p>
 								</div>
@@ -105,13 +105,13 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 										/>
 										<label >{"Title"}</label>
 									</div>
-									<p className="text-danger mb-0">
+									<p className="text-danger  small mb-0 small">
 										<ErrorMessage name="title" />
 									</p>
 								</div>
 								<div className="formbox mt-3">
-									<div className='forminnerbox'>
-										{/* <label>{"Department"}</label> */}
+									<div className='forminnerbox addselectbox'>
+										<label>{"Department"}</label>
 										<select
 											name="platform"
 											value={selectedDepartment}
@@ -130,7 +130,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 												</option>
 											))}
 										</select>
-										<p className="text-danger mb-0">
+										<p className="text-danger  small mb-0 small">
 											<ErrorMessage name="platform" />
 										</p>
 									</div>

@@ -130,15 +130,15 @@ const AddCustomer = ({
                     <label >{"Name"}</label>
                   </div>
 
-                  <p className="text-danger">
+                  <p className="text-danger  small ">
                     <ErrorMessage name="name" />
                   </p>
                 </div>
 
 
                 <div className="formbox mt-3">
-                  <div className='forminnerbox'>
-                    {/* <label>{"Exchange"}</label> */}
+                  <div className='forminnerbox addselectbox'>
+                    <label>{"Exchange"}</label>
                     <select
                       name="platform"
                       value={selectedExchange || editCustomerData?.platform}
@@ -157,7 +157,7 @@ const AddCustomer = ({
                         </option>
                       ))}
                     </select>
-                    <p className="text-danger mb-0">
+                    <p className="text-danger  small  mb-0 small">
                       <ErrorMessage name="platform" />
                     </p>
                   </div>
@@ -176,7 +176,7 @@ const AddCustomer = ({
                         />
                         <label >{"Secret Key"}</label>
                       </div>
-                      <p className="text-danger">
+                      <p className="text-danger  small ">
                         <ErrorMessage name="secretKey" />
                       </p>
 
@@ -193,7 +193,7 @@ const AddCustomer = ({
                         <label >{"API Key"}</label>
                       </div>
 
-                      <p className="text-danger">
+                      <p className="text-danger  small ">
                         <ErrorMessage name="apiKey" />
                       </p>
 
@@ -211,7 +211,7 @@ const AddCustomer = ({
                       />
                       <label >{"Api Password"}</label>
                     </div>
-                    <p className="text-danger">
+                    <p className="text-danger  small ">
                       <ErrorMessage name="apiPassword" />
                     </p>
                   </div>}

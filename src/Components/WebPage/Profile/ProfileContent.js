@@ -30,7 +30,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 										/>
 										<label>{userName}</label>
 									</div>
-									{/* <span className="text-danger text-small mb-0">
+									{/* <span className="text-danger  small  mb-0">
 									<ErrorMessage name="email" />
 								</span> */}
 								</div>
@@ -46,7 +46,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 										/>
 										<label >{userEmail}</label>
 									</div>
-									{/* <span className="text-danger text-small mb-0">
+									{/* <span className="text-danger  small  mb-0">
 									<ErrorMessage name="email" />
 								</span> */}
 								</div>
@@ -64,7 +64,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 											/>
 											<label>{"Password"}</label>
 										</div>
-										<span className="text-danger text-small mb-0">
+										<span className="text-danger  small  mb-0">
 											<ErrorMessage name="password" />
 										</span>
 									</div>
@@ -78,7 +78,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 											/>
 											<label>{"New Password"}</label>
 										</div>
-										<span className="text-danger text-small mb-0">
+										<span className="text-danger  small  mb-0">
 											<ErrorMessage name="newPassword" />
 										</span>
 									</div>
@@ -93,7 +93,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 											/>
 											<label>{"Confirm Password"}</label>
 										</div>
-										<span className="text-danger text-small mb-0">
+										<span className="text-danger  small  mb-0">
 											<ErrorMessage name="confirmPassword" />
 										</span>
 									</div>

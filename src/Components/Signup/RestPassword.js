@@ -68,7 +68,7 @@ const RestPassword = () => {
                                         />
                                         <label>Password</label>
                                     </div>
-                                    <span className="text-danger mb-0">
+                                    <span className="text-danger  small mb-0 small">
                                         <ErrorMessage name="password" />
                                     </span>
                                 </div>
@@ -83,7 +83,7 @@ const RestPassword = () => {
                                         />
                                         <label>Confirmation Password</label>
                                     </div>
-                                    <span className="text-danger mb-0">
+                                    <span className="text-danger  small mb-0 small">
                                         <ErrorMessage name="confirmPassword" />
                                     </span>
                                 </div>

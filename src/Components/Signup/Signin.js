@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import logo from "../Astes/logowh.svg"
-
 import appleIcon from "../Astes/appleIcon.svg"
 import googleIcon from "../Astes/googleIcon.svg"
+import passShow from "../Astes/eye.svg"
+import passHide from "../Astes/eye-disable.svg"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -116,10 +117,9 @@ const Signin = () => {
           <div className='accountinfo'>
             <h2>Sign in</h2>
             <h3>Welcome Back</h3>
-            <p>{"Please sign in to manage client accounts and company operations."}</p>
-
+            <p className='mb-md-4 mb-3'>{"Please sign in to manage client accounts and company operations."}</p>
             {!changePasswordScreen ?
-              <div style={{ marginTop: "10px" }}>
+              <div>
                 <Formik
                   initialValues={defaultValue}
                   validationSchema={Validate}
@@ -135,12 +135,12 @@ const Signin = () => {
                         />
                         <label >{"Email"}</label>
                       </div>
-                      <span className="text-danger text-small mb-0">
+                      <span className="text-danger  small  mb-0">
                         <ErrorMessage name="email" />
                       </span>
                     </div>
                     <div className="formbox mt-3">
-                      <div className='forminnerbox'>
+                      <div className='forminnerbox passwordBox'>
                         <Field
                           name="password"
                           // type="password"
@@ -149,8 +149,12 @@ const Signin = () => {
                           required
                         />
                         <label>{"Password"}</label>
+                        <div className='passEye'>
+                          <img src={passShow} alt='passShow img' className='passShow' />
+                          <img src={passHide} alt='passHide img' className='passHide' />
+                        </div>
                       </div>
-                      <span className="text-danger text-small mb-0">
+                      <span className="text-danger  small  mb-0">
                         <ErrorMessage name="password" />
                       </span>
                     </div>
@@ -187,8 +191,11 @@ const Signin = () => {
                           required
                         />
                         <label>{"Old Password"}</label>
+                        <div className=''>
+                          <img src='' alt='img' />
+                        </div>
                       </div>
-                      <span className="text-danger text-small mb-0">
+                      <span className="text-danger  small  mb-0">
                         <ErrorMessage name="password" />
                       </span>
                     </div>
@@ -202,7 +209,7 @@ const Signin = () => {
                         />
                         <label>{"New Password"}</label>
                       </div>
-                      <span className="text-danger text-small mb-0">
+                      <span className="text-danger  small  mb-0">
                         <ErrorMessage name="newPassword" />
                       </span>
                     </div>
@@ -216,7 +223,7 @@ const Signin = () => {
                         />
                         <label>{"Confirm Passowrd"}</label>
                       </div>
-                      <span className="text-danger text-small mb-0">
+                      <span className="text-danger  small  mb-0">
                         <ErrorMessage name="confirmPassword" />
                       </span>
                     </div>
