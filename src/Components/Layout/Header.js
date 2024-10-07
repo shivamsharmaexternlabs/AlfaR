@@ -15,8 +15,8 @@ const Header = () => {
 
   return (
     <>
-      <header className={`${Style.header}`}>
-        <img src={logo} className='logoimg' alt='img' />
+      <header className={`${Style.header} `} >
+        <img src={logo} className='logoimg' alt='img' style={{ cursor: 'pointer' }} onClick={() => navigate(routes.ADMIN)} />
         <button type='button' className={`${Style.logoutbtn}`} onClick={() => handleLogout()}> <img src={icon2} alt='img' /> Logout</button>
       </header>
     </>
