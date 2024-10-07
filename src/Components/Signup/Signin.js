@@ -102,9 +102,11 @@ const Signin = () => {
 
     if (values) {
       dispatch(ChangePassword({ ...values })).then((res) => {
-        if (res.payload.data.message === "Password changed successfully") {
-          setChangePasswordScreen(false);
-          toast.warn("Please Login Again");
+        if (res.payload !== undefined) {
+          if (res.payload.data.message === "Password changed successfully") {
+            setChangePasswordScreen(false);
+            toast.warn("Please Login Again");
+          }
         }
       });
     }
@@ -222,7 +224,7 @@ const Signin = () => {
                       <div className='forminnerbox passwordBox'>
                         <Field
                           name="password"
-                          type="password"
+                          type={showPassword ? "text" : "password"}
                           className={`form-control`}
                           required
                         />
@@ -243,7 +245,7 @@ const Signin = () => {
                       <div className='forminnerbox passwordBox'>
                         <Field
                           name="newPassword"
-                          type="password"
+                          type={showNewPassword ? "text" : "password"}
                           className={`form-control`}
                           required
                         />
@@ -263,7 +265,7 @@ const Signin = () => {
                       <div className='forminnerbox passwordBox'>
                         <Field
                           name="confirmPassword"
-                          type="password"
+                          type={showConfirmPassword ? "text" : "password"}
                           className={`form-control`}
                           required
                         />
