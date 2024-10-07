@@ -22,13 +22,16 @@ const Forgot = () => {
 
     const ValidateForgetPassword = yup.object({
         email: yup.string()
-            .email('Invalid email format')
+            // .email('Invalid email format')
             .required('Email is required'),
     });
 
     const handleSubmitForgetPassword = async (values) => {
         localStorage.setItem("verify-email", values.email)
-        let responseData = await dispatch(forgetPasswordSlice({ ...values }));
+        const modifiedValues = {
+            email: values.email + '@alfar-group.com',
+          };
+        let responseData = await dispatch(forgetPasswordSlice({ ...modifiedValues }));
 
         if (responseData.payload.status == 200) {
             // navigate("/")
@@ -53,33 +56,42 @@ const Forgot = () => {
                             initialValues={defaultValueForgetPassword}
                             validationSchema={ValidateForgetPassword}
                             onSubmit={handleSubmitForgetPassword}>
-                            <Form>
-                                <div className="formbox">
-                                    <div className='forminnerbox'>
-                                        <Field
-                                            name="email"
-                                            type="text"
-                                            className={`form-control`}
-                                            required
-                                        />
-                                        <label >Email</label>
+
+                            {({ values, handleChange }) => (
+                                <Form>
+                                    <div className="formbox">
+                                        <div className='forminnerbox input-group'>
+                                            <Field
+                                                name="email"
+                                                type="text"
+                                                // className={`form-control`}
+                                                required
+                                                value={values.email}
+                                                className={` form-control`}
+                                                onChange={handleChange}
+                                            />
+                                            <label >Email</label>
+                                            <label >{"Email"}</label>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">{"@alfar-group.com"}</span>
+                                            </div>
+                                        </div>
+                                        <span className="text-danger  small  mb-0">
+                                            <ErrorMessage name="email" />
+                                        </span>
                                     </div>
-                                    <span className="text-danger  small  mb-0">
-                                        <ErrorMessage name="email" />
-                                    </span>
-                                </div>
 
-                                <div className="  d-flex">
-                                    <button type="submit" className="signbtn mb-0 me-2">
-                                        {"Reset Password"}
-                                    </button>
+                                    <div className="  d-flex">
+                                        <button type="submit" className="signbtn mb-0 me-2">
+                                            {"Reset Password"}
+                                        </button>
 
 
-                                </div>
-                            </Form>
+                                    </div>
+                                </Form>)}
 
                         </Formik>
-                    <div className='newadd'>Already on board? Let us take you to  <button type='button' onClick={() => { navigate("/") }}>Sign In!</button></div>
+                        <div className='newadd'>Already on board? Let us take you to  <button type='button' onClick={() => { navigate("/") }}>Sign In!</button></div>
                     </div>
                 </div>
 
