@@ -165,7 +165,8 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.snapshots?.spotBalance} setDayBalancePopup={setDayBalancePopup} />}
+      {/* {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.snapshots?.spotBalance} setDayBalancePopup={setDayBalancePopup} />} */}
+      <DayEndBalance />
 
       {rawDataPopup && <RowData rawDataPopup={rawDataPopup} setRawDataPopup={setRawDataPopup} rawData={rawData} handleDownload={handleDownloadRawData}/>}
 
