@@ -64,7 +64,7 @@ const Forgot = () => {
                                         />
                                         <label >Email</label>
                                     </div>
-                                    <span className="text-danger text-small mb-0">
+                                    <span className="text-danger  small  mb-0">
                                         <ErrorMessage name="email" />
                                     </span>
                                 </div>

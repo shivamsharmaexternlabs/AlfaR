@@ -19,7 +19,7 @@ console.log("xmbfghjhsdv",uploadFileData)
                 <button type='button'>Browse files</button>
                 <input type="file" name="myfile" onChange={(e)=>UploadFileFun(e)} />
             </div>
-            {uploadFileData === false  && <center> <p className='text-danger   mt-2 bt-2'> please upload here</p></center>}
+            {uploadFileData === false  && <center> <p className='text-danger  small   mt-2 bt-2'> please upload here</p></center>}
 
         </div>
     )
