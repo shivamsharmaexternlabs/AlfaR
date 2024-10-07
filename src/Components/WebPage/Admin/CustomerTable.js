@@ -22,7 +22,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 				<div className='alfartable'>
 					<table>
 						<tr>
-							<th>{"CUSTOMER NAME"}</th>
+							<th>{"CUSTOMER UID"}</th>
 							<th>{"EXCHANGE"}</th>
 							<th>{"RAW DATA"}</th>
 							<th>{"SUMMERY REPORT"}</th>

@@ -24,7 +24,7 @@ const AddCustomer = ({
   // console.log("editCustomerData", editCustomerData);
 
   const defaultValue = {
-    name: editCustomerData?.name === undefined ? "" : editCustomerData?.name,
+    // name: editCustomerData?.name === undefined ? "" : editCustomerData?.name,
     platform: editCustomerData?.platform === undefined ? "" : editCustomerData?.platform,
     secretKey: editCustomerData?.secretKey === undefined ? "" : editCustomerData?.secretKey,
     apiPassword: editCustomerData?.apiPassword === undefined ? "" : editCustomerData?.apiPassword,
@@ -121,7 +121,7 @@ const AddCustomer = ({
             {({ setFieldValue, errors }) => {
 
               return <Form>
-                <div className="formbox mt-3">
+                {/* <div className="formbox mt-3">
                   <div className='forminnerbox'>
                   <label>{"Name"}</label>
                     <Field
@@ -138,7 +138,7 @@ const AddCustomer = ({
                   <p className="text-danger  small ">
                     <ErrorMessage name="name" />
                   </p>
-                </div>
+                </div> */}
 
 
                 <div className="formbox mt-3">
