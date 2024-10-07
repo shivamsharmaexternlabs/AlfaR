@@ -1,6 +1,7 @@
-import React from 'react'
-import CustomerTable from './CustomerTable'
-import { customerBlack, roles } from '../../utils/Constants'
+import React from 'react';
+import CustomerTable from './CustomerTable';
+import { customerBlack, roles } from '../../utils/Constants';
+import close from '../../Astes/close.svg';
 
 const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName }) => {
 	return (
@@ -19,6 +20,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 						onChange={(e) => hanldeSearch(e)}
 					/>
 					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
+					<button type='button' className='closeBtn' ><img src={close} alt='icon' /> </button>
 					<button type='button' className='searchbtn' onClick={() => handleSearchApiCall()} > {"Search"} </button>
 				</div>
 			</div>
