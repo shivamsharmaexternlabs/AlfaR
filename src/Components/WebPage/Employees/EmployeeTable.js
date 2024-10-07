@@ -31,7 +31,13 @@ const EmployeeTable = ({ employeeData, handlePageClick, currentPage }) => {
 								</tr>
 							)
 						})
-						: <span className='d-flex justify-content-center align-items-center'>{"No Data Found"}</span>}
+						:<tr>
+							<td colSpan={5}>
+
+							<span className='d-flex justify-content-center align-items-center text-bold'><b> {"No Data Found"}</b></span>
+							</td>
+
+						</tr> }
 				</table>
 
 

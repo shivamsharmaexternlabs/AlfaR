@@ -101,7 +101,7 @@ const Signup = () => {
                         />
                         <label>Full Name</label>
                       </div>
-                      <span className="text-danger mb-0">
+                      <span className="text-danger  small mb-0">
                         <ErrorMessage name="name" />
                       </span>
                     </div>
@@ -116,7 +116,7 @@ const Signup = () => {
                         />
                         <label >Email</label>
                       </div>
-                      <span className="text-danger mb-0">
+                      <span className="text-danger  small mb-0">
                         <ErrorMessage name="email" />
                       </span>
                     </div>
@@ -145,7 +145,7 @@ const Signup = () => {
                         />
                         <label>Password</label>
                       </div>
-                      <span className="text-danger mb-0">
+                      <span className="text-danger  small mb-0">
                         <ErrorMessage name="password" />
                       </span>
                     </div>
@@ -160,7 +160,7 @@ const Signup = () => {
                         />
                         <label>Confirmation Password</label>
                       </div>
-                      <span className="text-danger mb-0">
+                      <span className="text-danger  small mb-0">
                         <ErrorMessage name="confirmPassword" />
                       </span>
                     </div>
