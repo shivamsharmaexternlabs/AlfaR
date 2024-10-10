@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Layout/Header';
@@ -12,6 +12,8 @@ import CustomerContent from './CustomerContent';
 import { GetCustomerDetails, GetDayEndBalance, GetRawData, RefreshDayBalance } from '../../Redux/slices/CustomerSlice';
 import DayEndBalance from '../../Popup/DayEndBalance';
 import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
+import * as XLSX from 'xlsx/xlsx.mjs';
+import { CUSTOMERS } from '../../utils/Constants';
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const Admin = () => {
 
   const [dayBalancePopup, setDayBalancePopup] = useState(false);
   const [rawDataPopup, setRawDataPopup] = useState(false);
+
+  const [refreshTrue, setRefreshTrue] = useState(false);
 
   // console.log("customerDetailsData", customerDetailsData)
 
@@ -85,30 +89,46 @@ const Admin = () => {
 
   // console.log("dayEndBalanceData", dayEndBalanceData)
 
-  const handleDayEndBalance = (customerId) => {
-    setDayBalancePopup(true)
+  const handleDayEndBalance = (customerId, keyVal) => {
+    keyVal === "donwload-btn" ? setDayBalancePopup(false) : setDayBalancePopup(true)
     let payload = {
       customerId: customerId,
       Token: Token
     }
-    if (Token) {
-      dispatch(GetDayEndBalance(payload))
+
+    if (customerId && keyVal === "donwload-btn") {
+      dispatch(GetDayEndBalance(payload)).then((res) => {
+        if (res?.payload?.status == 200) {
+          let dayEndFinalData = res?.payload?.data?.dailyBalance?.[0]?.data
+          if (dayEndFinalData?.length) {
+            downloadCSV(dayEndFinalData)
+          }
+        }
+      })
+    } else {
+      if (Token) {
+        dispatch(GetDayEndBalance(payload))
+      }
     }
   }
 
   const handleRawData = (customerId) => {
-    setRawDataPopup(true)
+    // setRawDataPopup(true)
     let payload = {
       customerId: customerId,
       Token: Token
     }
     if (Token) {
-      dispatch(GetRawData(payload))
+      dispatch(GetRawData(payload)).then((res) => {
+        if (res?.payload?.status == 200) {
+          sheetsXlsxFunctions(res?.payload?.data?.rawData)
+        }
+      })
     }
   }
 
   const handlRefreshDay = (customerId) => {
-
+    setRefreshTrue(true);
     let payload = {
       customerId: customerId,
       Token: Token
@@ -132,87 +152,157 @@ const Admin = () => {
     URL.revokeObjectURL(url); // Clean up the URL after download
   }
 
+
   const convertToCSV = (objArray) => {
-    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    const array = Array.isArray(objArray) ? objArray : JSON.parse(objArray);
     let str = '';
 
     // Add custom headers
     const headers = ['Status', 'Balance', 'Wallet'];
     str += headers.join(',') + '\r\n';
 
-    for (let i = 0; i < array.length; i++) {
-      let line = '';
-      // Adjust this part based on your actual data structure
-      line += array[i].activate + ','; // Status
-      line += array[i].balance + ',';  // Balance
-      line += array[i].walletName;           // Wallet (last value, no comma needed)
-
+    array.forEach(item => {
+      const line = [
+        item.activate,    // Status
+        item.balance,     // Balance
+        item.walletName   // Wallet
+      ].join(',');
       str += line + '\r\n';
-    }
+    });
+
     return str;
   };
 
-  let finalData = refreshDayBalanceData?.data?.map((value) => {
-    let activate = value.activate ? 'Active' : 'Inactive';
-    return { ...value, activate: activate }; // Ensure value has balance and wallet properties
-  });
+  console.log("refreshh", refreshDayBalanceData)
 
-  // Assuming finalData includes the properties you want to download
-  const downloadCSV = (newData) => {
-    if (finalData?.length > 0) {
-      const csvData = new Blob([convertToCSV(finalData)], { type: 'text/csv' });
-      const csvURL = URL.createObjectURL(csvData);
+
+  const prepareFinalData = (data) => data?.map(item => ({
+    ...item,
+    activate: item.activate ? 'Active' : 'Inactive' // Adjust the status field
+  }));
+
+
+  const downloadCSV = (dataToDownload) => {
+    let csvData = prepareFinalData(dataToDownload);
+
+    if (csvData?.length > 0) {
+      const csvContent = convertToCSV(csvData);
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const csvURL = URL.createObjectURL(blob);
+
+      const today = new Date()?.toISOString()?.split('T')[0]; // Format YYYY-MM-DD
       const link = document.createElement('a');
       link.href = csvURL;
-      link.download = `dayendbalance.csv`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else if (newData?.length > 0) {
-      const csvData = new Blob([convertToCSV(newData)], { type: 'text/csv' });
-      const csvURL = URL.createObjectURL(csvData);
-      const link = document.createElement('a');
-      link.href = csvURL;
-      link.download = `dayendbalance.csv`;
+      link.download = `day_end_balance_${today}.xlsx`; // Change the file extension to .xlsx
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
   };
 
+  let withDrawData, tradesData, depositedData, subAccountTransferData, unrealisedPnlData, spotFeesData,snapshotData;
 
-  // const convertToCSV = (objArray) => {
-  //   const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
-  //   let str = '';
+  const createSheetOrEmpty = (wb, data, sheetName) => {
+    const sheetData = data?.rawData?.length > 2
+      ? XLSX.utils.json_to_sheet(JSON.parse(data.rawData))
+      : XLSX.utils.json_to_sheet([{ "No Data": "" }]);
 
-  //   for (let i = 0; i < array.length; i++) {
-  //     let line = '';
-  //     for (let index in array[i]) {
-  //       if (line !== '') line += ',';
+    XLSX.utils.book_append_sheet(wb, sheetData, sheetName);
+  };
 
-  //       line += array[i][index];
-  //     }
-  //     str += line + '\r\n';
+  const sheetsXlsxFunctions = (rawDataa) => {
+    withDrawData = rawDataa?.find(el => el?.apiEndpoint === '/sapi/v1/capital/withdraw/history');
+    depositedData = rawDataa?.find(el => el?.apiEndpoint === '/sapi/v1/capital/deposit/hisrec');
+    // tradesData = rawDataa?.find(el => el?.apiEndpoint === '/api/v3/mytrades');
+    subAccountTransferData = rawDataa?.find(el => el?.apiEndpoint === '/sapi/v1/sub-account/universalTransfer');
+    unrealisedPnlData = rawDataa?.find(el => el?.apiEndpoint === '/fapi/v3/positionRisk');
+    snapshotData = rawDataa?.find(el => el?.apiEndpoint === '/sapi/v1/accountSnapshot/type=spot');
+    // spotFeesData = rawDataa?.find(el => el?.apiEndpoint === '/api/v3/account/commission');
+
+    const wb = XLSX.utils.book_new(); // Create a new workbook
+
+    createSheetOrEmpty(wb, withDrawData, "Withdraw");
+    // createSheetOrEmpty(wb, tradesData, "Trades");
+    createSheetOrEmpty(wb, depositedData, "Deposits");
+    createSheetOrEmpty(wb, subAccountTransferData, "Sub Account Transfer");
+    createSheetOrEmpty(wb, unrealisedPnlData, "Unrealised Pnl");
+    createSheetOrEmpty(wb, snapshotData, "Snapshots");
+    // createSheetOrEmpty(wb, spotFeesData, "Spot Fees");
+
+    const formattedDate = new Date()?.toISOString()?.split('T')?.[0]; // YYYY-MM-DD format
+    const filename = `raw_data_${formattedDate}.xlsx`;
+
+    XLSX.writeFile(wb, filename);
+  };
+
+
+  // let withDrawData, tradesData, depositedData, subAccountTransferData, unrealisedPnlData, spotFeesData;
+
+  // const sheetsXlsxFunctions = (rawDataa) => {
+  //   withDrawData = rawDataa?.find((el) => el?.apiEndpoint === '/sapi/v1/capital/withdraw/history');
+  //   depositedData = rawDataa?.find((el) => el?.apiEndpoint === '/sapi/v1/capital/deposit/hisrec');
+  //   subAccountTransferData = rawDataa?.find((el) => el?.apiEndpoint === '/sapi/v1/sub-account/universalTransfer');
+  //   unrealisedPnlData = rawDataa?.find((el) => el?.apiEndpoint === '/fapi/v3/positionRisk');
+  //   spotFeesData = rawDataa?.find((el) => el?.apiEndpoint === '/api/v3/account/commission');
+
+
+  //   const wb = XLSX.utils.book_new(); // Create a new workbook
+  //   if (withDrawData?.rawData?.length > 2) {
+  //     const withdrawSheet = XLSX.utils.json_to_sheet(JSON.parse(withDrawData.rawData));
+  //     XLSX.utils.book_append_sheet(wb, withdrawSheet, "Withdraw");
+  //   } else {
+
+  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+  //     XLSX.utils.book_append_sheet(wb, emptyData, "Withdraw");
   //   }
-  //   return str;
-  // };
 
+  //   if (tradesData?.rawData?.length > 2) {
+  //     const tradesDataSheet = XLSX.utils.json_to_sheet(JSON.parse(tradesData.rawData));
+  //     XLSX.utils.book_append_sheet(wb, tradesDataSheet, "Trades");
+  //   } else {
+  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+  //     XLSX.utils.book_append_sheet(wb, emptyData, "Trades");
+  //   }
 
-  // let finalData = refreshDayBalanceData?.data?.map((value) => {
-  //   let activate = value.activate ? 'Active' : 'Inactive'
-  //   return { ...value, activate: activate }
-  // })
+  //   if (depositedData?.rawData?.length > 2) {
+  //     const depositedSheet = XLSX.utils.json_to_sheet(JSON.parse(depositedData.rawData));
+  //     XLSX.utils.book_append_sheet(wb, depositedSheet, "Deposits");
+  //   } else {
+  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+  //     XLSX.utils.book_append_sheet(wb, emptyData, "Deposits");
+  //   }
 
-  // const downloadCSV = () => {
-  //   const csvData = new Blob([convertToCSV(finalData)], { type: 'text/csv' });
-  //   const csvURL = URL.createObjectURL(csvData);
-  //   const link = document.createElement('a');
-  //   link.href = csvURL;
-  //   link.download = `dayendbalance.csv`;
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
+  //   if (subAccountTransferData?.rawData?.length > 2) {
+  //     const subAccountTransferSheet = XLSX.utils.json_to_sheet(JSON.parse(subAccountTransferData.rawData));
+  //     XLSX.utils.book_append_sheet(wb, subAccountTransferSheet, "Sub Account Transfer");
+  //   } else {
+  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+  //     XLSX.utils.book_append_sheet(wb, emptyData, "Sub Account Transfer");
+  //   }
+
+  //   if (unrealisedPnlData?.rawData?.length > 2) {
+  //     const unrealisedPnlDataSheet = XLSX.utils.json_to_sheet(JSON.parse(unrealisedPnlData.rawData));
+  //     XLSX.utils.book_append_sheet(wb, unrealisedPnlDataSheet, "Unrealised Pnl");
+  //   } else {
+  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+  //     XLSX.utils.book_append_sheet(wb, emptyData, "Unrealised Pnl");
+  //   }
+  //   if (spotFeesData?.rawData?.length > 2) {
+  //     const spotFeesDataSheet = XLSX.utils.json_to_sheet(JSON.parse(spotFeesData.rawData));
+  //     XLSX.utils.book_append_sheet(wb, spotFeesDataSheet, "Spot Fees");
+  //   } else {
+  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+  //     XLSX.utils.book_append_sheet(wb, emptyData, "Spot Fees");
+  //   }
+
+  //   const today = new Date();
+  //   const formattedDate = today.toISOString().split('T')[0]; // Extract the date part in YYYY-MM-DD format
+
+  //   const filename = `raw_data_${formattedDate}.xlsx`;
+
+  //   XLSX.writeFile(wb, filename);
+  // }
+
 
 
   return (
@@ -238,20 +328,20 @@ const Admin = () => {
         setCloseIcon={setCloseIcon}
         handlRefreshDay={handlRefreshDay}
         handleDayEndBalanceCsv={downloadCSV}
-
+        sheetsXlsxFunctions={sheetsXlsxFunctions}
       />
 
-      {(addCustomerPopup || editCustomerPopup) && (
+      {(addCustomerPopup || editCustomerPopup) ? (
         <AddCustomer
           addCustomerPopup={addCustomerPopup ? addCustomerPopup : editCustomerPopup}
           setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
           setSuccessfulPopup={setSuccessfulPopup}
-          popupMethod={addCustomerPopup ? "Add Customer" : "Edit Customer"}
+          popupMethod={addCustomerPopup ? `${CUSTOMERS.ADD_CUSTOMER}` : `${CUSTOMERS.UPDATE_CUSTOMERS}`}
           setMessage={setMessage}
           editCustomerData={editCustomerData}
           setEditCustomerData={setEditCustomerData}
         />
-      )}
+      ) : ""}
 
       <Success
         succesfulPopup={succesfulPopup}
@@ -260,9 +350,29 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {dayBalancePopup && <DayEndBalance dayBalancePopup={dayBalancePopup} dayEndBalanceData={dayEndBalanceData?.dailyBalance} setDayBalancePopup={setDayBalancePopup} downloadCSV={downloadCSV} />}
+      {dayBalancePopup
+        ? <DayEndBalance
+          dayBalancePopup={dayBalancePopup}
+          dayEndBalanceData={dayEndBalanceData?.dailyBalance}
+          setDayBalancePopup={setDayBalancePopup}
+          downloadCSV={downloadCSV} />
 
-      {rawDataPopup && <RowData rawDataPopup={rawDataPopup} setRawDataPopup={setRawDataPopup} rawData={rawData} handleDownload={handleDownloadRawData} />}
+        : refreshTrue
+          ? <DayEndBalance
+            dayBalancePopup={refreshTrue}
+            dayEndBalanceData={refreshDayBalanceData}
+            setDayBalancePopup={setRefreshTrue}
+            downloadCSV={downloadCSV} />
+          : ""}
+
+      {rawDataPopup
+        ? <RowData
+          rawDataPopup={rawDataPopup}
+          setRawDataPopup={setRawDataPopup}
+          rawData={rawData}
+          handleDownload={handleDownloadRawData}
+          sheetsXlsxFunctions={sheetsXlsxFunctions} />
+        : ""}
 
       <LoadingSpinner loadingValue={loading} />
     </>

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import EmployeeTable from './EmployeeTable'
 import ReactPaginate from 'react-paginate';
-import { roles } from '../../utils/Constants';
+import { roles, statusOptions } from '../../utils/Constants';
 import close from '../../Astes/close.svg';
+import DropDownStatus from '../ReusableComponents/DropDownStatus';
+import EmployeeNoResults from './EmployeeNoResults';
+import SearchTab from '../ReusableComponents/SearchTab';
 
-const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employeeData, handleSearchApiCall, hanldeSearch, searchItem, handlePageClick, currentPage, roleName, handleStatusUpdate, setSearchItem, closeIcon, setCloseIcon }) => {
+const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employeeData, handleSearchApiCall, hanldeSearch, searchItem, handlePageClick, currentPage, roleName, handleStatusUpdate, setSearchItem, closeIcon, setCloseIcon, status, handleStatusChange }) => {
 	return (
 		<div className='content employePage'>
 			<div className='adminTitle'>
@@ -12,33 +15,21 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.totalUsers === undefined ? 0 : employeeData?.totalUsers} </span> </button>
+				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.filteredUsersCount === undefined ? 0 : employeeData?.filteredUsersCount} </span> </button>
 
-				<div className='searchbox'>
-					<input type='search' placeholder='Search...' value={searchItem} onChange={(e) => hanldeSearch(e)} />
+				<DropDownStatus status={status} handleStatusChange={handleStatusChange} statusOptions={statusOptions} />
 
-					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
-					{/* {closeIcon
-						&& <button type='button' className='closeBtn' onClick={() => {
-							setSearchItem('')
-							setCloseIcon(false)
-						}}><img src={close} alt='icon' /> </button>} */}
-					{closeIcon
-						? <button type='button' className='searchbtn' onClick={() => {
-							setSearchItem('')
-							setCloseIcon(false)
-						}}>{"Clear"}  </button> : <button type='button' className='searchbtn' onClick={() => handleSearchApiCall()}> {"Search"} </button>}
-				</div>
+				<SearchTab hanldeSearch={hanldeSearch} searchItem={searchItem} setCloseIcon={setCloseIcon} closeIcon={closeIcon} handleSearchApiCall={handleSearchApiCall} icon7={icon7} setSearchItem={setSearchItem} />
 			</div>
 
-			{employeeData?.users?.length === 0
-				?
-				<div className='addcusbox my-3'>
+			{(employeeData?.users?.length === 0 && searchItem === "")
+				? <div className='addcusbox my-3'>
 					<img src={employeesBlack} alt='icon8 img' />
-					<p>{"No employees added so far"}</p>
+					<p>{"No employee added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
-				</div>
-				: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} handleStatusUpdate={handleStatusUpdate} />}
+				</div> : (employeeData?.users?.length === 0 && searchItem)
+					? <EmployeeNoResults />
+					: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} handleStatusUpdate={handleStatusUpdate} />}
 		</div>
 	)
 }

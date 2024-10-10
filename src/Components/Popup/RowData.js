@@ -2,7 +2,7 @@ import React from 'react'
 import PopupDetails from './PopupDetails'
 import Closebtn from '../Astes/close.svg'
 
-const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, handleDownload }) => {
+const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, handleDownload,sheetsXlsxFunctions }) => {
 
   // Format the date range and the rawData for display
   // const formattedData = JSON.stringify(rawData);
@@ -30,7 +30,7 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
           </div>
           <div className='text-end mt-4 mb-3'>
             <button type='button' className='btnWh me-4' onClick={() => setRawDataPopup(false)}>{"Cancel"} </button>
-            <button type='button' className='btnBl' onClick={handleDownload}>{"Download"}</button>
+            <button type='button' className='btnBl' onClick={sheetsXlsxFunctions} >{"Download"}</button>
           </div>
         </div>
       </PopupDetails >

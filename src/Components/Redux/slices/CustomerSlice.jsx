@@ -24,11 +24,8 @@ export const CreateCustomer = createAsyncThunk("CreateCustomer", async (body, { 
 
 export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (body, { rejectWithValue }) => {
 	let Token = localStorage.getItem("Token");
-
 	const queryParams = new URLSearchParams();
-
 	const pageParam = body && body.page !== undefined && body.page !== '' ? `${body.page}` : '1';
-
 	const searchItem = body && body.search !== undefined && body.search !== '' ? `${body.search}` : '';
 
 	// Append page parameter
@@ -39,8 +36,6 @@ export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (
 	} else {
 		
 	}
-
-
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer${queryParams.toString() ? '?' + queryParams.toString() : ''}`, {
@@ -56,8 +51,7 @@ export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (
 		toast.error(err?.response?.data?.message);
 		return rejectWithValue(err);
 	}
-}
-);
+});
 
 export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { rejectWithValue }) => {
 	let Token = localStorage.getItem("Token");
@@ -136,7 +130,7 @@ export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body
 	// console.log('.........................',Token)
 
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${body?.customerId}`, {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report?customerId=${body?.customerId}`, {
 			headers: {
 				"Accept": "*/*",
 				"Authorization": `Bearer ${Token}`

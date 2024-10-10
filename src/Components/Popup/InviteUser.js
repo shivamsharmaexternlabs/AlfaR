@@ -155,7 +155,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 
 								<div className='text-end mt-5 mb-3'>
 									<button type='button' className='btnWh me-3' onClick={() => handleClosePopup()}>{"Cancel"}</button>
-									<button type='submit' className='btnBl'>{"Add"}</button>
+									<button type='submit' className='btnBl'>{"Invite Now"}</button>
 								</div>
 							</Form>
 						}}

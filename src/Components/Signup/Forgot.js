@@ -49,7 +49,7 @@ const Forgot = () => {
                 <div className='rightpart'>
                     <div className='accountinfo'>
                         <h2>Forgot Password?</h2>
-                        <p>Please provide your registered email address to get your password reset link.</p>
+                        <p>{"Please provide your registered email address to get your password reset link."}</p>
 
 
                         <Formik
@@ -91,7 +91,7 @@ const Forgot = () => {
                                 </Form>)}
 
                         </Formik>
-                        <div className='newadd'>Already on board? Let us take you to  <button type='button' onClick={() => { navigate("/") }}>Sign In!</button></div>
+                        <div className='newadd'>{"Back to"}  <button type='button' onClick={() => { navigate("/") }}>{"Sign In!"}</button></div>
                     </div>
                 </div>
 

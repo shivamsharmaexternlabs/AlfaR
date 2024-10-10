@@ -16,19 +16,21 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 					validationSchema={Validate}
 					onSubmit={handleSubmit}>
 					{({ setFieldValue, errors, resetForm }) => {
-					 return	<Form>
+						return <Form>
 							<div className={`${Style.profileForminner}`}>
 								<h3>{"Your Details"}</h3>
 								<div className="formbox mt-3">
-									<div className={`forminnerbox ${Style.forminnerbox}`}>
+									<div className={`forminnerbox ${Style.forminnerbox} ${Style.formnameBox }`}>
 										<Field
 											name="name"
 											type="text"
 											className={`form-control`}
-											autocomplete="off"
+											// autocomplete="off"
+											value={userName}
 											disabled
 										/>
-										<label>{userName}</label>
+										<label>{"Name"}</label>
+										{/* <label></label> */}
 									</div>
 									{/* <span className="text-danger  small  mb-0">
 									<ErrorMessage name="email" />
@@ -36,22 +38,24 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 								</div>
 
 								<div className="formbox mt-3">
-									<div className={`forminnerbox ${Style.forminnerbox}`}>
+									<div className={`forminnerbox ${Style.forminnerbox} ${Style.formnameBox }`}>
 										<Field
 											name="email"
 											type="text"
 											className={`form-control ${Style.formControl}`}
 											autocomplete="off"
 											disabled
+											value={userEmail}
 										/>
-										<label >{userEmail}</label>
+										<label>{"Email"}</label>
+										{/* <label ></label> */}
 									</div>
 									{/* <span className="text-danger  small  mb-0">
 									<ErrorMessage name="email" />
 								</span> */}
 								</div>
 
-								{roleName === roles.ADMIN && <>
+								<>
 									<h3 className='mt-5'>{"Change Password"}</h3>
 
 									<div className="formbox mt-3">
@@ -62,12 +66,13 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 												className={`form-control ${Style.formControl}`}
 												required
 											/>
-											<label>{"Password"}</label>
+										<label>{"Current Password"}</label>
 										</div>
 										<span className="text-danger  small  mb-0">
 											<ErrorMessage name="password" />
 										</span>
 									</div>
+
 									<div className="formbox mt-3">
 										<div className={`forminnerbox ${Style.forminnerbox}`}>
 											<Field
@@ -97,11 +102,9 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 											<ErrorMessage name="confirmPassword" />
 										</span>
 									</div>
-
-
-
-								</>}
+								</>
 							</div>
+
 
 							<div className={`${Style.formBtn}`}>
 								<button type="button" className={`${Style.canbtn}`} onClick={() => resetForm()} >

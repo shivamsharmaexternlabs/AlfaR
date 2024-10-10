@@ -39,6 +39,10 @@ export const DEPARTMENTS_NAME = {
 	CUSTOMER_SUPPORT: "Customer Support"
 }
 
+//STATUS
+// Array of status options
+export const statusOptions = ["All", "Active", "Inactive"];
+
 
 //DEPARTMENTS
 

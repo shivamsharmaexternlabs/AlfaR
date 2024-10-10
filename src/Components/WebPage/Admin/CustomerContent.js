@@ -2,8 +2,10 @@ import React from 'react';
 import CustomerTable from './CustomerTable';
 import { customerBlack, roles } from '../../utils/Constants';
 import close from '../../Astes/close.svg';
+import CustomerNoResults from './CustomerNoResults';
+import SearchTab from '../ReusableComponents/SearchTab';
 
-const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName, handleDayEndBalance, handleRawData, rawData, handleDownloadRawData, setSearchItem, setCloseIcon, closeIcon, handlRefreshDay,handleDayEndBalanceCsv }) => {
+const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setEditCustomerPopup, setEditItemData, searchItem, hanldeSearch, handleSearchApiCall, handlePageClick, currentPage, roleName, handleDayEndBalance, handleRawData, rawData, handleDownloadRawData, setSearchItem, setCloseIcon, closeIcon, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions }) => {
 	return (
 		<div className='content customerPage'>
 			<div className='adminTitle'>
@@ -11,32 +13,21 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 				{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 			</div>
 			<div className='customersTitle'>
-				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.totalCustomers === undefined ? 0 : customerData?.totalCustomers}</span> </button>
-				<div className='searchbox'>
-					<input
-						type='search'
-						placeholder='Search...'
-						value={searchItem}
-						onChange={(e) => hanldeSearch(e)}
-					/>
-					<img src={icon7} about='icon' className='searchIcon' alt="search-icon" />
-					{closeIcon
-						&& <button type='button' className='closeBtn' onClick={() => {
-							setSearchItem('')
-							setCloseIcon(false)
-						}}><img src={close} alt='icon' /> </button>}
-					<button type='button' className='searchbtn' onClick={() => handleSearchApiCall()} > {"Search"} </button>
-				</div>
+				<button type='button' className='tcbtn'> {"Total Customers:"} <span>{customerData?.filteredCustomersCount === undefined ? 0 : customerData?.filteredCustomersCount}</span> </button>
+				<SearchTab hanldeSearch={hanldeSearch} searchItem={searchItem} setSearchItem={setSearchItem} setCloseIcon={setCloseIcon} closeIcon={closeIcon} handleSearchApiCall={handleSearchApiCall} icon7={icon7} />
 			</div>
-			{customerData?.customers?.length === 0
+			{(customerData?.customers?.length === 0 && searchItem === "")
 				? <div className='addcusbox my-3'>
 					<img src={customerBlack} alt='icon8 img' />
 					<p>{"No customer added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
-				</div>
-				: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} handleDayEndBalance={handleDayEndBalance} handleRawData={handleRawData} rawData={rawData} handleDownloadRawData={handleDownloadRawData} handlRefreshDay={handlRefreshDay} handleDayEndBalanceCsv={handleDayEndBalanceCsv} />}
+				</div> : (searchItem && customerData?.customers?.length === 0)
+					? <CustomerNoResults />
+					: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} handleDayEndBalance={handleDayEndBalance} handleRawData={handleRawData} rawData={rawData} handleDownloadRawData={handleDownloadRawData} handlRefreshDay={handlRefreshDay} handleDayEndBalanceCsv={handleDayEndBalanceCsv} sheetsXlsxFunctions={sheetsXlsxFunctions} />}
 		</div>
 	)
 }
 
 export default CustomerContent;
+
+

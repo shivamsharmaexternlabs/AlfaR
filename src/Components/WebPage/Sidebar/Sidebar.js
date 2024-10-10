@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Style from './Sidebar.module.css';
 import { NavLink, useLocation } from "react-router-dom";
-import { customerBlack, customerWhite, employeesBlack, employeesWhite, profileBlack, profileWhite, routes } from '../../utils/Constants';
+import { customerBlack, customerWhite, employeesBlack, employeesWhite, profileBlack, profileWhite, roles, routes } from '../../utils/Constants';
 
 const Sidebar = () => {
   const param = useLocation();
@@ -9,6 +9,8 @@ const Sidebar = () => {
   const isActive = (route) => param.pathname === route;
 
   const [hoveredItem, setHoveredItem] = useState(null);
+
+  let roleName = localStorage.getItem("Role");
 
   return (
     <>
@@ -30,7 +32,7 @@ const Sidebar = () => {
               <span className='ms-2'>{"Customers"}</span>
             </NavLink>
           </li>
-          <li className={isActive(`${routes.EMPLOYEES}`) ? "active" : ""}>
+          {roleName === roles.ADMIN && <li className={isActive(`${routes.EMPLOYEES}`) ? "active" : ""}>
             <NavLink
               to={`${routes.EMPLOYEES}`}
               onMouseEnter={() => setHoveredItem('EMPLOYEES')}
@@ -45,7 +47,7 @@ const Sidebar = () => {
               />
               <span className='ms-2'>{"Employees"}</span>
             </NavLink>
-          </li>
+          </li>}
           <li className={isActive(`${routes.PROFILE}`) ? "active" : ""}>
             <NavLink
               to={`${routes.PROFILE}`}

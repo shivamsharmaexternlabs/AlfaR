@@ -36,7 +36,7 @@ const Signin = () => {
     email: yup.string()
       // .email("Invalid Email")
       .required('Email is required'), // No need for domain validation now
-      // .matches(/^[a-zA-Z0-9._%+-]+$/, 'Invalid email format before @alfar-group.com'), // Validate only the part before @
+    // .matches(/^[a-zA-Z0-9._%+-]+$/, 'Invalid email format before @alfar-group.com'), // Validate only the part before @
     password: yup.string()
       .required("Password is required")
       .matches(/^\S*$/, 'Password must not contain spaces'),
@@ -52,9 +52,9 @@ const Signin = () => {
 
       dispatch(SignInSlice({ ...modifiedValues })).then((res) => {
         // console.log("res", res)
-        if (res.payload !== undefined) {
-          if (res.payload.data.user.role === roles.USER) {
-            if (res.payload.data.user.isPasswordValid === false) {
+        if (res?.payload !== undefined) {
+          if (res?.payload?.data?.user?.role === roles.USER) {
+            if (res?.payload?.data?.user?.isPasswordValid === false) {
               setChangePasswordScreen(true)
             } else {
               navigate(routes.ADMIN)
@@ -129,9 +129,9 @@ const Signin = () => {
         </div>
         <div className='rightpart'>
           <div className='accountinfo'>
-            <h2>Sign in</h2>
-            <h3>Welcome Back</h3>
-            <p className='mb-md-4 mb-3'>{"Please sign in to manage client accounts and company operations."}</p>
+            <h2>{!changePasswordScreen ? "Sign in" : "Reset Password"}</h2>
+            <h3>{!changePasswordScreen ? "Welcome Back" : ""}</h3>
+            <p className='mb-md-4 mb-3'>{!changePasswordScreen ? "Please sign in to manage client accounts and company operations." : "Enter your new password."}</p>
             {!changePasswordScreen ?
               <div>
                 <Formik
@@ -161,6 +161,8 @@ const Signin = () => {
                             value={values.email}
                             className={` form-control`}
                             onChange={handleChange}
+                            
+
                             required
                           // placeholder="Enter your email"
                           />
@@ -181,6 +183,7 @@ const Signin = () => {
                             // type="password"
                             type={showPassword ? "text" : "password"}
                             className={`form-control`}
+                           
                             required
                           />
                           <label>{"Password"}</label>
@@ -205,7 +208,7 @@ const Signin = () => {
                 </Formik>
                 <div className='text-center'>
                   <button type='button' onClick={() => forgetPasswordFun()} className='forgotbtn'>
-                    {"forget password?"}
+                    {"Forgot Password?"}
                   </button>
                 </div>
               </div>
@@ -227,7 +230,7 @@ const Signin = () => {
                           className={`form-control`}
                           required
                         />
-                        <label>{"Old Password"}</label>
+                        <label>{"Current Password"}</label>
 
                         <div className='passEye'>
                           {showPassword
@@ -268,7 +271,7 @@ const Signin = () => {
                           className={`form-control`}
                           required
                         />
-                        <label>{"Confirm Passowrd"}</label>
+                        <label>{"Confirm Password"}</label>
                         <div className='passEye'>
                           {showConfirmPassword
                             ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowConfirmPassword(false)} />

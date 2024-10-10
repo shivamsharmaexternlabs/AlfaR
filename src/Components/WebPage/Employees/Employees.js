@@ -16,16 +16,17 @@ const Employees = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-
+  
   const { employeeDetailsData, createdCustomer, updatedStatus } = useSelector((state) => state.EmployeesApiData);
-
-
+  
+  
   const [addEmployeePopup, setAddEmployeePopup] = useState(false);
   const [succesfulPopup, setSuccessfulPopup] = useState(false);
   const [message, setMessage] = useState('');
   const [searchItem, setSearchItem] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [closeIcon, setCloseIcon] = useState(false);
+  const [status, setStatus] = useState("All");
 
   // Extract the page number from the URL
   useEffect(() => {
@@ -79,6 +80,12 @@ const Employees = () => {
     }
   };
 
+
+  // Function to handle status selection
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+  };
+
   return (
     <>
       <EmployeesContent
@@ -96,6 +103,8 @@ const Employees = () => {
         closeIcon={closeIcon}
         setSearchItem={setSearchItem}
         setCloseIcon={setCloseIcon}
+        status={status}
+        handleStatusChange={handleStatusChange}
       />
 
       <InviteUser

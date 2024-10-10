@@ -572,6 +572,47 @@ input[type="search"]::-webkit-search-results-decoration {
   top: 9px;
   right: 20px;
 }
+.employePage .customersTitle .dropdown .dropdown-toggle {
+  min-width: 233px;
+  padding: 13px 64px 13px 24px;
+}
+
+.employePage .customersTitle .dropdown .dropdown-toggle::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 60px;
+  width: 1px;
+  height: 70%;
+  background-color: #E5E5E5;
+}
+
+.employePage .customersTitle .dropdown .dropdown-toggle::after {
+  border: none;
+  background: url(./Components/Astes/arrow2.svg) top center no-repeat;
+  width: 10px;
+  height: 7px;
+  background-size: contain;
+  margin-left: 0;
+  position: absolute;
+  top: 22px;
+  right: 31px;
+}
+
+.employePage .customersTitle .dropdown .dropdown-menu {
+  width: 100%;
+  padding: 5px;
+}
+
+.employePage .customersTitle .dropdown .dropdown-menu .dropdown-item {
+  font-size: 14px;
+  border-radius: 6px;
+}
+.employePage .customersTitle .dropdown .dropdown-menu .dropdown-item:hover{
+  background-color: #000;
+  color: #fff;
+}
+
 
 .customerPage .customersTitle .tcbtn {
   min-width: 180px;
@@ -582,7 +623,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .employePage .customersTitle .searchbox {
-  width: calc(100% - 174px);
+  width: calc(100% - 430px);
 }
 
 .addcusbox {
@@ -601,6 +642,13 @@ input[type="search"]::-webkit-search-results-decoration {
   margin: 16px 0 24px;
   font-size: 16px;
   color: #000;
+}
+
+.alfartableOuter.customerEmpty {
+  border: 1px solid #E5E7EB;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 21px 24px;
 }
 
 .alfartableOuter {
@@ -901,7 +949,7 @@ input[type="search"]::-webkit-search-results-decoration {
   padding-right: 50px;
 }
 
-.addCustomer.main-popup .formbox .forminnerbox.addselectbox label {
+.addCustomer.main-popup .formbox .forminnerbox.addselectbox    {
   font-size: 10px;
   top: 8px;
   left: 15px;
@@ -1065,6 +1113,40 @@ input[type="search"]::-webkit-search-results-decoration {
   color: #fff;
 }
 
+.summurypopup .btndateRange{
+  border-top: 1px solid #E5E7EB;
+  padding: 32px 0 24px ;
+  margin: 16px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.summurypopup .rmdp-day-picker {
+  padding:10px;
+}
+
+.summurypopup .rmdp-container .ep-arrow.rmdp-ep-arrow.rmdp-ep-shadow {
+  display: none;
+}
+
+
+.summurypopup .rmdp-header{
+  border-bottom: 1px solid #BDBDBD;
+}
+
+.summurypopup .rmdp-wrapper {
+  background-color: #fff;
+  border-radius: 5px;
+  direction: ltr;
+  padding: 8px 16px 0;
+  margin: 12px 0 0;
+  transform: translate(-26%, 10px);
+
+  }
+
+.summurypopup .rmdp-day-picker .rmdp-week:first-child {
+  border-bottom: 1px solid #BDBDBD;
+}
 
 .rowdatapopup .popupinner {
   word-break: break-all;
@@ -1234,6 +1316,8 @@ input[type="search"]::-webkit-search-results-decoration {
   color: #fff;
   background-color: #000;
 }
+
+
 
 /************************** Scrollbar css ******** *****************************/
 
