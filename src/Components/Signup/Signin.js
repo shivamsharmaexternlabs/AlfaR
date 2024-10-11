@@ -31,6 +31,7 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(changePasswordScreen ? true : false);
   const [showNewPassword, setShowNewPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+  const [serverErrorMessage, setServerErrorMessage] = useState(null);
   const [showSuccessMessagePopup, setShowSucessMessagePopup] = useState(false);
 
   const defaultValue = {
@@ -82,20 +83,14 @@ const Signin = () => {
           } else if (res?.payload?.data?.user?.role === roles.ADMIN) {
             navigate(routes.ADMIN)
           }
-
-          // else if(res?.payload?.status === 202){
-          //   localStorage.setItem("verify-email", values.email)
-          //   navigate("/verification")
-          // }
-
-
           else {
-            // navigate(routes.ADMIN)
-            // window.location.reload()
+              if (res?.payload?.response?.data?.message === "Invalid password") {
+                setServerErrorMessage("Invalid password")
+              }
           }
 
         }
-      });
+      })
     }
 
 
@@ -139,13 +134,18 @@ const Signin = () => {
     if (values) {
       dispatch(ChangePassword({ ...values })).then((res) => {
         if (res.payload !== undefined) {
-          if (res?.payload?.data.message === "Password changed successfully") {
+          if (res?.payload?.data?.message === "Password changed successfully") {
             setShowSucessMessagePopup(true);
             // setChangePasswordScreen(false);
             toast.warn("Please Login Again");
+          }else{
+            if (res?.payload?.response?.data?.message === "Temporary password incorrect") {
+              setServerErrorMessage("Temporary password incorrect")
+            }
           }
+
         }
-      });
+      })
     } else {
       setErrors({
         form: "Password must meet the format requirements and match the confirm password."
@@ -246,6 +246,7 @@ const Signin = () => {
                           <ErrorMessage name="password" />
                         </span>
                       </div>
+                      {serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
 
                       <div className="text-center">
                         <button type="submit" className="signbtn">
@@ -254,6 +255,7 @@ const Signin = () => {
                       </div>
                     </Form>)}
                 </Formik>
+
                 <div className='text-center'>
                   <button type='button' onClick={() => forgetPasswordFun()} className='forgotbtn'>
                     {"Forgot Password?"}
@@ -271,7 +273,7 @@ const Signin = () => {
                       <div className={`forminnerbox passwordBox ${errors.password && touched.password ? 'border-danger' : ""}`}>
                         <Field
                           name="password"
-                          type={showPassword ? "text" : "password"}
+                          type={"text"}
                           className={`form-control ${errors.password && touched.password ? 'border-danger' : ""}`}
                           required
                         />
@@ -349,7 +351,7 @@ const Signin = () => {
                       </div>
                     )}
 
-
+                    {serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
                     <div className="text-center">
                       <button type="submit" className="signbtn">
                         {"Change Password"}
