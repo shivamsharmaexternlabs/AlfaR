@@ -35,16 +35,10 @@ function App() {
 
   const locationName = useLocation();
 
-  // const accessToken = locationName?.pathname?.split("/")[2] || locationName?.pathname?.split("/")[1];
-
-  console.log("locationName?.pathname", locationName?.pathname)
-
   const searchParams = new URLSearchParams(locationName.search);
   const accessToken = searchParams.get('token');
 
   useEffect(() => {
-    // Replace with your validation logic
-
     // Only set the token if the path is valid
     if (accessToken) {
       localStorage.setItem("Token", accessToken);
@@ -53,8 +47,6 @@ function App() {
 
   // The token is the last part of the array
   // const token = parts[2];
-
-  console.log("accessToken", accessToken)
 
   useEffect(() => {
     // Axios request interceptor
@@ -82,7 +74,13 @@ function App() {
               }
             })
           } else {
-            navigate(routes.ROOT)
+            navigate(routes.RESET_PASSWORD , 
+              {
+                state: {
+                  changePasswordScreen: false,
+                  userData: response?.data?.user
+                }
+              })
           }
         }
         setLoadingValue(false);

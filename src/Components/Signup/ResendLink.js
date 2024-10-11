@@ -13,7 +13,7 @@ const ResendLink = () => {
 
 	const [successMessagePopup, setSuccessMessagePopup] = useState(false);
 
-	console.log("routeData", routeData?.state?.currentMessage?.email)
+	console.log("routeDasdbjksdjbta", routeData?.state?.currentMessage?.isPasswordChanged)
 
 	const handleSubmitResendLink = async () => {
 		if (routeData) {
@@ -21,15 +21,15 @@ const ResendLink = () => {
 				email: routeData?.state?.currentMessage?.email,
 			}
 
-			if (routeData?.state?.currentMessage?.role === roles.USER) {
+			  if(routeData?.state?.currentMessage?.role === roles.USER && !routeData?.state?.currentMessage?.isPasswordChanged){
 				dispatch(ResenPasswordApiFunc(payload)).then((res) => {
 					if (res?.payload?.status === 200) {
 						console.log("Hone YAYAYAY")
 						setSuccessMessagePopup(true);
 					}
 				});
-			}
-			else if (routeData?.state?.currentMessage?.role === roles.ADMIN) {
+			} 
+			else  {
 				dispatch(forgetPasswordSlice(payload)).then((res) => {
 					if (res?.payload?.status === 200) {
 						setSuccessMessagePopup(true);
