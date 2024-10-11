@@ -38,6 +38,24 @@ const Signin = () => {
     password: "",
   };
 
+
+ useEffect(() => {
+    // Check if the user is already signed in by checking for the token
+    const accessToken = localStorage.getItem("Token");
+    const Role = localStorage.getItem("Role");
+    if (accessToken) {
+      try {
+        if (Role === roles.ADMIN) {
+          navigate(routes.ADMIN); 
+        } else if (Role === roles.USER) {
+          navigate(routes.USER); 
+        }
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  }, [navigate]);
+  
   const Validate = yup.object({
     email: yup.string()
       // .email("Invalid Email")
