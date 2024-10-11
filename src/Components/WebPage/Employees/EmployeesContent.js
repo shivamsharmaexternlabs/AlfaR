@@ -17,7 +17,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 			<div className='customersTitle'>
 				<button type='button' className='tcbtn'> {"Total Users:"} <span>{employeeData?.filteredUsersCount === undefined ? 0 : employeeData?.filteredUsersCount} </span> </button>
 
-				<DropDownStatus status={status} handleStatusChange={handleStatusChange} statusOptions={statusOptions} />
+				{/* <DropDownStatus status={status} handleStatusChange={handleStatusChange} statusOptions={statusOptions} /> */}
 
 				<SearchTab hanldeSearch={hanldeSearch} searchItem={searchItem} setCloseIcon={setCloseIcon} closeIcon={closeIcon} handleSearchApiCall={handleSearchApiCall} icon7={icon7} setSearchItem={setSearchItem} />
 			</div>

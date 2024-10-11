@@ -83,6 +83,11 @@ const Employees = () => {
 
   // Function to handle status selection
   const handleStatusChange = (newStatus) => {
+    const searchParams = { page: currentPage, status: newStatus === "All" ? "" : newStatus === "Active" ? true : false }
+    if(searchItem){
+      searchParams['search'] = searchItem
+    }
+    dispatch(GetEmployeeDetails(searchParams));
     setStatus(newStatus);
   };
 
