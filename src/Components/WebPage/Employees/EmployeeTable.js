@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { useNavigate } from 'react-router-dom';
 import arrow from '../../Astes/arrow.svg'
-const EmployeeTable = ({ employeeData, handlePageClick, currentPage, handleStatusUpdate }) => {
+const EmployeeTable = ({ employeeData, handlePageClick, currentPage, handleStatusUpdate, searchItem,  closeIcon }) => {
 
 	return (
 		<div className='alfartableOuter'>
 			<div className='alfartableTitle'>
 				<h3>{"Users List"}</h3>
-				<p>{"This is a list of all users."}</p>
+				<p>{closeIcon ?  `Showing search result for ${searchItem}`:`This is a list of all users`}</p>
 			</div>
 			<div className='alfartable'>
 				<table>

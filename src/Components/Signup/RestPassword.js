@@ -42,8 +42,7 @@ const RestPassword = () => {
     });
 
     const handleSubmitPassword = async (values, { setSubmitting, setErrors }) => {
-        // localStorage.setItem("verify-email", values.email)
-        const TokenFromAuth = routePath?.pathname?.split("/")?.[2]
+        const TokenFromAuth = localStorage.getItem("Token");
 
         let responseData = await dispatch(ResetPasswordSlice({ values, Token: TokenFromAuth }));
 

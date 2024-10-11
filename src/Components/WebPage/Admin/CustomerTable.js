@@ -4,7 +4,7 @@ import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 
-const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions , handleCustomerStatus , searchItem, roleName}) => {
+const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions , handleCustomerStatus , searchItem, roleName, closeIcon}) => {
 	const [summeryReportToggle, setSummeryReportToggle] = useState(false)
 	const [customerId, setCustomerId] = useState(null);
 	const summeryReportFun = (e) => {
@@ -17,7 +17,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 				<div className='alfartableTitle'>
 
 					<h3>{"Customer List"}</h3>
-					<p>{`This is a list of all customers`}</p>
+					<p>{closeIcon ?  `Showing search result for ${searchItem}`:`This is a list of all customers`}</p>
 				</div>
 				<div className='alfartable'>
 					<table>

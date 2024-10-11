@@ -29,7 +29,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 				</div> : (employeeData?.users?.length === 0 && searchItem)
 					? <EmployeeNoResults searchItem={searchItem} closeIcon={closeIcon} />
-					: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} handleStatusUpdate={handleStatusUpdate} />}
+					: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} handleStatusUpdate={handleStatusUpdate} closeIcon={closeIcon} searchItem={searchItem} />}
 		</div>
 	)
 }
