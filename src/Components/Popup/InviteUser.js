@@ -53,7 +53,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 					setSuccessfulPopup(true);
 					setAddEmployeePopup(false);
 					dispatch(GetEmployeeDetails());
-					setMessage(res?.payload?.data?.message)
+					setMessage("User has been successfully invited.")
 				}
 			});
 		}
