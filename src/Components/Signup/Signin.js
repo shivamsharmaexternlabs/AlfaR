@@ -46,16 +46,16 @@ const Signin = () => {
     if (accessToken) {
       try {
         if (Role === roles.ADMIN) {
-          navigate(routes.ADMIN); 
+          navigate(routes.ADMIN);
         } else if (Role === roles.USER) {
-          navigate(routes.USER); 
+          navigate(routes.USER);
         }
       } catch (error) {
         console.error("Invalid token:", error);
       }
     }
   }, [navigate]);
-  
+
   const Validate = yup.object({
     email: yup.string()
       // .email("Invalid Email")
@@ -236,9 +236,9 @@ const Signin = () => {
                           />
                           <label>{"Password"}</label>
                           <div className='passEye'>
-                            {showPassword
-                              ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(false)} />
-                              : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(true)} />}
+                            {!showPassword
+                              ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(true)} />
+                              : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(false)} />}
 
                           </div>
                         </div>
@@ -360,10 +360,10 @@ const Signin = () => {
               </Formik> : <SuccessMessageComponent message={'created'} handleRemovePopup={handleRemovePopup} />
 
             }
-            {/* 
+            {/*
             <button type='button' className='applebtn'> <img src={appleIcon} alt='appleIcon' /> Sign in with Apple </button>
             <button type='button' className='googlebtn'>
-               <img src={googleIcon} alt='googleIcon' /> 
+               <img src={googleIcon} alt='googleIcon' />
               Sign in with Google  </button> */}
 
             {/* <div className='newadd'>New here? <button type='button' onClick={() => { navigate("/signup") }}>Create an account</button></div> */}
