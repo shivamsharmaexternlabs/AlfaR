@@ -1,0 +1,67 @@
+.rmdp-top-class  .custom-time-picker {
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: red;
+}
+
+.time-section {
+  display: flex;
+  align-items: center;
+}
+
+.time-scroller {
+  margin: 0 5px;
+}
+
+.time-scroll {
+  width: 60px;
+  height: 40px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  appearance: none;
+  overflow-y: auto;
+}
+
+.period-toggle {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Apply styling to the select element */
+.custom-select {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  appearance: none;  /* Removes the default dropdown arrow in some browsers */
+}
+
+/* Scrollbar styles for WebKit browsers (Chrome, Safari, Edge) */
+.custom-select::-webkit-scrollbar {
+  width: 8px;  /* Set the width of the scrollbar */
+}
+
+.custom-select::-webkit-scrollbar-thumb {
+  background-color: black;  /* Change the color of the scrollbar */
+  border-radius: 10px;  /* Optional: rounded scrollbar */
+}
+
+.custom-select::-webkit-scrollbar-track {
+  background-color: #f1f1f1;  /* Set the background color of the scrollbar track */
+}
+
+/* Firefox scrollbar styles */
+.custom-select {
+  scrollbar-color: black #f1f1f1;  /* thumb color (black), track color (#f1f1f1) */
+  scrollbar-width: none;  /* Optional: thin scrollbar */
+  border: none;
+  outline: none;
+  background-color: transparent;
+}

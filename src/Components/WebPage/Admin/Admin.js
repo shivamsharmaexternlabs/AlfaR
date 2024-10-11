@@ -350,29 +350,29 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {dayBalancePopup
+       {dayBalancePopup
         ? <DayEndBalance
           dayBalancePopup={dayBalancePopup}
           dayEndBalanceData={dayEndBalanceData?.dailyBalance}
           setDayBalancePopup={setDayBalancePopup}
-          downloadCSV={downloadCSV} />
-
-        : refreshTrue
+          downloadCSV={downloadCSV} /> 
+      
+       : refreshTrue
           ? <DayEndBalance
-            dayBalancePopup={refreshTrue}
-            dayEndBalanceData={refreshDayBalanceData}
-            setDayBalancePopup={setRefreshTrue}
-            downloadCSV={downloadCSV} />
-          : ""}
+        dayBalancePopup={refreshTrue}
+        dayEndBalanceData={refreshDayBalanceData}
+        setDayBalancePopup={setRefreshTrue}
+        downloadCSV={downloadCSV} /> 
+       : ""}
 
-      {rawDataPopup
+    {rawDataPopup
         ? <RowData
-          rawDataPopup={rawDataPopup}
-          setRawDataPopup={setRawDataPopup}
-          rawData={rawData}
-          handleDownload={handleDownloadRawData}
-          sheetsXlsxFunctions={sheetsXlsxFunctions} />
-        : ""}
+        rawDataPopup={rawDataPopup}
+        setRawDataPopup={setRawDataPopup}
+        rawData={rawData}
+        handleDownload={handleDownloadRawData}
+        sheetsXlsxFunctions={sheetsXlsxFunctions} />
+      : ""}
 
       <LoadingSpinner loadingValue={loading} />
     </>
