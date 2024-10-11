@@ -168,9 +168,26 @@ export const RefreshDayBalance = createAsyncThunk("refreshDayBalance", async (bo
 }
 );
 
+export const UpdateStatus = createAsyncThunk("updateStatus", async (body, { rejectWithValue }) => {
+	let Token = localStorage.getItem("Token");
+	console.log('UpdateStatusUpdateStatus',{Token , body})
 
+	try {
+		const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}customer/update-status/?status=${body.status}&id=${body?.id}`,body, {
+			headers: {
+				"Accept": "*/*",
+				"Authorization": `Bearer ${Token}`
+			},
+		});
 
+		return response;
 
+	} catch (err) {
+		toast.error(err?.response?.data?.message);
+		return rejectWithValue(err);
+	}
+}
+);
 
 export const customerSlice = createSlice({
 	name: "customerSlice",
@@ -179,6 +196,7 @@ export const customerSlice = createSlice({
 		createdCustomer: [],
 		updatedCustomer: [],
 		dayEndBalanceData:[],
+		updatedStatus:[],
 		rawData:[],
 		summaryReportData:[],
 		refreshDayBalanceData:[],
@@ -293,6 +311,21 @@ export const customerSlice = createSlice({
 			})
 
 			.addCase(RefreshDayBalance.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.error.message;
+			})
+
+			//UPDATE STATUS
+			.addCase(UpdateStatus.pending, (state) => {
+				state.loading = false;
+			})
+
+			.addCase(UpdateStatus.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.updatedStatus = payload;
+			})
+
+			.addCase(UpdateStatus.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.error.message;
 			})

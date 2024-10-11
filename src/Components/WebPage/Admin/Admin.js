@@ -9,7 +9,7 @@ import Success from '../../Popup/Success';
 import RowData from '../../Popup/RowData';
 import customerData from "./customerJson/customer.json";
 import CustomerContent from './CustomerContent';
-import { GetCustomerDetails, GetDayEndBalance, GetRawData, RefreshDayBalance } from '../../Redux/slices/CustomerSlice';
+import { GetCustomerDetails, GetDayEndBalance, GetRawData, RefreshDayBalance , UpdateStatus} from '../../Redux/slices/CustomerSlice';
 import DayEndBalance from '../../Popup/DayEndBalance';
 import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
 import * as XLSX from 'xlsx/xlsx.mjs';
@@ -22,7 +22,7 @@ const Admin = () => {
   let roleName = localStorage.getItem("Role");
   let Token = localStorage.getItem("Token");
 
-  const { customerDetailsData, dayEndBalanceData, loading, rawData, refreshDayBalanceData } = useSelector((state) => state.CustomerApiData);
+  const { customerDetailsData, dayEndBalanceData, loading, rawData, refreshDayBalanceData ,updatedStatus } = useSelector((state) => state.CustomerApiData);
 
   const [addCustomerPopup, setAddCustomerPopup] = useState(false);
   const [editCustomerPopup, setEditCustomerPopup] = useState(false);
@@ -55,7 +55,7 @@ const Admin = () => {
     if (searchItem === "") {
       dispatch(GetCustomerDetails({ page: currentPage }));
     }
-  }, [dispatch, searchItem, currentPage]);
+  }, [dispatch, searchItem, currentPage,updatedStatus]);
 
 
 
@@ -72,6 +72,14 @@ const Admin = () => {
         }
       }
       );
+    }
+  };
+
+  const handleCustomerStatus = (customerId, state) => {
+    let status = state === 'active' ? 'inactive' : 'active'
+    let payload = { status, id: customerId };
+    if (customerId) {
+      dispatch(UpdateStatus(payload));
     }
   };
 
@@ -320,6 +328,7 @@ const Admin = () => {
         currentPage={currentPage - 1} // For 0-based pagination
         roleName={roleName}
         handleDayEndBalance={handleDayEndBalance}
+        handleCustomerStatus={handleCustomerStatus}
         handleRawData={handleRawData}
         handleDownloadRawData={handleDownloadRawData}
         rawData={rawData}
