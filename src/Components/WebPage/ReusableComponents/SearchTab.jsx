@@ -16,7 +16,7 @@ const SearchTab = ({ hanldeSearch, searchItem, setCloseIcon, closeIcon, handleSe
 							setCloseIcon(false)
 						}}><img src={close} alt='icon' /> </button>} */}
 			{closeIcon
-				? <button type='button' className='searchbtn' onClick={() => {
+				? <button type='button' className='searchbtn btnBl' onClick={() => {
 					setSearchItem('')
 					setCloseIcon(false)
 				}}>{"Clear"}  </button> : <button type='button' className='searchbtn' onClick={() => handleSearchApiCall()} > {"Search"} </button>}
