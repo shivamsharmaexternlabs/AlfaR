@@ -139,7 +139,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 											className="form-control"
 										>
 											<option value="" label="Select Department" />
-											{DEPARTMENTS.map((option) => (
+											{[{ name: "Operations", value: "Operations" },].map((option) => (
 												<option key={option.value} value={option.value}>
 													{option.name}
 												</option>
