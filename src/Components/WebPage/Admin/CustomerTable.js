@@ -3,13 +3,10 @@ import { downloadIcon, editIcon, eyeIcon, greyDownloadIcon, refreshIcon } from '
 import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
+import DynamicModal from '../../Modal/mui-modal'
 
-const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions , handleCustomerStatus , searchItem, roleName, closeIcon}) => {
-	const [summeryReportToggle, setSummeryReportToggle] = useState(false)
-	const [customerId, setCustomerId] = useState(null);
-	const summeryReportFun = (e) => {
-		setSummeryReportToggle(o => !o)
-	}
+const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions, handleCustomerStatus, searchItem, roleName, closeIcon,setCustomerId,summeryReportFun }) => {
+
 
 	return (
 		<>
@@ -17,7 +14,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 				<div className='alfartableTitle'>
 
 					<h3>{"Customer List"}</h3>
-					<p>{closeIcon ?  `Showing search result for ${searchItem}`:`This is a list of all customers`}</p>
+					<p>{closeIcon ? `Showing search result for ${searchItem}` : `This is a list of all customers`}</p>
 				</div>
 				<div className='alfartable'>
 					<table>
@@ -28,7 +25,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 								<th>{"RAW DATA"}</th>
 								<th>{"SUMMERY REPORT"}</th>
 								<th>{"DAY END BALANCE"}</th>
-								{roleName === "admin" ?<th>{"STATUS"}</th>: <></>}
+								{roleName === "admin" ? <th>{"STATUS"}</th> : <></>}
 							</tr>
 						</thead>
 						<tbody>
@@ -40,14 +37,14 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 										<td>  {item.customerUId} </td>
 										<td>{item.platform}</td>
 										{item?.lastCallStatus === "progress"
-											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button></td>
+											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img' /> </button></td>
 											: <td>
 												{/* <button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button> */}
 												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button> */}
 												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button>
 											</td>}
 										{item?.lastCallStatus === "progress"
-											?  <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button></td>
+											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img' /> </button></td>
 											: <td>
 												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' /> </button> */}
 												<button type='button' className='clbtn dlbtn' onClick={(e) => { summeryReportFun(item?._id); setCustomerId((item?._id)) }}> <img src={downloadIcon} alt='img' /> </button>
@@ -58,7 +55,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 											{/* <button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' onClick={() => handlRefreshDay(item?._id)} /> </button> */}
 										</td>
 										{roleName == "admin" ?
-										<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.status === 'active' ?  'toggleActive' : 'toggleNotActive'}></span>{" "} {item.status === 'active' ?  "Active" : "Inactive"} </td>
+											<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.status === 'active' ? 'toggleActive' : 'toggleNotActive'}></span>{" "} {item.status === 'active' ? "Active" : "Inactive"} </td>
 											: <></>}
 										{/* <td>
 										<button type='button' className='clbtn me-2 editbtn'> <img src={editIcon} alt='img' onClick={() => {
@@ -105,12 +102,14 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 					/>
 				</div> : ""}
 			</div>
-			<SummeryReport
+			{/* <SummeryReport
 				summeryReportToggle={summeryReportToggle}
 				SummeryReportToggleFun={setSummeryReportToggle}
 				CustomerId={customerId}
 			// handleDownloadSummaryCsv={handleDayEndBalanceCsv}
-			/>
+			/> */}
+
+			
 		</>
 	)
 }

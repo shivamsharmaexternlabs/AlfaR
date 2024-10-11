@@ -267,7 +267,7 @@ input::-webkit-contacts-auto-fill-button {
   left: 15px;
   color: #737B88;
 }
-
+/* 
 .rmdp-range {
   background-color: rgb(43, 38, 38) !important;
 }
@@ -285,7 +285,7 @@ input::-webkit-contacts-auto-fill-button {
   cursor: pointer !important;
 
 
-}
+} */
 
 
 .formbox .forminnerbox .changebtn {
@@ -1121,13 +1121,13 @@ input::-webkit-contacts-auto-fill-button {
   padding-left: 10px;
 }
 
-.daterangebox .rmdp-day.rmdp-selected span:not(.highlight) {
+/* .daterangebox .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: #000000;
 }
 
 .rmdp-calendar.rmdp-border-right {
   border-right: none;
-}
+} */
 
 
 .summeryTabs .nav {
@@ -1175,7 +1175,7 @@ input::-webkit-contacts-auto-fill-button {
   text-align: right;
 }
 
-.popupinner .rmdp-week-day {
+/* .popupinner .rmdp-week-day {
   color: #000;
   font-size: 12px;
   font-weight: 400;
@@ -1300,10 +1300,11 @@ input::-webkit-contacts-auto-fill-button {
 
 .popupinner .rmdp-day-picker .rmdp-week:first-child {
   border-bottom: 1px solid #BDBDBD;
-}
+} */
 
 .rowdatapopup .popupinner {
-  word-break: break-all;
+  /* word-break: break-all; */
+  margin: 0 auto;
 }
 
 .rowdatapopup .popupinner p {
@@ -1317,6 +1318,44 @@ input::-webkit-contacts-auto-fill-button {
   display:  block;
 overflow-x: hidden;
 }
+
+.dateTimeRange{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dateTimeRange > .MuiFormControl-root { 
+  width: 48.5%;
+}
+
+.dateTimeRange > .MuiFormControl-root  .MuiInputBase-input {  
+  /* padding: 9px 4px; */
+}
+/* 
+.dateTimeRange > .MuiFormControl-root > label{
+  -webkit-transform: translate(14px, 9px) scale(1);
+  -moz-transform: translate(14px, 9px) scale(1);
+  -ms-transform: translate(14px, 9px) scale(1);
+  transform: translate(14px, 9px) scale(1);
+}
+
+.dateTimeRange > .MuiFormControl-root > label {
+  -webkit-transform: translate(10px, -8px) scale(1);
+  -moz-transform: translate(10px, -8px) scale(1);
+  -ms-transform: translate(10px, -8px) scale(1);
+  transform: translate(10px, -8px) scale(1);
+  font-size: 12px;
+  background: #fff;
+  padding: 0 5px;
+} */
+
+/* .dateTimeRange .MuiButtonBase-root  {
+  border-top: 1px solid #828282;
+  margin: 15px 0 0;
+  padding: 15px 0 0;
+} */
 
 
 .dayendBlPopup .popupinner {
@@ -1366,7 +1405,7 @@ overflow-x: hidden;
   line-height: 22px;
 }
 
-.rmdp-calendar {
+/* .rmdp-calendar {
   width: 100%;
 }
 
@@ -1409,9 +1448,9 @@ overflow-x: hidden;
 .rowdatapopup .popupinner .endDate .rmdp-wrapper ,
 .summurypopup .popupinner .endDate .rmdp-wrapper {
   transform: translate(-88%, 15px);
-}
+} */
 /* dayendBlPopup */
-.rowdatapopup .popupinner .rmdp-top-class ,
+/* .rowdatapopup .popupinner .rmdp-top-class ,
 .summurypopup .popupinner .rmdp-top-class  ,
 .dayendBlPopup .popupinner .rmdp-top-class  {
   width: 100%;
@@ -1431,11 +1470,22 @@ overflow-x: hidden;
 }
 .rowdatapopup .popupinner .rmdp-top-class > div:last-child > div:first-child,
 .summurypopup .popupinner .rmdp-top-class > div:last-child > div:first-child ,
-.dayendBlPopup .popupinner .rmdp-top-class > div:last-child > div:first-child {
+.dayendBlPopup .popupinner .rmdp-top-class > div:last-child > div:first-child { */
   /* display: none; */
-  visibility: hidden;
+  /* visibility: hidden; */
+/* } */
+
+.MuiDialogActions-root .MuiButtonBase-root {
+  background: #000;
+  padding: 8px 35px;
+  color: #fff;
+  border-radius: 100px;
+  margin: 15px 0;
 }
 
+.rowdatapopup.rowdatadayendpopup .dateTimeRange {
+  justify-content: center;
+}
 
 
 /* ------------------------------------------ pagination -------------------------------*/
@@ -1557,7 +1607,7 @@ overflow-x: hidden;
   background-color: #000;
 }
 
-
+/* 
 .popupinner .endDate .rmdp-top-class {
   width: 100%;
   justify-content: space-around;
@@ -1573,7 +1623,7 @@ overflow-x: hidden;
 
 .popupinner .endDate .rmdp-time-picker input {
   padding: 5px 0;
-}
+} */
 
 
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState,useRef } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Layout/Header';
@@ -319,14 +319,20 @@ const Admin = () => {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (newValue) => {
-    console.log("yaha aa gaya",newValue)
+    console.log("yaha aa gaya", newValue)
     setSelectedDate(newValue);
   };
   const handleClick = (event) => {
     event.stopPropagation(); // Stop the click from closing the popup when interacting with DateTimePicker
   };
 
-  console.log("selectedDtaesdsd",selectedDate)
+  console.log("selectedDtaesdsd", selectedDate)
+
+  const [summeryReportToggle, setSummeryReportToggle] = useState(false)
+  const [customerId, setCustomerId] = useState(null);
+  const summeryReportFun = (e) => {
+    setSummeryReportToggle(o => !o)
+  }
 
 
   return (
@@ -354,6 +360,9 @@ const Admin = () => {
         handlRefreshDay={handlRefreshDay}
         handleDayEndBalanceCsv={downloadCSV}
         sheetsXlsxFunctions={sheetsXlsxFunctions}
+        summeryReportFun={summeryReportFun}
+        customerId={customerId}
+        setCustomerId={setCustomerId}
       />
 
       {(addCustomerPopup || editCustomerPopup) ? (
@@ -375,15 +384,12 @@ const Admin = () => {
         setAddCustomerPopup={addCustomerPopup ? setAddCustomerPopup : setEditCustomerPopup}
       />
 
-      {dayBalancePopup
+      {/* {dayBalancePopup
         && <DayEndBalance
           dayBalancePopup={dayBalancePopup}
           dayEndBalanceData={dayEndBalanceData?.dailyBalance}
           setDayBalancePopup={setDayBalancePopup}
-          downloadCSV={downloadCSV} />
-          }
-
-
+          downloadCSV={downloadCSV} />} */}
 
       {/* <DateTimePickerComponent  /> */}
 
@@ -404,20 +410,47 @@ const Admin = () => {
           handleDownload={handleDownloadRawData}
           sheetsXlsxFunctions={sheetsXlsxFunctions}  selectedDate={selectedDate} handleDateChange={handleDateChange} handleClick={handleClick}/>
 
-        : ""} */}
+        : ""}  */}
 
-        <DynamicModal
-                open={rawDataPopup}
-                handleClose={()=>{
-                  setRawDataPopup(false)
-                }}
-                ContentComponent={<RowData
-                  rawDataPopup={rawDataPopup}
-                  setRawDataPopup={setRawDataPopup}
-                  rawData={rawData}
-                  handleDownload={handleDownloadRawData}
-                  sheetsXlsxFunctions={sheetsXlsxFunctions}  selectedDate={selectedDate} handleDateChange={handleDateChange} handleClick={handleClick}/>}
-              />
+      {rawDataPopup && <DynamicModal
+        open={rawDataPopup}
+        handleClose={() => {
+          setRawDataPopup(false)
+        }}
+        rawDataPopup={rawDataPopup}
+        handleDownload={handleDownloadRawData}
+        sheetsXlsxFunctions={sheetsXlsxFunctions}
+        selectedDate={selectedDate}
+        handleDateChange={handleDateChange}
+        handleClick={handleClick}
+      />}
+
+      {dayBalancePopup && <DynamicModal
+        open={dayBalancePopup}
+        handleClose={() => {
+          setDayBalancePopup(false)
+        }}
+        dayBalancePopup={dayBalancePopup}
+        dayEndBalanceData={dayEndBalanceData?.dailyBalance}
+        setDayBalancePopup={setDayBalancePopup}
+        downloadCSV={downloadCSV}
+        selectedDate={selectedDate}
+        handleDateChange={handleDateChange}
+        handleClick={handleClick}
+      />}
+
+      {summeryReportToggle && <DynamicModal
+        open={summeryReportToggle}
+        summeryReportToggle={summeryReportToggle}
+        handleClose={() => {
+          setSummeryReportToggle(false)
+        }}
+        CustomerId={customerId}
+        handleDownloadSummaryCsv={downloadCSV}
+      // selectedDate={selectedDate}
+      // handleDateChange={handleDateChange}
+      // handleClick={handleClick}
+      />}
 
       <LoadingSpinner loadingValue={loading} />
     </>

@@ -97,7 +97,7 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
   return (
     <>
       <PopupDetails PopupToggle={rawDataPopup} classNameProp='rowdatapopup'>
-        <div className='popupinner' ref={popupRef} >
+        <div className='popupinner'  >
           <div className='SummeryTitle'>
 
             <button type='button' className='closebtn'><img src={Closebtn} alt='close btn' onClick={() => setRawDataPopup(false)} /> </button>
