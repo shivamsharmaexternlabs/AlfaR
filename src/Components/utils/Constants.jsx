@@ -4,6 +4,7 @@ export const routes = {
 	SIGNUP: "/signup",
 	VERIFICTAION: "/verification",
 	RESET_PASSWORD: "/resetpassword/:id",
+	RESEND_LINK: "/resendlink",
 	FORGOT_PASSOWRD: "/forgot",
 	ADMIN: `/admin`,
 	EMPLOYEES: "/user",
@@ -72,3 +73,4 @@ export const employeesBlack = require("../Astes/employees-black.svg").default;
 export const employeesWhite = require("../Astes/employees-white.svg").default;
 export const profileBlack = require("../Astes/profile-black.svg").default;
 export const profileWhite = require("../Astes/profile-white.svg").default;
+export const informationIcon = require("../Astes/information.svg").default;

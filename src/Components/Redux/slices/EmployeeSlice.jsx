@@ -31,12 +31,14 @@ export const GetEmployeeDetails = createAsyncThunk("GetEmployeeDetails", async (
 	const pageParam = body && body.page !== undefined && body.page !== '' ? `${body.page}` : '1';
 
 	const searchItem = body && body.search !== undefined && body.search !== '' ? `${body.search}` : '';
+	const statusItem = body && body.status !== undefined && body.status !== '' ? `${body.status}` : '';
 
 	// Append page parameter
 
-	if (body?.page || body?.search) {
+	if (body?.page || body?.search || body?.status) {
 		queryParams.append('_page', pageParam);
 		queryParams.append('_search', searchItem);
+		queryParams.append('status', statusItem);
 	} else {
 
 	}

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from "../Astes/logowh.svg"
 import appleIcon from "../Astes/appleIcon.svg"
 import googleIcon from "../Astes/googleIcon.svg"
 import passShow from "../Astes/eye.svg"
 import passHide from "../Astes/eye-disable.svg"
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { ChangePassword, forgetPasswordSlice, SignInSlice } from '../Redux/slices/Authorisation';
@@ -13,7 +13,8 @@ import { GoogleLogin } from '@react-oauth/google';
 import AuthHeader from '../Layout/AuthHeader'
 import { jwtDecode } from "jwt-decode";
 import { toast } from 'react-toastify';
-import { closeIcon, eyeIcon, roles, routes } from '../utils/Constants';
+import { closeIcon, eyeIcon, informationIcon, roles, routes } from '../utils/Constants';
+import SuccessMessageComponent from '../WebPage/ReusableComponents/SuccessMessageComponent'
 
 
 
@@ -23,9 +24,14 @@ const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const routeData = useLocation();
+
+  console.log("routeDatajhdsjhds", routeData)
+
+  const [showPassword, setShowPassword] = useState(changePasswordScreen ? true : false);
+  const [showNewPassword, setShowNewPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+  const [showSuccessMessagePopup, setShowSucessMessagePopup] = useState(false);
 
   const defaultValue = {
     email: "",
@@ -54,12 +60,9 @@ const Signin = () => {
         // console.log("res", res)
         if (res?.payload !== undefined) {
           if (res?.payload?.data?.user?.role === roles.USER) {
-            if (res?.payload?.data?.user?.isPasswordValid === false) {
-              setChangePasswordScreen(true)
-            } else {
-              navigate(routes.ADMIN)
-              window.location.reload()
-            }
+            navigate(routes.ADMIN)
+          } else if (res?.payload?.data?.user?.role === roles.ADMIN) {
+            navigate(routes.ADMIN)
           }
 
           // else if(res?.payload?.status === 202){
@@ -69,13 +72,15 @@ const Signin = () => {
 
 
           else {
-            navigate(routes.ADMIN)
-            window.location.reload()
+            // navigate(routes.ADMIN)
+            // window.location.reload()
           }
 
         }
       });
     }
+
+
 
 
     // // if (responseData?.payload?.status === 200) {
@@ -84,6 +89,12 @@ const Signin = () => {
     // }
   };
 
+  useEffect(() => {
+    if (routeData?.state?.changePasswordScreen) {
+      setChangePasswordScreen(true)
+    }
+  }, [routeData?.state?.changePasswordScreen])
+
   const defaultPasswordValue = {
     password: "",
     newPassword: "",
@@ -91,22 +102,35 @@ const Signin = () => {
   };
 
   const defaultPasswordValidate = yup.object({
-    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
-    newPassword: yup.string().required("New Password is required").matches(/^\S*$/, 'New Password must not contain spaces'),
-    confirmPassword: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Confirm Password must not contain spaces'),
+    password: yup.string().required("Temporary Password is required").matches(/^\S*$/, 'Temporary Password must not contain spaces'),
+    newPassword: yup.string().required("New Password is required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
+        "New Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and symbols."
+      )
+      .matches(/^\S*$/, 'New Password must not contain spaces'),
+    confirmPassword: yup
+      .string()
+      .required("Confirm password is required")
+      .oneOf([yup.ref('newPassword'), null], "Passwords do not match"),
   });
 
-  const handlePasswordSubmit = (values) => {
+  const handlePasswordSubmit = (values, { setSubmitting, setErrors }) => {
 
 
     if (values) {
       dispatch(ChangePassword({ ...values })).then((res) => {
         if (res.payload !== undefined) {
-          if (res.payload.data.message === "Password changed successfully") {
-            setChangePasswordScreen(false);
+          if (res?.payload?.data.message === "Password changed successfully") {
+            setShowSucessMessagePopup(true);
+            // setChangePasswordScreen(false);
             toast.warn("Please Login Again");
           }
         }
+      });
+    } else {
+      setErrors({
+        form: "Password must meet the format requirements and match the confirm password."
       });
     }
 
@@ -120,6 +144,11 @@ const Signin = () => {
     navigate("/forgot")
   }
 
+  const handleRemovePopup = () => {
+    setShowSucessMessagePopup(false);
+    setChangePasswordScreen(false);
+  }
+
   return (
     <>
       <AuthHeader />
@@ -129,9 +158,10 @@ const Signin = () => {
         </div>
         <div className='rightpart'>
           <div className='accountinfo'>
-            <h2>{!changePasswordScreen ? "Sign in" : "Reset Password"}</h2>
-            <h3>{!changePasswordScreen ? "Welcome Back" : ""}</h3>
-            <p className='mb-md-4 mb-3'>{!changePasswordScreen ? "Please sign in to manage client accounts and company operations." : "Enter your new password."}</p>
+            <h2>{!showSuccessMessagePopup ? (!changePasswordScreen ? "Sign in" : "Create Password") : ""}</h2>
+            <h3>{!showSuccessMessagePopup ? (!changePasswordScreen ? "Welcome Back" : "") : ""}</h3>
+            {(changePasswordScreen && !showSuccessMessagePopup) && <h3>{`Hi, ${routeData?.state?.userData?.name}`}</h3>}
+            {!showSuccessMessagePopup && <p className='mb-md-4 mb-3'>{!changePasswordScreen ? "Please sign in to manage client accounts and company operations." : `${routeData?.state?.userData?.email}`}</p>}
             {!changePasswordScreen ?
               <div>
                 <Formik
@@ -161,7 +191,7 @@ const Signin = () => {
                             value={values.email}
                             className={` form-control`}
                             onChange={handleChange}
-                            
+
 
                             required
                           // placeholder="Enter your email"
@@ -183,7 +213,7 @@ const Signin = () => {
                             // type="password"
                             type={showPassword ? "text" : "password"}
                             className={`form-control`}
-                           
+
                             required
                           />
                           <label>{"Password"}</label>
@@ -212,77 +242,96 @@ const Signin = () => {
                   </button>
                 </div>
               </div>
-              :
-              <Formik
+              : (!showSuccessMessagePopup && changePasswordScreen) ? <Formik
                 initialValues={defaultPasswordValue}
                 validationSchema={defaultPasswordValidate}
                 onSubmit={handlePasswordSubmit}>
-                {({ setFieldValue, errors }) => {
-
+                {({ setFieldValue, errors, touched }) => {
                   // console.log("errors", errors)
                   return <Form>
 
                     <div className="formbox mt-3">
-                      <div className='forminnerbox passwordBox'>
+                      <div className='forminnerbox passwordBox '>
                         <Field
                           name="password"
                           type={showPassword ? "text" : "password"}
                           className={`form-control`}
                           required
                         />
-                        <label>{"Current Password"}</label>
+                        <label>{"Temporary Password"}</label>
 
-                        <div className='passEye'>
+
+
+                        {/* <div className='passEye'>
                           {showPassword
                             ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowPassword(false)} />
                             : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowPassword(true)} />}
 
-                        </div>
+                        </div> */}
                       </div>
                       <span className="text-danger  small  mb-0">
                         <ErrorMessage name="password" />
                       </span>
                     </div>
                     <div className="formbox mt-3">
-                      <div className='forminnerbox passwordBox'>
+                      <div className={`forminnerbox passwordBox d-flex align-items-center justify-content-space-between pe-2 ${errors.newPassword && touched.newPassword ? 'border-danger' : ""}`}>
                         <Field
                           name="newPassword"
                           type={showNewPassword ? "text" : "password"}
-                          className={`form-control`}
+                          className={`form-control ${errors.newPassword && touched.newPassword ? 'is-invalid ' : ''}`}
                           required
                         />
                         <label>{"New Password"}</label>
-                        <div className='passEye'>
+                        {/* <div className='passEye'>
                           {showNewPassword
                             ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowNewPassword(false)} />
                             : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowNewPassword(true)} />}
 
+                        </div> */}
+
+                        <div className='passfomrmatebox'>
+                          <img src={informationIcon} alt="info" />
+                          <div className='passfomrmateboxTooltip'>
+                            <h3>Password Format: </h3>
+                            <ul>
+                              <li>Minimum 8 characters (uppercase and lowercase).</li>
+                              <li>Minimum 1 number.</li>
+                              <li>Minimum 1 special character or symbol.</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                      <span className="text-danger  small  mb-0">
+                      {/* <span className="text-danger  small  mb-0">
                         <ErrorMessage name="newPassword" />
-                      </span>
+                      </span> */}
                     </div>
                     <div className="formbox mt-3">
-                      <div className='forminnerbox passwordBox'>
+                      <div className={`forminnerbox passwordBox ${errors.confirmPassword && touched.confirmPassword ? 'border-danger' : ""}`}>
                         <Field
                           name="confirmPassword"
                           type={showConfirmPassword ? "text" : "password"}
-                          className={`form-control`}
+                          className={`form-control ${errors.confirmPassword && touched.confirmPassword ? 'is-invalid ' : ''}`}
                           required
                         />
                         <label>{"Confirm Password"}</label>
-                        <div className='passEye'>
+                        {/* <div className='passEye'>
                           {showConfirmPassword
                             ? <img src={passShow} alt='passShow img' className='passShow' onClick={() => setShowConfirmPassword(false)} />
                             : <img src={passHide} alt='passHide img' className='passHide' onClick={() => setShowConfirmPassword(true)} />}
 
-                        </div>
+                        </div> */}
                       </div>
-                      <span className="text-danger  small  mb-0">
+                      {/* <span className="text-danger  small  mb-0">
                         <ErrorMessage name="confirmPassword" />
-                      </span>
+                      </span> */}
                     </div>
+
+                    {(errors.newPassword || errors.confirmPassword) && (
+                      <div className="text-danger small mt-2">
+                        {errors.newPassword || errors.confirmPassword}
+                      </div>
+                    )}
+
 
                     <div className="text-center">
                       <button type="submit" className="signbtn">
@@ -291,7 +340,7 @@ const Signin = () => {
                     </div>
                   </Form>
                 }}
-              </Formik>
+              </Formik> : <SuccessMessageComponent message={'created'} handleRemovePopup={handleRemovePopup} />
 
             }
             {/* 

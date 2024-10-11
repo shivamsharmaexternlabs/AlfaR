@@ -16,10 +16,10 @@ const Employees = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const { employeeDetailsData, createdCustomer, updatedStatus } = useSelector((state) => state.EmployeesApiData);
-  
-  
+
+
   const [addEmployeePopup, setAddEmployeePopup] = useState(false);
   const [succesfulPopup, setSuccessfulPopup] = useState(false);
   const [message, setMessage] = useState('');
@@ -41,9 +41,9 @@ const Employees = () => {
   // Fetch customer details without search term
   useEffect(() => {
     if (searchItem === "") {
-      dispatch(GetEmployeeDetails({ page: currentPage }));
+      dispatch(GetEmployeeDetails({ page: currentPage, status: status === "All" ? "" : status === "Active" ? true : false }));
     }
-  }, [dispatch, searchItem, currentPage, updatedStatus]);
+  }, [dispatch, searchItem, currentPage, updatedStatus, status]);
 
   const hanldeSearch = (e) => {
     setSearchItem(e.target.value);

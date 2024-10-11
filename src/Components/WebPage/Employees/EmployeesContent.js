@@ -22,7 +22,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 				<SearchTab hanldeSearch={hanldeSearch} searchItem={searchItem} setCloseIcon={setCloseIcon} closeIcon={closeIcon} handleSearchApiCall={handleSearchApiCall} icon7={icon7} setSearchItem={setSearchItem} />
 			</div>
 
-			{(employeeData?.users?.length === 0 && searchItem === "")
+			{(employeeData?.users?.length === 0 && searchItem === "" && status !== "")
 				? <div className='addcusbox my-3'>
 					<img src={employeesBlack} alt='icon8 img' />
 					<p>{"No employee added so far"}</p>

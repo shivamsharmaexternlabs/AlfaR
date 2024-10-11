@@ -50,6 +50,42 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
 
     // console.log("dhvjsfjsdf", err)
 
+    toast.error(err?.response?.data?.message);
+
+
+
+    return rejectWithValue(err);
+  }
+}
+);
+
+export const VerifyTokenCheck = createAsyncThunk("VerifyTokenCheck", async (body, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}auth/check-invitation-link`, {
+      headers: {
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${body?.Token}`,
+      },
+    })
+    // localStorage.setItem("Token", response?.data?.token);
+    // localStorage.setItem("Role", response?.data?.user?.role);
+    // localStorage.setItem("Email", response?.data?.user?.email);
+    // localStorage.setItem("Name", response?.data?.user?.name);
+
+    // if (response?.data?.message === "Please change your password") {
+    //   toast.warn(response?.data?.message)
+    // } else {
+    // toast.success(response?.data?.message);
+    // }
+    // console.log("dhvjsfjsdf",response)
+
+    return response;
+
+  } catch (err) {
+
+    // console.log("dhvjsfjsdf", err)
+
     toast.error(err?.response?.data?.error?.[0]);
 
 
@@ -58,6 +94,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
   }
 }
 );
+
 
 export const forgetPasswordSlice = createAsyncThunk("forgetPasswordSlice", async (body, { rejectWithValue }) => {
   try {
@@ -96,7 +133,7 @@ export const ChangePassword = createAsyncThunk("ChangePassword", async (body, { 
     return response;
 
   } catch (err) {
-    toast.error(err?.response?.data?.message);
+    // toast.error(err?.response?.data?.message);
     return rejectWithValue(err);
   }
 }
@@ -167,6 +204,36 @@ export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice", async (
 );
 
 
+export const ResenPasswordApiFunc = createAsyncThunk("ResenPasswordApiFunc", async (body, { rejectWithValue }) => {
+
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/resend-password/`, body, {
+      headers: {
+        "Accept": "*/*",
+        "Authorization": `Bearer ${body.Token}`
+      },
+    });
+
+
+    toast.success(response?.data?.message);
+
+
+    return response;
+
+  } catch (err) {
+
+
+
+    toast.error(err?.response?.data?.error?.[0]);
+
+
+
+    return rejectWithValue(err);
+  }
+}
+);
+
+
 
 
 // Reducer
@@ -178,6 +245,7 @@ export const signInReducer = createSlice({
     signUpData: [],
     forgetPasswordData: [],
     VarificationCodeData: [],
+    resendPasswordData:[],
     loading: false,
     error: null,
     ResetPasswordData: []
@@ -220,6 +288,12 @@ export const signInReducer = createSlice({
       .addCase(forgetPasswordSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.forgetPasswordData = (action.payload);
+      }
+      )
+
+      .addCase(ResenPasswordApiFunc.fulfilled, (state, action) => {
+        state.loading = false;
+        state.resendPasswordData = (action.payload);
       }
       )
 

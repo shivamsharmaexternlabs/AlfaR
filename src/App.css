@@ -136,7 +136,7 @@ input[type="search"]::-webkit-search-results-decoration {
   position: relative;
   min-height: 48px;
   border-radius: 6px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .formbox span {
@@ -441,7 +441,44 @@ input[type="search"]::-webkit-search-results-decoration {
   outline: none;
 }
 
+.passfomrmatebox {
+  position: relative;
+  z-index: 1;
+}
+.passfomrmatebox > img {
+  cursor: pointer;
+}
 
+.passfomrmateboxTooltip { 
+  display:none;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  width: 255px;
+  background: #44444F;
+  color: #fff;
+  box-shadow: 0px 5px 15px 0px #44444F1A;
+  padding: 8px 16px;
+  font-size: 10px;
+  border-radius: 7px;
+}
+
+.passfomrmatebox:hover .passfomrmateboxTooltip {
+  display: block;
+}
+
+
+.passfomrmateboxTooltip h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 10px;
+  margin: 0;
+}
+
+.passfomrmateboxTooltip li {
+  list-style: disc;
+  margin-left: 22px;
+}
 
 
 
@@ -949,7 +986,7 @@ input[type="search"]::-webkit-search-results-decoration {
   padding-right: 50px;
 }
 
-.addCustomer.main-popup .formbox .forminnerbox.addselectbox    {
+.addCustomer.main-popup .formbox .forminnerbox.addselectbox label   {
   font-size: 10px;
   top: 8px;
   left: 15px;
