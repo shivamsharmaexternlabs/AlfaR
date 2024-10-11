@@ -609,6 +609,7 @@ input[type="search"]::-webkit-search-results-decoration {
   top: 9px;
   right: 20px;
 }
+
 .employePage .customersTitle .dropdown .dropdown-toggle {
   min-width: 233px;
   padding: 13px 64px 13px 24px;
@@ -645,7 +646,8 @@ input[type="search"]::-webkit-search-results-decoration {
   font-size: 14px;
   border-radius: 6px;
 }
-.employePage .customersTitle .dropdown .dropdown-menu .dropdown-item:hover{
+
+.employePage .customersTitle .dropdown .dropdown-menu .dropdown-item:hover {
   background-color: #000;
   color: #fff;
 }
@@ -996,7 +998,7 @@ input[type="search"]::-webkit-search-results-decoration {
   padding-right: 50px;
 }
 
-.addCustomer.main-popup .formbox .forminnerbox.addselectbox label   {
+.addCustomer.main-popup .formbox .forminnerbox.addselectbox label {
   font-size: 10px;
   top: 8px;
   left: 15px;
@@ -1049,17 +1051,42 @@ input[type="search"]::-webkit-search-results-decoration {
   color: #344054;
 }
 
-
-.summurypopup .popupinner {
-  max-width: 1319px;
+.summurypopup.main-popup {
+  align-items: flex-start;
+  padding-top: 100px;
 }
 
+.summurypopup.main-popup .popupinner {
+  max-width: 778px;
+}
+ .daterangeboxInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.daterangeboxInner .daterangebox {
+  width: 48.5%;
+}
 
 .daterangebox {
   border: 1px solid #DBDEEB;
-  padding: 2px 20px;
+  padding: 5px 20px;
   border-radius: 8px;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.daterangebox:focus,
+.daterangebox:active,
+.daterangebox:focus-within {
+  border: 1px solid #000;
+}
+
+.daterangeboxdateday {
+  text-align: center;
+  width: calc(100% - 50px);
 }
 
 .datearrow {
@@ -1069,7 +1096,14 @@ input[type="search"]::-webkit-search-results-decoration {
   padding-left: 10px;
 }
 
-.summurypopup .rmdp-arrow-container {}
+.daterangebox .rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: #000000;
+}
+
+.rmdp-calendar.rmdp-border-right {
+  border-right: none;
+}
+
 
 .summeryTabs .nav {
   display: inline-flex;
@@ -1116,82 +1150,129 @@ input[type="search"]::-webkit-search-results-decoration {
   text-align: right;
 }
 
-.summurypopup .rmdp-week-day {
+.popupinner .rmdp-week-day {
   color: #000;
   font-size: 12px;
   font-weight: 400;
 }
 
 
-.summurypopup .rmdp-arrow-container .rmdp-arrow {
+
+.popupinner .rmdp-arrow-container .rmdp-arrow {
   color: #000;
   border-color: #000;
 }
 
-.summurypopup .rmdp-arrow-container:hover {
+.popupinner .rmdp-arrow-container:hover {
   background-color: transparent;
   box-shadow: none;
 }
 
-.summurypopup .rmdp-arrow-container:hover .rmdp-arrow {
+.popupinner .rmdp-arrow-container:hover .rmdp-arrow {
   border-color: #000;
 }
 
-.summurypopup .rmdp-header-values {
+.popupinner .rmdp-header-values {
   color: #828282;
 }
 
-.summurypopup .rmdp-button {
+.popupinner .rmdp-button {
   background-color: #000;
 }
 
-.summurypopup .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+.popupinner .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
   background-color: rgb(43, 38, 38);
   color: #fff;
 
 }
 
-.summurypopup .rmdp-range {
+.popupinner .rmdp-range {
   border-radius: 0%;
 }
 
-.summurypopup .rmdp-day.rmdp-today span {
+.popupinner .rmdp-day.rmdp-today span {
   background-color: gray;
   color: #fff;
 }
 
-.summurypopup .btndateRange{
+.popupinner .btndateRange {
   border-top: 1px solid #E5E7EB;
-  padding: 32px 0 24px ;
+  padding: 15px 0;
   margin: 16px 0 0;
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 
-.summurypopup .rmdp-day-picker {
-  padding:10px;
+.popupinner .btndateRange button {
+  padding: 5px 5px;
+  min-width: 100px;
 }
 
-.summurypopup .rmdp-container .ep-arrow.rmdp-ep-arrow.rmdp-ep-shadow {
+.popupinner .rmdp-day-picker {
+  padding: 10px;
+}
+
+.popupinner .rmdp-container .ep-arrow.rmdp-ep-arrow.rmdp-ep-shadow {
   display: none;
 }
 
-
-.summurypopup .rmdp-header{
+.popupinner .rmdp-header {
   border-bottom: 1px solid #BDBDBD;
 }
 
-.summurypopup .rmdp-wrapper {
+.popupinner .rmdp-wrapper {
   background-color: #fff;
   border-radius: 5px;
   direction: ltr;
   padding: 8px 16px 0;
-  margin: 12px 0 0;
-  transform: translate(-26%, 10px);
+  margin: 32px 0 0;
+}
 
-  }
+.popupinner .startDate .rmdp-wrapper {
+  transform: translate(-27%, 15px);
+  min-width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-.summurypopup .rmdp-day-picker .rmdp-week:first-child {
+.popupinner .rmdp-day-picker {
+  width: 100%;
+}
+
+
+.popupinner .rmdp-top-class {
+  width: calc(100% - 250px);
+}
+
+.utcbox {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  width: 100%;
+  border-bottom: 1px solid #BDBDBD;
+  max-width: 200px;
+  padding-bottom: 8px;
+  color: #828282;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.popupinner .rmdp-day-picker>div { 
+  width: 100%;
+}
+
+.popupinner .endDate .rmdp-top-class>div:last-child > div:first-child {
+  display: none;
+}
+
+.popupinner .endDate .rmdp-wrapper {
+  transform: translate(-60%, 15px);
+  min-width: 700px;
+  width: 90%;
+}
+
+.popupinner .rmdp-day-picker .rmdp-week:first-child {
   border-bottom: 1px solid #BDBDBD;
 }
 
@@ -1206,13 +1287,26 @@ input[type="search"]::-webkit-search-results-decoration {
   word-break: break-word;
 }
 
+.dayendBlPopup.main-popup {
+  display:  block;
+overflow-x: hidden;
+}
+
+.dayendBlPopup .popupinner {
+  margin: 50px auto 0;
+}
+
+.dayendBlPopup .daterangeboxInner {
+  justify-content: center;
+  margin: 30px 0 0;
+}
+
 .dayendBlPopup .popupinner>h2>i {
   font-size: 15px;
   font-weight: 400;
   display: inline-block;
   margin-left: 15px;
 }
-
 
 .dayendBlPopup .dayendTable {
   width: 100%;
@@ -1234,7 +1328,6 @@ input[type="search"]::-webkit-search-results-decoration {
   line-height: 18px;
   padding: 16px;
   color: #6B7280;
-
 }
 
 .dayendBlPopup .dayendTable td {
@@ -1243,11 +1336,46 @@ input[type="search"]::-webkit-search-results-decoration {
   padding: 16px;
   color: #000;
   line-height: 22px;
-
 }
 
+.rmdp-calendar {
+  width: 100%;     
+}
 
-/* /-------pagination--------/ */
+.popupinner .custom-time-picker {
+  width: 180px;
+}
+
+.popupinner .custom-time-picker {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: space-between;
+  background-color: #E5E7EB;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.summurypopup .time-scroll {
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: transparent;
+}
+
+.summurypopup .time-utc-label {
+  color: #000;
+  font-weight: 300;
+  font-size: 16px;
+} 
+
+.dayendBlPopup .popupinner .startDate .rmdp-wrapper {
+  transform: translate(-70%, 15px);
+}
+
+/* ------------------------------------------ pagination -------------------------------*/
+
 .alfarpegination {
   padding: 15px 24px;
   text-align: center;
@@ -1336,13 +1464,14 @@ input[type="search"]::-webkit-search-results-decoration {
   color: #fff;
 }
 
-.alfarpegination .pagination .page-item:first-child .page-link:hover::after  {
+.alfarpegination .pagination .page-item:first-child .page-link:hover::after {
   background: url(./Components/Astes/whiteBackArrow.svg) top center no-repeat;
 }
-.alfarpegination .pagination .page-item:last-child .page-link:hover::after  {
+
+.alfarpegination .pagination .page-item:last-child .page-link:hover::after {
   background: url(./Components/Astes/whiteNextArrow.svg) top center no-repeat;
 }
- 
+
 
 .alfarpegination .page-item .page-link {
   border: none;
@@ -1363,6 +1492,25 @@ input[type="search"]::-webkit-search-results-decoration {
   color: #fff;
   background-color: #000;
 }
+
+
+.popupinner .endDate .rmdp-top-class {
+  width: 100%;
+  justify-content: space-around;
+}
+
+.popupinner .endDate .rmdp-calendar.rmdp-border-right {
+  width: calc(100% - 272px);
+}
+
+.popupinner .endDate .rmdp-top-class>div:last-child {
+  width: 210px;
+}
+
+.popupinner .endDate .rmdp-time-picker input {
+  padding: 5px 0;
+}
+
 
 
 
