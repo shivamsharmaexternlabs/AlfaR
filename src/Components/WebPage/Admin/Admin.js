@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState,useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Layout/Header';
@@ -15,11 +15,14 @@ import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { CUSTOMERS } from '../../utils/Constants';
 import DateTimePickerComponent from '../ReusableComponents/DateTimePickerComponent';
+import { ref } from 'yup';
+import DynamicModal from '../../Modal/mui-modal';
 
 const Admin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const datePickerRef = useRef(null);
   let roleName = localStorage.getItem("Role");
   let Token = localStorage.getItem("Token");
 
@@ -377,7 +380,10 @@ const Admin = () => {
           dayBalancePopup={dayBalancePopup}
           dayEndBalanceData={dayEndBalanceData?.dailyBalance}
           setDayBalancePopup={setDayBalancePopup}
-          downloadCSV={downloadCSV} />}
+          downloadCSV={downloadCSV} />
+          }
+
+
 
       {/* <DateTimePickerComponent  /> */}
 
@@ -387,18 +393,31 @@ const Admin = () => {
       {/* //   dayBalancePopup={refreshTrue}
       //   dayEndBalanceData={refreshDayBalanceData}
       //   setDayBalancePopup={setRefreshTrue}
-      //   downloadCSV={downloadCSV} /> 
+      //   downloadCSV={downloadCSV} />
       //  : ""} */}
 
-      {rawDataPopup
+      {/* {rawDataPopup
         ? <RowData
           rawDataPopup={rawDataPopup}
           setRawDataPopup={setRawDataPopup}
           rawData={rawData}
           handleDownload={handleDownloadRawData}
           sheetsXlsxFunctions={sheetsXlsxFunctions}  selectedDate={selectedDate} handleDateChange={handleDateChange} handleClick={handleClick}/>
-         
-        : ""}
+
+        : ""} */}
+
+        <DynamicModal
+                open={rawDataPopup}
+                handleClose={()=>{
+                  setRawDataPopup(false)
+                }}
+                ContentComponent={<RowData
+                  rawDataPopup={rawDataPopup}
+                  setRawDataPopup={setRawDataPopup}
+                  rawData={rawData}
+                  handleDownload={handleDownloadRawData}
+                  sheetsXlsxFunctions={sheetsXlsxFunctions}  selectedDate={selectedDate} handleDateChange={handleDateChange} handleClick={handleClick}/>}
+              />
 
       <LoadingSpinner loadingValue={loading} />
     </>
