@@ -15,6 +15,7 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
 
   const [value1, setValue1] = useState([]);
   const [value2, setValue2] = useState([]);
+  const [selectedTime, setSelectedTime] = useState('');
   const [value, setValue] = useState({
     from: "",
     to: ""
@@ -28,13 +29,18 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
   const dispatch = useDispatch();
 
   const DateRangeFun = (date) => {
-    setValue1(date)
-    setValue2(date)
     setSelectedDate(date)
-    // setValue({
+ 
+    
+   // setValue({
     //   from: `${date[0]?.day} ${date[0]?.month?.shortName} ${date[0]?.year}`,
     //   to: `${date[1]?.day} ${date[1]?.month?.shortName} ${date[1]?.year}`
     // });
+  }
+
+  const DateRangeFunNew=(date)=>{
+    setValue1(date)
+    setValue2(date)
   }
 
   const [selectedDate, setSelectedDate] = useState(new Date()); 
@@ -56,10 +62,15 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
     setValue2(null)
   };
 
+  const handleTimeChangeNew = (utcDate) => {
+    // setSelectedUTCDateTime(utcDate);
+    setSelectedTime(utcDate);
+  };
+
 
   return (
     <>
-      <PopupDetails PopupToggle={false} classNameProp='rowdatapopup'>
+      <PopupDetails PopupToggle={rawDataPopup} classNameProp='rowdatapopup'>
         <div className='popupinner'>
           <div className='SummeryTitle'>
 
@@ -69,7 +80,7 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
           <div className='daterangeboxInner'>
             <div className='daterangebox startDate'>
               <div className='daterangeboxdateday'>
-                <span className='datetext'>Date Range : </span>
+                <span className='datetext'>{"Select Date - Time"}</span>
                 {value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
                 {(value?.from !== "" || value?.to !== "") && (
                   <span className='d-inline-block mx-2'>
@@ -151,11 +162,11 @@ const RowData = ({ rawData, startDate, endDate, rawDataPopup, setRawDataPopup, h
                 <img className="date-range-arrow" src={calendar} alt='icon' onClick={() => date1PickerRef.current.openCalendar()} />
                 <DatePicker
                   value={value2}
-                  onChange={DateRangeFun}
+                  onChange={DateRangeFunNew}
                   ref={date1PickerRef}
 
                   plugins={[
-                    <TimePicker position="right" />
+                    <TimePicker position="right" onChange={handleTimeChangeNew} />
                   ]}
                   multiple={false}
                   children={

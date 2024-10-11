@@ -18,6 +18,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
   const [activeTab, setActiveTab] = useState('Spot'); // Track active tab
   const [activeTabComponent, setActiveTabComponent] = useState(null)
   const [value1, setValue1] = useState([]);
+  const [selectedTime, setSelectedTime] = useState('');
   const [value2, setValue2] = useState([]);
   const [value, setValue] = useState({
     from: "",
@@ -28,14 +29,18 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
   const date1PickerRef = useRef();
   const dispatch = useDispatch();
 
-  const DateRangeFun = (date) => {
-    setValue1(date)
-    setValue2(date)
+  const DateRangeFunNew = (date) => {
+   
     setSelectedDate(date)
     // setValue({
     //   from: `${date[0]?.day} ${date[0]?.month?.shortName} ${date[0]?.year}`,
     //   to: `${date[1]?.day} ${date[1]?.month?.shortName} ${date[1]?.year}`
     // });
+  }
+
+  const DateRangeFun =(date)=>{
+    setValue1(date)
+    setValue2(date)
   }
 
   const undefinedData = "undefined undefined undefined";
@@ -130,7 +135,26 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
 
   const handleTimeChange = (utcDate) => {
     setSelectedUTCDateTime(utcDate);
+    // setSelectedTime(utcDate);
   };
+  const handleTimeChangeNew = (utcDate) => {
+    // setSelectedUTCDateTime(utcDate);
+    setSelectedTime(utcDate);
+  };
+
+  console.log("setSelectedDate", selectedUTCDateTime, selectedDate)
+
+  console.log("selectedTime",selectedTime)
+
+  const handleNewTimeChange = (newTime) => {
+    // Only update the time (hours and minutes)
+    const updatedTime = {
+      hours: newTime.getHours(),
+      minutes: newTime.getMinutes(),
+    };
+    setSelectedTime(updatedTime);  // Set only the time part
+  };
+
 
   return (
     <>
@@ -146,7 +170,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
           <div className='daterangeboxInner'>
             <div className='daterangebox startDate'>
               <div className='daterangeboxdateday'>
-                <span className='datetext'>Date Range : </span>
+                <span className='datetext'>{"Select Date - Time"} </span>
                 {value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
                 {(value?.from !== "" || value?.to !== "") && (
                   <span className='d-inline-block mx-2'>
@@ -163,7 +187,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
                 <img className="date-range-arrow" src={calendar} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
                 <DatePicker
                   value={selectedDate}
-                  onChange={DateRangeFun}
+                  onChange={DateRangeFunNew}
                   ref={datePickerRef}
                   //  format="YYYY/MM/DD HH:mm"
                   // range
@@ -171,7 +195,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
 
                   plugins={[
 
-                    // <TimePicker position="right" className='daateeeee' />
+                    // <TimePicker position="right" className='daateeeee' onChange={handleTimeChange} />
                   ]}
                   // plugins={[
                   //   <Footer
@@ -212,7 +236,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
 
             <div className='daterangebox endDate'>
               <div className='daterangeboxdateday'>
-                <span className='datetext'>Date Range : </span>
+                <span className='datetext'>{"Select Date - Time"} </span>
                 {value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
                 {(value?.from !== "" || value?.to !== "") && (
                   <span className='d-inline-block mx-2'>
@@ -232,7 +256,8 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
                   ref={date1PickerRef}
 
                   plugins={[
-                    <TimePicker position="right" />
+                  
+                    <TimePicker position="right" className='daateeeee' onChange={handleTimeChangeNew} />
                   ]}
                   multiple={false}
                   children={

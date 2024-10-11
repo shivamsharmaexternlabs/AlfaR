@@ -122,16 +122,17 @@ const Admin = () => {
   }
 
   const handleRawData = (customerId) => {
-    // setRawDataPopup(true)
+    setRawDataPopup(true)
     let payload = {
       customerId: customerId,
       Token: Token
     }
     if (Token) {
       dispatch(GetRawData(payload)).then((res) => {
-        if (res?.payload?.status == 200) {
-          sheetsXlsxFunctions(res?.payload?.data?.rawData)
-        }
+        // if (res?.payload?.status == 200) {
+        //   sheetsXlsxFunctions(res?.payload?.data?.rawData)
+        // }
+        // setRawDataPopup(true)
       })
     }
   }
@@ -361,19 +362,19 @@ const Admin = () => {
       />
 
        {dayBalancePopup
-        ? <DayEndBalance
+        && <DayEndBalance
           dayBalancePopup={dayBalancePopup}
           dayEndBalanceData={dayEndBalanceData?.dailyBalance}
           setDayBalancePopup={setDayBalancePopup}
-          downloadCSV={downloadCSV} /> 
+          downloadCSV={downloadCSV} /> }
       
-       : refreshTrue
-          ? <DayEndBalance
-        dayBalancePopup={refreshTrue}
-        dayEndBalanceData={refreshDayBalanceData}
-        setDayBalancePopup={setRefreshTrue}
-        downloadCSV={downloadCSV} /> 
-       : ""}
+      {/* //  : refreshTrue
+      //     ? <DayEndBalance */}
+      {/* //   dayBalancePopup={refreshTrue}
+      //   dayEndBalanceData={refreshDayBalanceData}
+      //   setDayBalancePopup={setRefreshTrue}
+      //   downloadCSV={downloadCSV} /> 
+      //  : ""} */}
 
     {rawDataPopup
         ? <RowData
