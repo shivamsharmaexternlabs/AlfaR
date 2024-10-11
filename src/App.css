@@ -804,6 +804,16 @@ input[type="search"]::-webkit-search-results-decoration {
   display: flex;
 }
 
+.clbtn.dlNewbtn:hover::after {
+  content: "Data Fetch In Progress";
+  left: -50%;
+  bottom: 119%;
+  width: 200px;
+  margin-left: -21px;
+  height: 38px;
+  display: flex;
+}
+
 .clbtn.vpbtn:hover::after {
   content: "View Previous Fetch Balance";
   width: 132px;

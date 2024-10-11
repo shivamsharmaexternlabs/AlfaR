@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { downloadIcon, editIcon, eyeIcon, refreshIcon } from '../../utils/Constants'
+import { downloadIcon, editIcon, eyeIcon, greyDownloadIcon, refreshIcon } from '../../utils/Constants'
 import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
@@ -41,13 +41,14 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 										<td>  {item.customerUId} </td>
 										<td>{item.platform}</td>
 										{item?.lastCallStatus === "progress"
-											? <td>{item?.lastCallStatus}</td>
+											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button></td>
 											: <td>
+												<button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button>
 												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button> */}
-												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button>
+												{/* <button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button> */}
 											</td>}
 										{item?.lastCallStatus === "progress"
-											? <td>{item?.lastCallStatus}</td>
+											?  <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button></td>
 											: <td>
 												<button type='button' className='clbtn me-2 viewbtn' onClick={(e) => { summeryReportFun(item?._id); setCustomerId((item?._id)) }}> <img src={eyeIcon} alt='img' /> </button>
 												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' /> </button>
