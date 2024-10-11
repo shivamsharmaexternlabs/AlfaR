@@ -133,7 +133,7 @@ export const ChangePassword = createAsyncThunk("ChangePassword", async (body, { 
     return response;
 
   } catch (err) {
-    toast.error(err?.message || err?.response?.data?.message);
+    toast.error(err?.response?.data?.message || err?.message );
     return rejectWithValue(err);
   }
 }
