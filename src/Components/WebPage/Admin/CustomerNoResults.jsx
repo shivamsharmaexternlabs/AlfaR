@@ -1,13 +1,13 @@
 import React from 'react'
 import { customerBlack } from '../../utils/Constants'
 
-const CustomerNoResults = () => {
+const CustomerNoResults = ({searchItem}) => {
 	return (
 		<div className='alfartableOuter '>
 			<div className='alfartableTitle'>
 
 				<h3>{"Customer List"}</h3>
-				<p>{"This is a list of all customers."}</p>
+				<p>{`Showing search result for ${searchItem}`}</p>
 			</div>
 			<div className='alfartable'>
 				<table>
@@ -18,7 +18,8 @@ const CustomerNoResults = () => {
 							<th>{"RAW DATA"}</th>
 							<th>{"SUMMERY REPORT"}</th>
 							<th>{"DAY END BALANCE"}</th>
-							{/* <th>{"ACTION"}</th> */}
+							<th>{"STATUS"}</th>
+
 						</tr>
 					</thead>
 					<tbody>
