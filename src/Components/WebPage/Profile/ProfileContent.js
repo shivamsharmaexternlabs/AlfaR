@@ -20,7 +20,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 							<div className={`${Style.profileForminner}`}>
 								<h3>{"Your Details"}</h3>
 								<div className="formbox mt-3">
-									<div className={`forminnerbox ${Style.forminnerbox} ${Style.formnameBox }`}>
+									<div className={`forminnerbox ${Style.forminnerbox} ${Style.formnameBox }`} style={{backgroundColor:'#E5E5E5'}}>
 										<Field
 											name="name"
 											type="text"
@@ -37,8 +37,8 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 								</span> */}
 								</div>
 
-								<div className="formbox mt-3">
-									<div className={`forminnerbox ${Style.forminnerbox} ${Style.formnameBox }`}>
+								<div className="formbox mt-3" >
+									<div className={`forminnerbox ${Style.forminnerbox} ${Style.formnameBox }`} style={{backgroundColor:'#E5E5E5'}}>
 										<Field
 											name="email"
 											type="text"

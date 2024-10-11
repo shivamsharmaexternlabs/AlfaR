@@ -28,7 +28,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 								<th>{"RAW DATA"}</th>
 								<th>{"SUMMERY REPORT"}</th>
 								<th>{"DAY END BALANCE"}</th>
-								{roleName == "admin" ?<th>{"STATUS"}</th>: <></>}
+								{roleName === "admin" ?<th>{"STATUS"}</th>: <></>}
 							</tr>
 						</thead>
 						<tbody>
