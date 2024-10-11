@@ -1,13 +1,14 @@
 import React from 'react'
-import { customerBlack } from '../../utils/Constants'
+import { closeIcon, customerBlack } from '../../utils/Constants'
 
-const CustomerNoResults = ({searchItem}) => {
+const CustomerNoResults = ({ searchItem, closeIcon }) => {
+	console.log("closeIcon",closeIcon)
 	return (
 		<div className='alfartableOuter '>
 			<div className='alfartableTitle'>
 
 				<h3>{"Customer List"}</h3>
-				<p>{`Showing search result for ${searchItem}`}</p>
+				<p>{closeIcon && `Showing search result for ${searchItem}`}</p>
 			</div>
 			<div className='alfartable'>
 				<table>
@@ -25,7 +26,7 @@ const CustomerNoResults = ({searchItem}) => {
 					<tbody>
 
 						<tr >
-							<td colspan="5">
+							<td colspan="6">
 								<div className='d-flex align-items-center justify-content-center flex-column' style={{ height: '500px', textAlign: 'center' }}>
 									<img src={customerBlack} alt='icon8 img' />
 									<p>{"No search results found"}</p>

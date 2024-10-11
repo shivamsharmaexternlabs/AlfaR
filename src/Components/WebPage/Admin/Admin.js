@@ -9,7 +9,7 @@ import Success from '../../Popup/Success';
 import RowData from '../../Popup/RowData';
 import customerData from "./customerJson/customer.json";
 import CustomerContent from './CustomerContent';
-import { GetCustomerDetails, GetDayEndBalance, GetRawData, RefreshDayBalance , UpdateStatus} from '../../Redux/slices/CustomerSlice';
+import { GetCustomerDetails, GetDayEndBalance, GetRawData, RefreshDayBalance, UpdateStatus } from '../../Redux/slices/CustomerSlice';
 import DayEndBalance from '../../Popup/DayEndBalance';
 import LoadingSpinner from '../ReusableComponents/LoadingSpinner';
 import * as XLSX from 'xlsx/xlsx.mjs';
@@ -22,7 +22,7 @@ const Admin = () => {
   let roleName = localStorage.getItem("Role");
   let Token = localStorage.getItem("Token");
 
-  const { customerDetailsData, dayEndBalanceData, loading, rawData, refreshDayBalanceData ,updatedStatus } = useSelector((state) => state.CustomerApiData);
+  const { customerDetailsData, dayEndBalanceData, loading, rawData, refreshDayBalanceData, updatedStatus } = useSelector((state) => state.CustomerApiData);
 
   const [addCustomerPopup, setAddCustomerPopup] = useState(false);
   const [editCustomerPopup, setEditCustomerPopup] = useState(false);
@@ -54,8 +54,9 @@ const Admin = () => {
   useEffect(() => {
     if (searchItem === "") {
       dispatch(GetCustomerDetails({ page: currentPage }));
+      setCloseIcon(false)
     }
-  }, [dispatch, searchItem, currentPage,updatedStatus]);
+  }, [dispatch, searchItem, currentPage, updatedStatus]);
 
 
 
@@ -72,7 +73,7 @@ const Admin = () => {
         }
       }
       );
-    }
+    } 
   };
 
   const handleCustomerStatus = (customerId, state) => {
@@ -208,7 +209,7 @@ const Admin = () => {
     }
   };
 
-  let withDrawData, tradesData, depositedData, subAccountTransferData, unrealisedPnlData, spotFeesData,snapshotData;
+  let withDrawData, tradesData, depositedData, subAccountTransferData, unrealisedPnlData, spotFeesData, snapshotData;
 
   const createSheetOrEmpty = (wb, data, sheetName) => {
     const sheetData = data?.rawData?.length > 2

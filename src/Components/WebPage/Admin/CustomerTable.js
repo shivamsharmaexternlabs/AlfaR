@@ -17,7 +17,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 				<div className='alfartableTitle'>
 
 					<h3>{"Customer List"}</h3>
-					<p>{`Showing search result for ${searchItem}`}</p>
+					<p>{`This is a list of all customers`}</p>
 				</div>
 				<div className='alfartable'>
 					<table>
@@ -42,20 +42,20 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 										{item?.lastCallStatus === "progress"
 											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button></td>
 											: <td>
-												<button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button>
+												{/* <button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button> */}
 												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button> */}
-												{/* <button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button> */}
+												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button>
 											</td>}
 										{item?.lastCallStatus === "progress"
 											?  <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button></td>
 											: <td>
-												<button type='button' className='clbtn me-2 viewbtn' onClick={(e) => { summeryReportFun(item?._id); setCustomerId((item?._id)) }}> <img src={eyeIcon} alt='img' /> </button>
-												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' /> </button>
+												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' /> </button> */}
+												<button type='button' className='clbtn dlbtn' onClick={(e) => { summeryReportFun(item?._id); setCustomerId((item?._id)) }}> <img src={downloadIcon} alt='img' /> </button>
 											</td>}
 										<td>
 											<button type='button' className='clbtn me-2 vpbtn'> <img src={eyeIcon} alt='img' onClick={() => handleDayEndBalance(item?._id)} /> </button>
-											<button type='button' className='clbtn me-2 dpbtn ' ><img src={downloadIcon} alt='img' onClick={() => handleDayEndBalance(item?._id, 'donwload-btn')} /></button>
-											<button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' onClick={() => handlRefreshDay(item?._id)} /> </button>
+											{/* <button type='button' className='clbtn me-2 dpbtn ' ><img src={downloadIcon} alt='img' onClick={() => handleDayEndBalance(item?._id, 'donwload-btn')} /></button> */}
+											{/* <button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' onClick={() => handlRefreshDay(item?._id)} /> </button> */}
 										</td>
 										{roleName == "admin" ?
 										<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.status === 'active' ?  'toggleActive' : 'toggleNotActive'}></span>{" "} {item.status === 'active' ?  "Active" : "Inactive"} </td>

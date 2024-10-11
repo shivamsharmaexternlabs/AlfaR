@@ -28,7 +28,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 					<p>{"No employee added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 				</div> : (employeeData?.users?.length === 0 && searchItem)
-					? <EmployeeNoResults />
+					? <EmployeeNoResults searchItem={searchItem} closeIcon={closeIcon} />
 					: <EmployeeTable employeeData={employeeData} handlePageClick={handlePageClick} currentPage={currentPage} handleStatusUpdate={handleStatusUpdate} />}
 		</div>
 	)

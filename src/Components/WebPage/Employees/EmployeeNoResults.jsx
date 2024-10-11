@@ -1,13 +1,13 @@
 import React from 'react'
 import { employeesBlack } from '../../utils/Constants'
 
-const EmployeeNoResults = () => {
+const EmployeeNoResults = ({closeIcon,searchItem}) => {
 	return (
 		<div className='alfartableOuter '>
 			<div className='alfartableTitle'>
 
 				<h3>{"User List"}</h3>
-				<p>{"This is a list of all users."}</p>
+				<p>{closeIcon && `Showing search result for ${searchItem}`}</p>
 			</div>
 			<div className='alfartable'>
 				<table>

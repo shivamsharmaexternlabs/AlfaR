@@ -22,7 +22,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 					<p>{"No customer added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 				</div> : (searchItem && customerData?.customers?.length === 0)
-					? <CustomerNoResults searchItem={searchItem}/>
+					? <CustomerNoResults searchItem={searchItem} closeIcon={closeIcon} />
 					: <CustomerTable customerData={customerData} setEditCustomerPopup={setEditCustomerPopup} setEditItemData={setEditItemData} handlePageClick={handlePageClick} currentPage={currentPage} handleDayEndBalance={handleDayEndBalance} handleRawData={handleRawData} rawData={rawData} handleDownloadRawData={handleDownloadRawData} handlRefreshDay={handlRefreshDay} handleDayEndBalanceCsv={handleDayEndBalanceCsv} sheetsXlsxFunctions={sheetsXlsxFunctions} handleCustomerStatus={handleCustomerStatus} searchItem={searchItem} roleName={roleName}/>}
 		</div>
 	)
