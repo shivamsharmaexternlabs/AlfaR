@@ -265,15 +265,14 @@ const Signin = () => {
                 validationSchema={defaultPasswordValidate}
                 onSubmit={handlePasswordSubmit}>
                 {({ setFieldValue, errors, touched }) => {
-                  // console.log("errors", errors)
                   return <Form>
 
                     <div className="formbox mt-3">
-                      <div className='forminnerbox passwordBox '>
+                      <div className={`forminnerbox passwordBox ${errors.password && touched.password ? 'border-danger' : ""}`}>
                         <Field
                           name="password"
                           type={showPassword ? "text" : "password"}
-                          className={`form-control`}
+                          className={`form-control ${errors.password && touched.password ? 'border-danger' : ""}`}
                           required
                         />
                         <label>{"Temporary Password"}</label>
@@ -287,9 +286,9 @@ const Signin = () => {
 
                         </div> */}
                       </div>
-                      <span className="text-danger  small  mb-0">
+                      {/* <span className="text-danger  small  mb-0">
                         <ErrorMessage name="password" />
-                      </span>
+                      </span> */}
                     </div>
                     <div className="formbox mt-3">
                       <div className={`forminnerbox passwordBox d-flex align-items-center justify-content-space-between pe-2 ${errors.newPassword && touched.newPassword ? 'border-danger' : ""}`}>
@@ -344,9 +343,9 @@ const Signin = () => {
                       </span> */}
                     </div>
 
-                    {(errors.newPassword || errors.confirmPassword) && (
+                    {(errors.password || errors.newPassword || errors.confirmPassword) && (
                       <div className="text-danger small mt-2">
-                        {errors.newPassword || errors.confirmPassword}
+                        {errors.password || errors.newPassword || errors.confirmPassword}
                       </div>
                     )}
 
