@@ -1,8 +1,9 @@
 import { ErrorMessage, Field, Formik, Form } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import { informationIcon, roles } from '../../utils/Constants'
 
-const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName, userEmail, roleName }) => {
+const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName, userEmail, roleName}) => {
+	const [showActionButtons, setShowActionButtons] = useState(false)
 	return (
 		<div className='content'>
 			<div className='adminTitle'>
@@ -15,7 +16,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 					initialValues={defaultValue}
 					validationSchema={Validate}
 					onSubmit={handleSubmit}>
-					{({ setFieldValue, errors, resetForm }) => {
+					{({ setFieldValue, errors, resetForm ,values,handleChange,}) => {
 						return <Form>
 							<div className={`${Style.profileForminner}`}>
 								<h3>{"Your Details"}</h3>
@@ -28,6 +29,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 											// autocomplete="off"
 											value={userName}
 											disabled
+
 										/>
 										<label>{"Name"}</label>
 										{/* <label></label> */}
@@ -62,9 +64,13 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 										<div className={`forminnerbox ${Style.forminnerbox}`}>
 											<Field
 												name="password"
-												type="password"
+												type="text"
 												className={`form-control ${Style.formControl}`}
 												required
+												onChange={(e) => {
+													handleChange(e)
+													setShowActionButtons(true)
+												}}
 											/>
 										<label>{"Current Password"}</label>
 										</div>
@@ -77,9 +83,13 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 										<div className={`forminnerbox ${Style.forminnerbox} d-flex align-items-center justify-content-space-between pe-2`}>
 											<Field
 												name="newPassword"
-												type="password"
+												type="text"
 												className={`form-control ${Style.formControl}`}
 												required
+												onChange={(e) => {
+													handleChange(e)
+													setShowActionButtons(true)
+												}}
 											/>
 											<label>{"New Password"}</label>
 											<div className='passfomrmatebox'>
@@ -103,9 +113,13 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 										<div className={`forminnerbox ${Style.forminnerbox}`}>
 											<Field
 												name="confirmPassword"
-												type="password"
+												type="text"
 												className={`form-control ${Style.formControl}`}
 												required
+												onChange={(e) => {
+													handleChange(e)
+													setShowActionButtons(true)
+												}}
 											/>
 											<label>{"Confirm Password"}</label>
 										</div>
@@ -117,14 +131,21 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 							</div>
 
 
-							<div className={`${Style.formBtn}`}>
-								<button type="button" className={`${Style.canbtn}`} onClick={() => resetForm()} >
-									{"Cancel"}
-								</button>
-								<button type="submit" className={`${Style.scbtn}`}>
-									{"Save Changes"}
-								</button>
-							</div>
+							{
+								showActionButtons ?
+								<div className={`${Style.formBtn}`}>
+									<button type="button" className={`${Style.canbtn}`} onClick={() => {
+										resetForm()
+										setShowActionButtons(false)
+									}} >
+										{"Cancel"}
+									</button>
+									<button type="submit" className={`${Style.scbtn}`}>
+										{"Save Changes"}
+									</button>
+								</div> :
+								<></>
+							}
 						</Form>
 					}}
 				</Formik>
