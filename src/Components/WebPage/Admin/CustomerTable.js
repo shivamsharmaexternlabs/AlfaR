@@ -4,9 +4,8 @@ import SummeryReport from '../../Popup/SummeryReport'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 
-const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions , handleCustomerStatus }) => {
+const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, handlePageClick, currentPage, handleDayEndBalance, handleRawData, handleDownloadRawData, handlRefreshDay, handleDayEndBalanceCsv, sheetsXlsxFunctions , handleCustomerStatus , searchItem, roleName}) => {
 	const [summeryReportToggle, setSummeryReportToggle] = useState(false)
-
 	const [customerId, setCustomerId] = useState(null);
 	const summeryReportFun = (e) => {
 		setSummeryReportToggle(o => !o)
@@ -18,7 +17,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 				<div className='alfartableTitle'>
 
 					<h3>{"Customer List"}</h3>
-					<p>{"This is a list of all customers."}</p>
+					<p>{`Showing search result for ${searchItem}`}</p>
 				</div>
 				<div className='alfartable'>
 					<table>
@@ -29,7 +28,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 								<th>{"RAW DATA"}</th>
 								<th>{"SUMMERY REPORT"}</th>
 								<th>{"DAY END BALANCE"}</th>
-								<th>{"STATUS"}</th>
+								{roleName == "admin" ?<th>{"STATUS"}</th>: <></>}
 							</tr>
 						</thead>
 						<tbody>
@@ -58,7 +57,9 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 											<button type='button' className='clbtn me-2 dpbtn ' ><img src={downloadIcon} alt='img' onClick={() => handleDayEndBalance(item?._id, 'donwload-btn')} /></button>
 											<button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' onClick={() => handlRefreshDay(item?._id)} /> </button>
 										</td>
-										<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.status === 'active' ? 'toggleNotActive' : 'toggleActive'}></span>{" "} {item.isActive === false ? "Inactive" : "Active"} </td>
+										{roleName == "admin" ?
+										<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.status === 'active' ?  'toggleActive' : 'toggleNotActive'}></span>{" "} {item.status === 'active' ?  "Active" : "Inactive"} </td>
+											: <></>}
 										{/* <td>
 										<button type='button' className='clbtn me-2 editbtn'> <img src={editIcon} alt='img' onClick={() => {
 											setEditItemData(item)
