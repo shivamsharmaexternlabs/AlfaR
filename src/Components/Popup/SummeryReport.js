@@ -30,7 +30,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
   const dispatch = useDispatch();
 
   const DateRangeFunNew = (date) => {
-   
+
     setSelectedDate(date)
     // setValue({
     //   from: `${date[0]?.day} ${date[0]?.month?.shortName} ${date[0]?.year}`,
@@ -38,7 +38,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
     // });
   }
 
-  const DateRangeFun =(date)=>{
+  const DateRangeFun = (date) => {
     setValue1(date)
     setValue2(date)
   }
@@ -144,7 +144,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
 
   console.log("setSelectedDate", selectedUTCDateTime, selectedDate)
 
-  console.log("selectedTime",selectedTime)
+  console.log("selectedTime", selectedTime)
 
   const handleNewTimeChange = (newTime) => {
     // Only update the time (hours and minutes)
@@ -170,7 +170,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
           <div className='daterangeboxInner'>
             <div className='daterangebox startDate'>
               <div className='daterangeboxdateday'>
-                <span className='datetext'>{"Select Date - Time"} </span>
+                <span className='datetext'>{"Select From Date - From Time"} </span>
                 {value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
                 {(value?.from !== "" || value?.to !== "") && (
                   <span className='d-inline-block mx-2'>
@@ -183,7 +183,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
                 {value?.to !== undefinedData && <span className='dateday'> {value?.to}</span>}
               </div>
 
-              <button type='button' className='datearrow'>
+              {/* <button type='button' className='datearrow'>
                 <img className="date-range-arrow" src={calendar} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
                 <DatePicker
                   value={selectedDate}
@@ -230,13 +230,37 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
 
 
 
+              </button> */}
+
+              <button type='button' className='datearrow'>
+                <img className="date-range-arrow" src={calendar} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
+                <DatePicker
+                  value={value2}
+                  onChange={DateRangeFunNew}
+                  ref={datePickerRef}
+
+                  plugins={[
+
+                    <TimePicker position="right" className='daateeeee' onChange={handleTimeChange} />
+                  ]}
+                  multiple={false}
+                  children={
+                    <>
+                      <div className='utcbox'>UTC</div>
+                      <div className='btndateRange'>
+                        <button onClick={resetDates} className='btnWh me-3'>{"Reset"}</button>
+                        <button onClick={applyDates} className='btnBl'>{"Apply"}</button>
+                      </div>
+                    </>
+                  }
+                />
               </button>
             </div>
 
 
             <div className='daterangebox endDate'>
               <div className='daterangeboxdateday'>
-                <span className='datetext'>{"Select Date - Time"} </span>
+                <span className='datetext'>{"Select To Date - To Time"} </span>
                 {value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
                 {(value?.from !== "" || value?.to !== "") && (
                   <span className='d-inline-block mx-2'>
@@ -256,7 +280,7 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
                   ref={date1PickerRef}
 
                   plugins={[
-                  
+
                     <TimePicker position="right" className='daateeeee' onChange={handleTimeChangeNew} />
                   ]}
                   multiple={false}

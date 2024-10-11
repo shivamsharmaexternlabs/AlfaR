@@ -1233,6 +1233,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .popupinner .startDate .rmdp-wrapper {
   transform: translate(-27%, 15px);
   min-width: 700px;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -1384,6 +1385,33 @@ overflow-x: hidden;
 .summurypopup .popupinner .endDate .rmdp-wrapper {
   transform: translate(-88%, 15px);
 }
+/* dayendBlPopup */
+.rowdatapopup .popupinner .rmdp-top-class ,
+.summurypopup .popupinner .rmdp-top-class  ,
+.dayendBlPopup .popupinner .rmdp-top-class  {
+  width: 100%;
+  justify-content: space-around;
+} 
+
+.rowdatapopup .popupinner .rmdp-top-class .rmdp-calendar,
+.summurypopup .popupinner .rmdp-top-class .rmdp-calendar,
+.dayendBlPopup .popupinner .rmdp-top-class .rmdp-calendar {
+  width: calc(100% - 250px);
+}
+.rowdatapopup .popupinner .rmdp-top-class > div:last-child,
+.summurypopup .popupinner .rmdp-top-class > div:last-child ,
+.dayendBlPopup .popupinner .rmdp-top-class > div:last-child  { 
+  width: 210px;
+  align-items: center;
+}
+.rowdatapopup .popupinner .rmdp-top-class > div:last-child > div:first-child,
+.summurypopup .popupinner .rmdp-top-class > div:last-child > div:first-child ,
+.dayendBlPopup .popupinner .rmdp-top-class > div:last-child > div:first-child {
+  /* display: none; */
+  visibility: hidden;
+}
+
+
 
 /* ------------------------------------------ pagination -------------------------------*/
 

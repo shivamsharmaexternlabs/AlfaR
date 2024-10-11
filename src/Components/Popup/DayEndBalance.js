@@ -63,34 +63,34 @@ const DayEndBalance = ({ dayEndBalanceData, dayBalancePopup, setDayBalancePopup,
 							return  */}
 
 				<div className='popupinner'>
-					
-								<h2>
-									{`Day End Balance`}
-								</h2> 
-									
 
-								<button type='button' className='closebtn' onClick={() => setDayBalancePopup(false)}>
-									<img src={Closebtn} alt='close btn' />
-								</button>
+					<h2>
+						{`Day End Balance`}
+					</h2>
 
-								<div className='daterangeboxInner'>
 
-									<div className='daterangebox startDate'>
-										<div className='daterangeboxdateday'>
-											<span className='datetext'>{"Select Date - Tim"}e</span>
-											{value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
-											{(value?.from !== "" || value?.to !== "") && (
-												<span className='d-inline-block mx-2'>
-													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M5 12H19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-														<path d="M12 5L19 12L12 19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-													</svg>
-												</span>
-											)}
-											{value?.to !== undefinedData && <span className='dateday'> {value?.to}</span>}
-										</div>
+					<button type='button' className='closebtn' onClick={() => setDayBalancePopup(false)}>
+						<img src={Closebtn} alt='close btn' />
+					</button>
 
-										<button type='button' className='datearrow'>
+					<div className='daterangeboxInner'>
+
+						<div className='daterangebox startDate'>
+							<div className='daterangeboxdateday'>
+								<span className='datetext'>{"Select Date - Time"}</span>
+								{value?.from !== undefinedData && <span className='dateday'>{value?.from}</span>}
+								{(value?.from !== "" || value?.to !== "") && (
+									<span className='d-inline-block mx-2'>
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5 12H19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+											<path d="M12 5L19 12L12 19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+										</svg>
+									</span>
+								)}
+								{value?.to !== undefinedData && <span className='dateday'> {value?.to}</span>}
+							</div>
+
+							{/* <button type='button' className='datearrow'>
 											<img className="date-range-arrow" src={calendar} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
 											<DatePicker
 												value={selectedDate}
@@ -137,12 +137,35 @@ const DayEndBalance = ({ dayEndBalanceData, dayBalancePopup, setDayBalancePopup,
 
 
 
-										</button>
-									</div>
+										</button> */}
 
-								</div>
+							<button type='button' className='datearrow'>
+								<img className="date-range-arrow" src={calendar} alt='icon' onClick={() => datePickerRef.current.openCalendar()} />
+								<DatePicker
+									value={selectedDate}
+									onChange={DateRangeFun}
+									ref={datePickerRef}
 
-								{/* <div className='dayendTable'>
+									plugins={[
+										<TimePicker position="right" onChange={handleTimeChange} />
+									]}
+									multiple={false}
+									children={
+										<>
+											<div className='utcbox'>UTC</div>
+											<div className='btndateRange'>
+												<button onClick={resetDates} className='btnWh me-3'>{"Reset"}</button>
+												<button onClick={applyDates} className='btnBl'>{"Apply"}</button>
+											</div>
+										</>
+									}
+								/>
+							</button>
+						</div>
+
+					</div>
+
+					{/* <div className='dayendTable'>
 									<table>
 										<tr>
 											<th>{"WALLET NAME"}</th>

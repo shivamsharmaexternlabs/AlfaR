@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Formik, Form } from 'formik'
 import React from 'react'
-import { roles } from '../../utils/Constants'
+import { informationIcon, roles } from '../../utils/Constants'
 
 const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName, userEmail, roleName }) => {
 	return (
@@ -74,7 +74,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 									</div>
 
 									<div className="formbox mt-3">
-										<div className={`forminnerbox ${Style.forminnerbox}`}>
+										<div className={`forminnerbox ${Style.forminnerbox} d-flex align-items-center justify-content-space-between pe-2`}>
 											<Field
 												name="newPassword"
 												type="password"
@@ -82,6 +82,17 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 												required
 											/>
 											<label>{"New Password"}</label>
+											<div className='passfomrmatebox'>
+                                                <img src={informationIcon} alt="info" />
+                                                <div className='passfomrmateboxTooltip'>
+                                                    <h3 class="text-white mb-1" style={{fontSize:'10px'}}>Password Format: </h3>
+                                                    <ul>
+                                                        <li>Minimum 8 characters (uppercase and lowercase).</li>
+                                                        <li>Minimum 1 number.</li>
+                                                        <li>Minimum 1 special character or symbol.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
 										</div>
 										<span className="text-danger  small  mb-0">
 											<ErrorMessage name="newPassword" />

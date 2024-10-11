@@ -105,13 +105,18 @@ function App() {
             localStorage.clear();
 
             // Navigate to reset password or login page
-
-            navigate(routes.RESEND_LINK, {
-              state: { currentMessage: error?.response?.data?.data }
-            });
+            if(accessToken){
+              navigate(routes.RESEND_LINK, {
+                state: { currentMessage: error?.response?.data?.data }
+              });
+            }
+            else{
+              navigate(routes.ROOT);
+            }
+           
           } else {
             // Handle other error cases
-            toast.error(errorMessage);
+            // toast.error(errorMessage);
           }
         } else {
           // Handle other errors
