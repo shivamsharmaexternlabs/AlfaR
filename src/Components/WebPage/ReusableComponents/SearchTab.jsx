@@ -5,7 +5,7 @@ const SearchTab = ({ hanldeSearch, searchItem, setCloseIcon, closeIcon, handleSe
 		<div className='searchbox'>
 			<input
 				type='search'
-				placeholder='Search...'
+				placeholder='Search'
 				value={searchItem}
 				onChange={(e) => hanldeSearch(e)}
 			/>
