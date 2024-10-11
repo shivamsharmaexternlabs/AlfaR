@@ -1242,7 +1242,9 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .dayendBlPopup.main-popup {
   display:  block;
+overflow-x: hidden;
 }
+
 .dayendBlPopup .popupinner {
   margin: 50px auto 0;
 }
@@ -1271,6 +1273,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .dayendBlPopup .dayendTable tr:nth-child(2n+1) {
   background: #F9FAFB;
 }
+
 
 .dayendBlPopup .dayendTable th {
   font-size: 12px;
@@ -1319,6 +1322,10 @@ input[type="search"]::-webkit-search-results-decoration {
   font-weight: 300;
   font-size: 16px;
 } 
+
+.dayendBlPopup .popupinner .startDate .rmdp-wrapper {
+  transform: translate(-70%, 15px);
+}
 
 /* ------------------------------------------ pagination -------------------------------*/
 
