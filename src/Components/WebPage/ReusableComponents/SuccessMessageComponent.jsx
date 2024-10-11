@@ -28,7 +28,7 @@ const SuccessMessageComponent = ({ message, handleSubmitResendLink,handleRemoveP
 						</div>
 					</div> : message === "created"
 						? <div>
-							<p className='text-black fs-14'>{`Your account password has been ${message} successfully!`}</p>
+							<p className='text-black fs-14'>{`Your account has been ${message} successfully!`}</p>
 							<div className="d-flex mt-0" >
 								<button type="submit" className="signbtn mb-0 me-2" onClick={() => handleRemovePopup()}>
 									{"Sign In"}
