@@ -3,7 +3,7 @@ export const routes = {
 	ROOT: "/",
 	SIGNUP: "/signup",
 	VERIFICTAION: "/verification",
-	RESET_PASSWORD: "/resetpassword/:id",
+	RESET_PASSWORD: "/resetpassword",
 	RESEND_LINK: "/resendlink",
 	FORGOT_PASSOWRD: "/forgot",
 	ADMIN: `/admin`,
