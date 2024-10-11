@@ -97,8 +97,9 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .accountinfo {
-  max-width: 375px;
-  margin: 0 45 px;
+  width: 100%;
+  max-width: 345px;
+  /* margin: 0 45px; */
 }
 
 .accountinfo h2 {
@@ -156,6 +157,10 @@ input[type="search"]::-webkit-search-results-decoration {
 
 }
 
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+    display: none;
+}
 
 .passEye {
   position: absolute;
@@ -540,7 +545,7 @@ input::-webkit-contacts-auto-fill-button {
   border-radius: 100px;
   color: #fff;
   text-align: center;
-  padding: 8px 87px;
+  padding: 8px 45px;
 }
 
 .addcusbtn:hover {
@@ -618,6 +623,16 @@ input::-webkit-contacts-auto-fill-button {
   position: absolute;
   top: 9px;
   right: 20px;
+}
+
+.searchbox .searchbtn.btnBl {
+  min-width: auto;
+  color: #fff;
+  border: 1px solid #000;
+}
+.searchbox .searchbtn.btnBl:hover{
+  color: #fff;
+  background-color: #000;
 }
 
 .employePage .customersTitle .dropdown .dropdown-toggle {
@@ -1302,6 +1317,7 @@ input::-webkit-contacts-auto-fill-button {
   display:  block;
 overflow-x: hidden;
 }
+
 
 .dayendBlPopup .popupinner {
   /* margin: 50px auto 0;  */
