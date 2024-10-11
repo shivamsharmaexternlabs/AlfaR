@@ -123,8 +123,7 @@ input[type="search"]::-webkit-search-results-decoration {
   font-weight: 400;
   color: #737B88;
   font-family: "Poppins", system-ui;
-  line-height: 26px;
-
+  line-height: 26px; 
 }
 
 .formbox {
@@ -154,6 +153,7 @@ input[type="search"]::-webkit-search-results-decoration {
   transition: 0.2s all;
   cursor: text;
   z-index: 0;
+
 }
 
 
@@ -179,7 +179,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .formbox .form-control {
   height: auto;
   color: #231F20 !important;
-  background: transparent !important;
+  background-color: transparent !important;
   line-height: normal;
   font-size: 16px !important;
   border: none;
@@ -188,6 +188,7 @@ input[type="search"]::-webkit-search-results-decoration {
   border-radius: 0;
   padding: 15px 16px 8px 16px;
   z-index: 1;
+  position: relative;
   border-radius: 6px;
 }
 
