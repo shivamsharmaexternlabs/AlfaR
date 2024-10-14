@@ -170,6 +170,7 @@ const Signin = () => {
     setChangePasswordScreen(false);
   }
 
+
   return (
     <>
       <AuthHeader />
@@ -190,7 +191,7 @@ const Signin = () => {
                   validationSchema={Validate}
                   onSubmit={handleSubmit}>
 
-                  {({ values, handleChange }) => (
+                  {({ values, handleChange,errors,touched }) => (
                     <Form >
                       <div className="formbox mt-3">
                         {/* <div className='forminnerbox'>
@@ -205,7 +206,7 @@ const Signin = () => {
                         <span className="text-danger  small  mb-0">
                           <ErrorMessage name="email" />
                         </span> */}
-                        <div className='forminnerbox input-group'>
+                        <div className={`forminnerbox input-group ${errors.email && touched.email ? 'border-danger' : ""}`}>
                           <Field
                             name="email"
                             type="text"
@@ -228,7 +229,7 @@ const Signin = () => {
                         </span>
                       </div>
                       <div className="formbox mt-3">
-                        <div className='forminnerbox passwordBox'>
+                        <div className={`forminnerbox passwordBox ${errors.password && touched.password ? 'border-danger' : ""}`}>
                           <Field
                             name="password"
                             // type="password"

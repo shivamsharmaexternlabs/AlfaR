@@ -303,7 +303,7 @@ input::-webkit-contacts-auto-fill-button {
 .input-group .input-group-text {
   height: 100%;
   border: none;
-  border-radius: 0;
+  border-radius: 0 6px 6px 0
 }
 
 .applebtn {
@@ -1480,13 +1480,16 @@ overflow-x: hidden;
   padding: 8px 35px;
   color: #fff;
   border-radius: 100px;
-  margin: 15px 0;
+  margin: 15px 10px;
 }
 
 .rowdatapopup.rowdatadayendpopup .dateTimeRange {
   justify-content: center;
 }
-
+.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+.css-ux17pc-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected  {
+  background-color: #000 !important;
+}
 
 /* ------------------------------------------ pagination -------------------------------*/
 
@@ -1634,7 +1637,8 @@ overflow-x: hidden;
 
 .dasboardpage>.content::-webkit-scrollbar,
 .accountbox>.rightpart::-webkit-scrollbar,
-.verifyOuterbox::-webkit-scrollbar {
+.verifyOuterbox::-webkit-scrollbar ,
+.css-8fykvn-MuiMultiSectionDigitalClock-root .MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar{
   width: 5px;
   box-shadow: inset 0 0 5px #b0b0b0;
   border-radius: 100px;
@@ -1645,7 +1649,8 @@ overflow-x: hidden;
 
 .dasboardpage>.content::-webkit-scrollbar-thumb,
 .accountbox>.rightpart::-webkit-scrollbar-thumb,
-.verifyOuterbox::-webkit-scrollbar-thumb {
+.verifyOuterbox::-webkit-scrollbar-thumb ,
+.css-8fykvn-MuiMultiSectionDigitalClock-root .MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar-thumb  {
   background: #b0b0b0;
   border-radius: 100px;
 

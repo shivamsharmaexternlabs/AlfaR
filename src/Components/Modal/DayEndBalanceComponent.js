@@ -8,7 +8,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
 
-const DayEndBalanceComponent = ({handleClose}) => {
+const DayEndBalanceComponent = ({ handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   return (
@@ -19,7 +19,7 @@ const DayEndBalanceComponent = ({handleClose}) => {
 
           <button type='button' className='closebtn'>
             <img src={Closebtn} alt='close btn'
-            onClick={() => handleClose()}
+              onClick={() => handleClose()}
             />
           </button>
           <h2>{"Day End Balance"}</h2>
@@ -27,7 +27,11 @@ const DayEndBalanceComponent = ({handleClose}) => {
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-            slotProps={{ field: { clearable: true } }}
+              slotProps={{
+                field: { clearable: true }, actionBar: {
+                  actions: ['cancel', 'accept'],
+                },
+              }}
 
               label="Select Date & Time"
               timeSteps={{ minutes: 1 }}

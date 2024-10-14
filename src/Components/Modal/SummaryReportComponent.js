@@ -8,7 +8,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
 
-const SummaryReportComponent = ({handleClose}) => {
+const SummaryReportComponent = ({ handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -20,7 +20,7 @@ const SummaryReportComponent = ({handleClose}) => {
 
           <button type='button' className='closebtn'>
             <img src={Closebtn} alt='close btn'
-            onClick={() => handleClose()}
+              onClick={() => handleClose()}
             />
           </button>
           <h2>{"Summery Report"}</h2>
@@ -28,13 +28,17 @@ const SummaryReportComponent = ({handleClose}) => {
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-            slotProps={{ field: { clearable: true } }}
+              slotProps={{
+                field: { clearable: true }, actionBar: {
+                  actions: ['cancel', 'accept'],
+                },
+              }}
 
-  label="Select From Date & Time"
+              label="Select From Date & Time"
               timeSteps={{ minutes: 1 }}
               // format=''
               ampm={false}
-               value={fromDate}
+              value={fromDate}
               onChange={(newValue) => setFromDate(newValue)}
               maxDate={toDate} // Max date for "From Date" should be
               closeOnSelect={false}
@@ -43,7 +47,11 @@ const SummaryReportComponent = ({handleClose}) => {
             />
 
             <DateTimePicker
-            slotProps={{ field: { clearable: true } }}
+              slotProps={{
+                field: { clearable: true }, actionBar: {
+                  actions: ['cancel', 'accept'],
+                },
+              }}
 
               label="Select To Date & Time"
               timeSteps={{ minutes: 1 }}

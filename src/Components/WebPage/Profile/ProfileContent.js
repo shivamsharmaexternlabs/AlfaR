@@ -16,7 +16,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 					initialValues={defaultValue}
 					validationSchema={Validate}
 					onSubmit={handleSubmit}>
-					{({ setFieldValue, errors, resetForm ,values,handleChange,}) => {
+					{({ setFieldValue, errors, resetForm ,values,handleChange,touched}) => {
 						return <Form>
 							<div className={`${Style.profileForminner}`}>
 								<h3>{"Your Details"}</h3>
@@ -61,7 +61,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 									<h3 className='mt-5'>{"Change Password"}</h3>
 
 									<div className="formbox mt-3">
-										<div className={`forminnerbox ${Style.forminnerbox}`}>
+										<div className={`forminnerbox ${Style.forminnerbox}  ${errors.password && touched.password ? 'border-danger' : ""}`}>
 											<Field
 												name="password"
 												type="text"
@@ -80,7 +80,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 									</div>
 
 									<div className="formbox mt-3">
-										<div className={`forminnerbox ${Style.forminnerbox} d-flex align-items-center justify-content-space-between pe-2`}>
+										<div className={`forminnerbox ${Style.forminnerbox} d-flex align-items-center justify-content-space-between pe-2  ${errors.newPassword && touched.newPassword ? 'border-danger' : ""}`}>
 											<Field
 												name="newPassword"
 												type="text"
@@ -110,7 +110,7 @@ const ProfileContent = ({ defaultValue, Validate, handleSubmit, Style, userName,
 									</div>
 
 									<div className="formbox mt-3">
-										<div className={`forminnerbox ${Style.forminnerbox}`}>
+										<div className={`forminnerbox ${Style.forminnerbox} ${errors.confirmPassword && touched.confirmPassword ? 'border-danger' : ""}`}>
 											<Field
 												name="confirmPassword"
 												type="text"

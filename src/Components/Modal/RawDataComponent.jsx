@@ -8,11 +8,12 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
 
-const RawDataComponent = ({handleClose}) => {
+const RawDataComponent = ({ handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   //min refereced to Caledndar 1
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+
   return (
 
     <div className='rowdatapopup '>
@@ -21,7 +22,7 @@ const RawDataComponent = ({handleClose}) => {
 
           <button type='button' className='closebtn'>
             <img src={Closebtn} alt='close btn'
-            onClick={() => handleClose()}
+              onClick={() => handleClose()}
             />
           </button>
           <h2>{"Raw Data"}</h2>
@@ -29,11 +30,13 @@ const RawDataComponent = ({handleClose}) => {
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-            slotProps={{ field: { clearable: true },
-            actionBar: {
-              actions: ['cancel','accept'],
-            },
-           }}
+              slotProps={{
+                field: { clearable: true },
+                actionBar: {
+                  actions: ['cancel', 'accept'],
+                },
+              }}
+
               label="Select From Date & Time"
               timeSteps={{ minutes: 1 }}
               ampm={false}
@@ -47,7 +50,13 @@ const RawDataComponent = ({handleClose}) => {
             />
 
             <DateTimePicker
-            slotProps={{ field: { clearable: true } }}
+              slotProps={{
+                field: { clearable: true },
+                actionBar: {
+                  actions: ['cancel', 'accept'],
+                  okLabel: 'Apply',
+                },
+              }}
               label="Select To Date & Time"
               timeSteps={{ minutes: 1 }}
               // format=''
