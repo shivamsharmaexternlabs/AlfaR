@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   const Validate = yup.object({
-    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
+    password: yup.string().required("Current Password is required").matches(/^\S*$/, 'Current Password must not contain spaces'),
     newPassword: yup.string().required("New Password is required").matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
       "New Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and symbols."
