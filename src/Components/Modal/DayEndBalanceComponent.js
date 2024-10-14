@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Closebtn from '../Astes/close.svg'
+import dayjs from "dayjs"
 
 import { Button, DialogActions, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -10,6 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also
 
 const DayEndBalanceComponent = ({ handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const today = new Date()
 
   return (
 
@@ -33,14 +35,16 @@ const DayEndBalanceComponent = ({ handleClose }) => {
                 },
               }}
 
-              label="Select Date & Time"
+              label="Select Date & Time in UTC"
               timeSteps={{ minutes: 1 }}
-              // format=''
+              format="DD-MM-YYYY HH:mm"
               ampm={false}
               value={selectedDate}
+              onAccept={(newValue) => setSelectedDate(newValue)}
               closeOnSelect={false}
+              minDate={dayjs(new Date(today.setMonth(today.getMonth() - 6)))}
               renderInput={(params) => <TextField {...params} />}
-
+              maxDate={dayjs(new Date())}
             />
 
             {/* <DateTimePicker
@@ -63,9 +67,13 @@ const DayEndBalanceComponent = ({ handleClose }) => {
           <button type='button' className='btnWh me-4'
             onClick={() => handleClose()}
           >{"Cancel"} </button>
+         {
+          selectedDate  ?
           <button type='button' className='btnBl'
           //    onClick={sheetsXlsxFunctions}
-          >{"Download"}</button>
+          >{"Download"}</button>:
+          <></>
+         }
         </div>
       </div>
     </div>

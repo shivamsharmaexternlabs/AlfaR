@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Closebtn from '../Astes/close.svg'
+import dayjs from "dayjs"
 
 import { Button, DialogActions, TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,6 +12,8 @@ const SummaryReportComponent = ({ handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+  const today = new Date()
+
   return (
 
     <div className='rowdatapopup'>
@@ -28,19 +30,22 @@ const SummaryReportComponent = ({ handleClose }) => {
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-              slotProps={{
-                field: { clearable: true }, actionBar: {
-                  actions: ['cancel', 'accept'],
-                },
-              }}
+            slotProps={{ field: { clearable: true } , actionBar: {
+              actions: ['cancel','accept'],
+              },}}
 
-              label="Select From Date & Time"
+              label="Select From Date & Time in UTC"
               timeSteps={{ minutes: 1 }}
-              // format=''
+              format="DD-MM-YYYY HH:mm"
               ampm={false}
-              value={fromDate}
-              onChange={(newValue) => setFromDate(newValue)}
-              maxDate={toDate} // Max date for "From Date" should be
+               value={fromDate}
+               onChange={(newvval) => {
+                if(!newvval){setFromDate(null)}
+              }}
+              onAccept={(newValue) => setFromDate(newValue)}
+              disableFuture
+              minDate={dayjs(new Date(today.setMonth(today.getMonth() - 6)))}
+              maxDate={toDate||dayjs(new Date())} // Max date for "From Date" should be
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
 
@@ -53,13 +58,18 @@ const SummaryReportComponent = ({ handleClose }) => {
                 },
               }}
 
-              label="Select To Date & Time"
+              label="Select To Date & Time in UTC"
               timeSteps={{ minutes: 1 }}
-              // format=''
+              format="DD-MM-YYYY HH:mm"
               ampm={false}
               value={toDate}
-              onChange={(newValue) => setToDate(newValue)}
-              minDate={fromDate} // Min date for "To Date" should be after or on "From Date"
+              disableFuture
+              onChange={(newvval) => {
+                if(!newvval){setToDate(null)}
+              }}
+              onAccept={(newValue) => setToDate(newValue)}
+              minDate={fromDate || dayjs(new Date(today.setMonth(today.getMonth() - 6)))}
+              maxDate={dayjs(new Date())}
               closeOnSelect={false}
               p={1}
               renderInput={(params) => <TextField {...params}
@@ -74,9 +84,9 @@ const SummaryReportComponent = ({ handleClose }) => {
           <button type='button' className='btnWh me-4'
             onClick={() => handleClose()}
           >{"Cancel"} </button>
-          <button type='button' className='btnBl'
+         {fromDate && toDate ? <button type='button' className='btnBl'
           //    onClick={sheetsXlsxFunctions}
-          >{"Download"}</button>
+          >{"Download"}</button> : <></>}
         </div>
       </div>
     </div>
