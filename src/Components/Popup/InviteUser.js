@@ -43,6 +43,8 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 
 		const modifiedValues = {
 			...values,
+			name:values.name.trim(),
+			title:values.title.trim(),
 			email: values.email + '@alfar-group.com',
 		};
 
