@@ -105,6 +105,9 @@ const Signin = () => {
   useEffect(() => {
     if (routeData?.state?.changePasswordScreen) {
       setChangePasswordScreen(true)
+      if(routeData?.state?.token){
+        localStorage.setItem("Token", routeData?.state?.token)
+      }
     }
   }, [routeData?.state?.changePasswordScreen])
 
@@ -139,7 +142,7 @@ const Signin = () => {
             // setChangePasswordScreen(false);
             toast.warn("Please Login Again");
           }else{
-            if (res?.payload?.response?.data?.message === "Temporary password incorrect") {
+            if (res?.payload?.response?.data?.message) {
               setServerErrorMessage("Temporary password incorrect")
             }
           }

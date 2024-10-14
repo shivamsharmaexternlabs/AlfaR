@@ -64,17 +64,20 @@ function App() {
     // Axios response interceptor
     axios.interceptors.response.use(
       (response) => {
-        console.log("bjkdskbjsd", response)
         if (response?.data?.message === "Link is valid") {
           if (response?.data?.user?.role === "user" && !response?.data?.user?.isPasswordChanged) {
+            const token = localStorage.getItem("Token");
+            localStorage.clear()
             navigate(routes.ROOT, {
               state: {
                 changePasswordScreen: true,
-                userData: response?.data?.user
+                userData: response?.data?.user,
+                token
+
               }
             })
           } else {
-            navigate(routes.RESET_PASSWORD , 
+            navigate(routes.RESET_PASSWORD ,
               {
                 state: {
                   changePasswordScreen: false,
@@ -113,7 +116,7 @@ function App() {
             else{
               navigate(routes.ROOT);
             }
-           
+
           } else {
             // Handle other error cases
             // toast.error(errorMessage);
