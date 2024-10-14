@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import Closebtn from '../Astes/close.svg'
 import dayjs from "dayjs"
-
-import { Button, DialogActions, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
 
 const SummaryReportComponent = ({ handleClose }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const today = new Date()

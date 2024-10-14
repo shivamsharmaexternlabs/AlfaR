@@ -13,6 +13,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 
 	const dispatch = useDispatch();
 	const [selectedDepartment, setSelectedDepartment] = useState('');
+	const [serverErrorMessage, setServerErrorMessage] = useState('');
 
 	const defaultValue = {
 		name: "",
@@ -43,8 +44,8 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 
 		const modifiedValues = {
 			...values,
-			name:values.name.trim(),
-			title:values.title.trim(),
+			name: values.name.trim(),
+			title: values.title.trim(),
 			email: values.email + '@alfar-group.com',
 		};
 
@@ -56,6 +57,11 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 					setAddEmployeePopup(false);
 					dispatch(GetEmployeeDetails());
 					setMessage("User has been successfully invited.")
+				} else {
+					if (res?.payload?.response?.data?.message) {
+						setServerErrorMessage(res?.payload?.response?.data?.message)
+					}
+
 				}
 			});
 		}
@@ -76,10 +82,10 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 						initialValues={defaultValue}
 						validationSchema={Validate}
 						onSubmit={handleSubmit}>
-						{({ setFieldValue, errors, values, handleChange }) => {
+						{({ setFieldValue, errors, values, touched, handleChange }) => {
 							return <Form>
 								<div className="formbox mt-3">
-									<div className='forminnerbox'>
+									<div className={`forminnerbox  ${errors.name && touched.name ? 'border-danger' : ""}`}>
 										<Field
 											name="name"
 											type="name"
@@ -93,7 +99,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 									</p>
 								</div>
 								<div className="formbox mt-3">
-									<div className='forminnerbox input-group'>
+									<div className={`forminnerbox input-group  ${errors.email && touched.email ? 'border-danger' : ""}`}>
 										<Field
 											name="email"
 											type="text"
@@ -113,7 +119,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 									</p>
 								</div>
 								<div className="formbox mt-3">
-									<div className='forminnerbox'>
+									<div className={`forminnerbox ${errors.title && touched.title ? 'border-danger' : ""}`}>
 										<Field
 											name="title"
 											type="name"
@@ -148,10 +154,13 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 											))}
 										</select>
 										<p className="text-danger  small mb-0 small">
-											<ErrorMessage name="platform" />
+											<ErrorMessage name="department" />
 										</p>
 									</div>
+
+									{serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
 								</div>
+
 
 
 

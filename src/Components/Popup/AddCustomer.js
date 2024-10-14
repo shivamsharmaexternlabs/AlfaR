@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { CUSTOMERS, exchanges, exchangesOptions } from '../utils/Constants';
 import { CreateCustomer, EditCustomer, GetCustomerDetails } from '../Redux/slices/CustomerSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const AddCustomer = ({
   addCustomerPopup,
@@ -17,10 +17,8 @@ const AddCustomer = ({
   setEditCustomerData,
 }) => {
   const dispatch = useDispatch();
-
-  ;
-
   const [selectedExchange, setSelectedExcahnge] = useState('');
+  const [serverErrorMessage, setServerErrorMessage] = useState('');
   // console.log("editCustomerData", editCustomerData);
 
   const defaultValue = {
@@ -57,8 +55,6 @@ const AddCustomer = ({
   const handleSubmit = async (values) => {
 
     // console.log("values", values)
-
-
     let finalPayload = {
       // name: values.name,
       platform: values.platform,
@@ -79,6 +75,11 @@ const AddCustomer = ({
             setAddCustomerPopup(false);
             dispatch(GetCustomerDetails())
             setMessage(res?.payload?.data?.message)
+          } else {
+            if (res?.payload?.response?.data?.message) {
+              setServerErrorMessage(res?.payload?.response?.data?.message)
+            }
+
           }
         });
       } else {
@@ -118,9 +119,10 @@ const AddCustomer = ({
             validationSchema={Validate}
             onSubmit={handleSubmit}>
 
-            {({ setFieldValue, errors }) => {
+            {({ setFieldValue, errors, touched }) => {
 
               return <Form>
+
                 {/* <div className="formbox mt-3">
                   <div className='forminnerbox'>
                   <label>{"Name"}</label>
@@ -173,7 +175,7 @@ const AddCustomer = ({
                   {((selectedExchange || editCustomerData?.platform) === exchanges.BINANCE || (selectedExchange || editCustomerData?.platform) === exchanges.COINBASE || (selectedExchange || editCustomerData?.platform) === exchanges.OKX) && <>
 
                     <div className="formbox mt-3">
-                      <div className='forminnerbox'>
+                      <div className={`forminnerbox  ${errors.apiKey && touched.apiKey ? 'border-danger' : ""}`}>
                         <Field
                           name="apiKey"
                           type="text"
@@ -190,7 +192,7 @@ const AddCustomer = ({
                     </div>
 
                     <div className="formbox mt-3">
-                      <div className='forminnerbox'>
+                      <div className={`forminnerbox  ${errors.secretKey && touched.secretKey ? 'border-danger' : ""}`}>
                         <Field
                           name="secretKey"
                           type="text"
@@ -209,8 +211,10 @@ const AddCustomer = ({
 
                   </>}
 
+                
+
                   {(selectedExchange || editCustomerData?.platform) === exchanges.OKX && <div className="formbox mt-3">
-                    <div className='forminnerbox'>
+                    <div className={`forminnerbox  ${errors.apiPassword && touched.apiPassword ? 'border-danger' : ""}`}>
                       <Field
                         name="apiPassword"
                         type="text"
@@ -222,7 +226,10 @@ const AddCustomer = ({
                     <p className="text-danger  small ">
                       <ErrorMessage name="apiPassword" />
                     </p>
+
                   </div>}
+
+                  {serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
 
                 </>
                 <div className='text-end mt-5 mb-3'>
