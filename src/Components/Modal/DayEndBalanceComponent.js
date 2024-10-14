@@ -19,7 +19,7 @@ const DayEndBalanceComponent = ({handleClose}) => {
 
           <button type='button' className='closebtn'>
             <img src={Closebtn} alt='close btn'
-            onClick={() => handleClose()} 
+            onClick={() => handleClose()}
             />
           </button>
           <h2>{"Day End Balance"}</h2>
@@ -27,12 +27,14 @@ const DayEndBalanceComponent = ({handleClose}) => {
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
+            slotProps={{ field: { clearable: true } }}
+
               label="Select Date & Time"
               timeSteps={{ minutes: 1 }}
               // format=''
               ampm={false}
               value={selectedDate}
-              closeOnSelect={true}
+              closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
 
             />
@@ -50,7 +52,7 @@ const DayEndBalanceComponent = ({handleClose}) => {
               />
               }
             /> */}
-           
+
           </LocalizationProvider>
         </div>
         <div className='text-end mt-5 mb-3'>
