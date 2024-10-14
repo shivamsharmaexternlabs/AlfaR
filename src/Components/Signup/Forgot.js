@@ -109,7 +109,7 @@ const Forgot = () => {
                                     </Form>)}
 
                             </Formik>
-                            <div className='newadd'>{"Back to"}  <button type='button' onClick={() => { navigate("/") }}>{"Sign In!"}</button></div>
+                            <div className='newadd'>{"Back to"}  <button type='button' onClick={() => { navigate("/") }}>{"Sign in!"}</button></div>
                         </div> :
 
                         <SuccessMessageComponent successMessagePopup={successMessagePopup} message={"Forgot"} handleSubmitResendLink={handleSubmitResendLink} emailValue={emailValue} />}
