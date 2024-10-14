@@ -84,8 +84,8 @@ const Signin = () => {
             navigate(routes.ADMIN)
           }
           else {
-              if (res?.payload?.response?.data?.message === "Invalid password") {
-                setServerErrorMessage("Invalid password")
+              if (res?.payload?.response?.data?.message) {
+                setServerErrorMessage(res?.payload?.response?.data?.message)
               }
           }
 

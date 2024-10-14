@@ -50,7 +50,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
 
     // console.log("dhvjsfjsdf", err)
 
-    toast.error(err?.response?.data?.message);
+    // toast.error(err?.response?.data?.message);
 
 
 
@@ -133,7 +133,6 @@ export const ChangePassword = createAsyncThunk("ChangePassword", async (body, { 
     return response;
 
   } catch (err) {
-    toast.error(err?.response?.data?.message || err?.message );
     return rejectWithValue(err);
   }
 }
