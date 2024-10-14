@@ -42,6 +42,7 @@ const Employees = () => {
   useEffect(() => {
     if (searchItem === "") {
       dispatch(GetEmployeeDetails({ page: currentPage, status: status === "All" ? "" : status === "Active" ? true : false }));
+      setCloseIcon(false)
     }
   }, [dispatch, searchItem, currentPage, updatedStatus, status]);
 

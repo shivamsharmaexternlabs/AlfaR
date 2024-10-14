@@ -19,7 +19,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 
 				{/* <DropDownStatus status={status} handleStatusChange={handleStatusChange} statusOptions={statusOptions} /> */}
 
-				<SearchTab hanldeSearch={hanldeSearch} searchItem={searchItem} setCloseIcon={setCloseIcon} closeIcon={closeIcon} handleSearchApiCall={handleSearchApiCall} icon7={icon7} setSearchItem={setSearchItem} />
+				<SearchTab hanldeSearch={hanldeSearch} searchItem={searchItem} setSearchItem={setSearchItem} setCloseIcon={setCloseIcon} closeIcon={closeIcon} handleSearchApiCall={handleSearchApiCall} icon7={icon7} />
 			</div>
 
 			{(employeeData?.users?.length === 0 && searchItem === "" && status !== "")
