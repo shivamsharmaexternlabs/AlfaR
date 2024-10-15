@@ -187,7 +187,7 @@ const Admin = () => {
     return str;
   };
 
-  console.log("refreshh", refreshDayBalanceData)
+  // console.log("refreshh", refreshDayBalanceData)
 
 
   const prepareFinalData = (data) => data?.map(item => ({
@@ -319,14 +319,14 @@ const Admin = () => {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (newValue) => {
-    console.log("yaha aa gaya", newValue)
+    // console.log("yaha aa gaya", newValue)
     setSelectedDate(newValue);
   };
   const handleClick = (event) => {
     event.stopPropagation(); // Stop the click from closing the popup when interacting with DateTimePicker
   };
 
-  console.log("selectedDtaesdsd", selectedDate)
+  // console.log("selectedDtaesdsd", selectedDate)
 
   const [summeryReportToggle, setSummeryReportToggle] = useState(false)
   const [customerId, setCustomerId] = useState(null);

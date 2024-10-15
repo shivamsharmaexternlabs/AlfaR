@@ -170,7 +170,7 @@ export const RefreshDayBalance = createAsyncThunk("refreshDayBalance", async (bo
 
 export const UpdateStatus = createAsyncThunk("updateStatus", async (body, { rejectWithValue }) => {
 	let Token = localStorage.getItem("Token");
-	console.log('UpdateStatusUpdateStatus',{Token , body})
+	// console.log('UpdateStatusUpdateStatus',{Token , body})
 
 	try {
 		const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}customer/update-status/?status=${body.status}&id=${body?.id}`,body, {

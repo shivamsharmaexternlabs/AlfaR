@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { routes } from '../../utils/Constants';
 
 const SuccessMessageComponent = ({ message, handleSubmitResendLink,handleRemovePopup }) => {
-	console.log("message",message)
+	// console.log("message",message)
 	const navigate = useNavigate();
 	return (
 		<div className='accountinfo'>
@@ -36,7 +36,7 @@ const SuccessMessageComponent = ({ message, handleSubmitResendLink,handleRemoveP
 							</div>
 						</div> : ""}
 
-			{(message !== "Reset" && message !== "created") && <div className='newadd'>{"Back to"}  <button type='button' onClick={() => navigate(routes.ROOT)}>{"Sign in"}</button></div>}
+			{(message !== "Reset" && message !== "created") && <div className='newadd'>{"Back to"}  <button type='button' onClick={() => navigate(routes.ROOT)}>{"Sign in!"}</button></div>}
 		</div>
 	)
 }

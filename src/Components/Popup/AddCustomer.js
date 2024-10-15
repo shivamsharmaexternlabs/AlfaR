@@ -139,6 +139,8 @@ const AddCustomer = ({
     }
   }, [selectedExchange, editCustomerData]);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <PopupDetails PopupToggle={addCustomerPopup} classNameProp='addCustomer'>
@@ -173,26 +175,32 @@ const AddCustomer = ({
                   </p>
                 </div> */}
 
+                <div className="mt-4">
+                  <FormControl fullWidth >
+                    <InputLabel id="demo-simple-select-label">{"Exchange"}</InputLabel>
+                    <Select
+                      sx={{ borderRadius: "100px", borderColor: "black", border: "1px solid #E5E6F3",paddingRight:'10px' }}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedExchange || editCustomerData?.platform}
+                      label="Exchange"
+                      onChange={(e) => {
+                        setFieldValue("platform", e.target.value)
+                        setSelectedExcahnge(e.target.value)
+                      }}
+                      onMouseDown={(e) => e.stopPropagation()}
 
-                <FormControl fullWidth >
-                  <InputLabel id="demo-simple-select-label">{"Exchange"}</InputLabel>
-                  <Select
-                    sx={{ borderRadius: "100px",borderColor:"black" }}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedExchange || editCustomerData?.platform}
-                    label="Exchange"
-                    onChange={(e) => {
-                      setFieldValue("platform", e.target.value)
-                      setSelectedExcahnge(e.target.value)
-                    }}
-                    onMouseDown={(e) => e.stopPropagation()}
-                  >
-                    {exchangesOptions.map((option) => (<MenuItem value={option.value}>{option.name}</MenuItem>
-                    ))}
+                      open={open}
+                      onOpen={() => setOpen(true)}
+                      onClose={() => setOpen(false)}
+                      IconComponent={() => open ? <FaChevronUp /> : <FaChevronDown />}
+                    >
+                      {exchangesOptions.map((option) => (<MenuItem value={option.value}>{option.name}</MenuItem>
+                      ))}
 
-                  </Select>
-                </FormControl>
+                    </Select>
+                  </FormControl>
+                </div>
 
 
                 {/* <div className="formbox mt-3">

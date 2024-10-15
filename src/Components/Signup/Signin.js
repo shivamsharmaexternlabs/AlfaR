@@ -26,7 +26,7 @@ const Signin = () => {
 
   const routeData = useLocation();
 
-  console.log("routeDatajhdsjhds", routeData)
+  // console.log("routeDatajhdsjhds", routeData)
 
   const [showPassword, setShowPassword] = useState(changePasswordScreen ? true : false);
   const [showNewPassword, setShowNewPassword] = useState(true);
@@ -192,7 +192,7 @@ const Signin = () => {
                   onSubmit={handleSubmit}>
 
                   {({ values, handleChange, errors, touched }) => {
-                    console.log("errorsjkj", errors)
+                    // console.log("errorsjkj", errors)
                     return <Form >
                       <div className="formbox mt-3">
                         {/* <div className='forminnerbox'>
@@ -251,7 +251,7 @@ const Signin = () => {
                           <ErrorMessage name="password" />
                         </span>
                       </div>
-                      {(Object.keys(errors).length === 0) ? (serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>) : ""}
+                      {(Object.keys(errors).length === 0) ? (serverErrorMessage ? <p className='text-danger small'>{serverErrorMessage}</p> : <></>) : ""}
 
                       <div className="text-center">
                         <button type="submit" className="signbtn">

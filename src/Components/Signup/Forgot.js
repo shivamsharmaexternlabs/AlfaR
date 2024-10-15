@@ -36,7 +36,7 @@ const Forgot = () => {
 
         setEmailValue(modifiedValues)
 
-        console.log("valuesvalues", values)
+        // console.log("valuesvalues", values)
         let responseData = await dispatch(forgetPasswordSlice({ ...modifiedValues }));
 
         if (responseData?.payload?.status == 200) {
@@ -53,7 +53,7 @@ const Forgot = () => {
         dispatch(forgetPasswordSlice(payload));
     }
 
-    console.log("emailValue", emailValue)
+    // console.log("emailValue", emailValue)
 
     return (
         <>

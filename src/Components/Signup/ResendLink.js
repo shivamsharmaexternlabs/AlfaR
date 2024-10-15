@@ -13,7 +13,7 @@ const ResendLink = () => {
 
 	const [successMessagePopup, setSuccessMessagePopup] = useState(false);
 
-	console.log("routeDasdbjksdjbta", routeData?.state?.currentMessage?.isPasswordChanged)
+	// console.log("routeDasdbjksdjbta", routeData?.state?.currentMessage?.isPasswordChanged)
 
 	const handleSubmitResendLink = async () => {
 		if (routeData) {
@@ -24,7 +24,7 @@ const ResendLink = () => {
 			  if(routeData?.state?.currentMessage?.role === roles.USER && !routeData?.state?.currentMessage?.isPasswordChanged){
 				dispatch(ResenPasswordApiFunc(payload)).then((res) => {
 					if (res?.payload?.status === 200) {
-						console.log("Hone YAYAYAY")
+						// console.log("Hone YAYAYAY")
 						setSuccessMessagePopup(true);
 					}
 				});

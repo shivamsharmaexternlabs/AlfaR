@@ -14,7 +14,7 @@ const DayEndBalanceComponent = ({ handleClose }) => {
   return (
     <DialogActions style={{ justifyContent: 'flex-end' }}>
       {/* <Button onClick={onClear}>{"Reset"}</Button> */}
-      <Button onClick={onCancel}>{"Cancel"}</Button>
+      <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
       <Button onClick={onAccept}>{"Apply"}</Button>
     </DialogActions>
   );

@@ -9,7 +9,7 @@ import CustomTimePicker from '../WebPage/ReusableComponents/CustomTimePicker';
 
 const DayEndBalance = ({ dayEndBalanceData, dayBalancePopup, setDayBalancePopup, downloadCSV }) => {
 
-	console.log("dayEndBalanceDatasss", dayEndBalanceData);
+	// console.log("dayEndBalanceDatasss", dayEndBalanceData);
 	const date1PickerRef = useRef();
 	const datePickerRef = useRef();
 	const undefinedData = "undefined undefined undefined";

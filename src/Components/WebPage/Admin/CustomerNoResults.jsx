@@ -2,7 +2,7 @@ import React from 'react'
 import {  noCustomerIcon  } from '../../utils/Constants'
 
 const CustomerNoResults = ({ searchItem, closeIcon }) => {
-	console.log("closeIcon",closeIcon)
+	// console.log("closeIcon",closeIcon)
 	return (
 		<div className='alfartableOuter '>
 			<div className='alfartableTitle'>

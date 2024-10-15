@@ -142,9 +142,9 @@ const SummeryReport = ({ summeryReportToggle, SummeryReportToggleFun, CustomerId
     setSelectedTime(utcDate);
   };
 
-  console.log("setSelectedDate", selectedUTCDateTime, selectedDate)
+  // console.log("setSelectedDate", selectedUTCDateTime, selectedDate)
 
-  console.log("selectedTime", selectedTime)
+  // console.log("selectedTime", selectedTime)
 
   const handleNewTimeChange = (newTime) => {
     // Only update the time (hours and minutes)

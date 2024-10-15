@@ -120,7 +120,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .accountinfo p {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   color: #737B88;
   font-family: "Poppins", system-ui;
@@ -1351,9 +1351,9 @@ overflow-x: hidden;
   width: 48.5%;
 }
 
-.dateTimeRange > .MuiFormControl-root  .MuiInputBase-input {  
+/* .dateTimeRange > .MuiFormControl-root  .MuiInputBase-input {   */
   /* padding: 9px 4px; */
-}
+/* } */
 /* 
 .dateTimeRange > .MuiFormControl-root > label{
   -webkit-transform: translate(14px, 9px) scale(1);
@@ -1507,10 +1507,35 @@ overflow-x: hidden;
 .rowdatapopup.rowdatadayendpopup .dateTimeRange {
   justify-content: center;
 }
+
 .Mui-selected  {
   background-color: #000 !important;
 }
+.addCustomer .MuiOutlinedInput-notchedOutline {
+  border-width: 0px !important;
+  border-color:#000 !important
+}
+.addCustomer .MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+  color:#737B88;
+}
 
+
+.addCustomer .MuiFormLabel-root.MuiInputLabel-shrink {
+  -webkit-transform: translate(16px,7px) scale(.7);
+  -moz-transform: translate(16px,7px) scale(.7);
+  -ms-transform: translate(16px,7px) scale(.7);
+  transform: translate(16px,7px) scale(.7);
+}
+.addCustomer .MuiFormLabel-root-MuiInputLabel-root {
+  left:1px !important;
+  top:4px !important;
+  padding-bottom: 2px !important;
+}
+
+.MuiFormControl-root .MuiSelect-select {
+  padding-top: 20px ;
+  padding-bottom: 10px;
+}
 
 /* ------------------------------------------ pagination -------------------------------*/
 

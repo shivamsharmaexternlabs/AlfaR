@@ -15,7 +15,7 @@ const RestPassword = () => {
     const navigate = useNavigate();
     const routePath = useLocation();
 
-    console.log("routePath",routePath)
+    // console.log("routePath",routePath)
 
     const [successMessagePopup, setSuccessMessagePopup] = useState(false);
 
@@ -75,7 +75,7 @@ const RestPassword = () => {
                             validationSchema={Validate}
                             onSubmit={handleSubmitPassword}>
                             {({ errors, touched }) => {
-                                console.log("errors", errors, "touched", touched)
+                                // console.log("errors", errors, "touched", touched)
                                 return <Form>
                                     <div className="formbox mt-3">
                                         <div className={`forminnerbox d-flex align-items-center justify-content-space-between pe-2  ${errors.password && touched.password ? 'border-danger' : ""}`}>

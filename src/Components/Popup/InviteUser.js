@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DEPARTMENTS, DEPARTMENTS_NAME } from '../utils/Constants';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 
 const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup, setMessage }) => {
@@ -15,6 +16,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 	const dispatch = useDispatch();
 	const [selectedDepartment, setSelectedDepartment] = useState('');
 	const [serverErrorMessage, setServerErrorMessage] = useState('');
+	const [open, setOpen] = useState(false);
 
 	const defaultValue = {
 		name: "",
@@ -167,7 +169,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 									<FormControl fullWidth>
 										<InputLabel id="demo-simple-select-label">{"Department"}</InputLabel>
 										<Select
-											sx={{ borderRadius: "100px", borderColor: "#E5E6F3", }}
+											sx={{ borderRadius: "100px", borderColor: "#E5E6F3",  border: "1px solid #E5E6F3",paddingRight:'10px'}}
 											labelId="demo-simple-select-label"
 											id="demo-simple-select"
 											value={selectedDepartment}
@@ -178,6 +180,10 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 												setSelectedDepartment(e.target.value)
 											}}
 											onMouseDown={(e) => e.stopPropagation()}
+											open={open}
+											onOpen={() => setOpen(true)}
+											onClose={() => setOpen(false)}
+											IconComponent={() => open ? <FaChevronUp /> : <FaChevronDown />}
 										>
 											{[{ name: "Operations", value: "Operations" },].map((option) => (<MenuItem value={option.value}>{option.name}</MenuItem>
 											))}
