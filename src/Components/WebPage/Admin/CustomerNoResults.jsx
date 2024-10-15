@@ -1,5 +1,5 @@
 import React from 'react'
-import { closeIcon, customerBlack } from '../../utils/Constants'
+import {  noCustomerIcon  } from '../../utils/Constants'
 
 const CustomerNoResults = ({ searchItem, closeIcon }) => {
 	console.log("closeIcon",closeIcon)
@@ -28,7 +28,7 @@ const CustomerNoResults = ({ searchItem, closeIcon }) => {
 						<tr >
 							<td colspan="6">
 								<div className='d-flex align-items-center justify-content-center flex-column' style={{ height: '500px', textAlign: 'center' }}>
-									<img src={customerBlack} alt='icon8 img' />
+									<img src={noCustomerIcon} alt='icon8 img' />
 									<p>{"No search results found"}</p>
 								</div>
 							</td>

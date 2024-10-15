@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Closebtn from '../Astes/close.svg'
-import { TextField } from '@mui/material';
+import { Button, DialogActions, TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
@@ -11,6 +11,16 @@ const RawDataComponent = ({ handleClose }) => {
   const [toDate, setToDate] = useState(null);
   const today = new Date();
 
+  const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
+    return (
+      <DialogActions style={{ justifyContent: 'flex-end' }}>
+        <Button onClick={onClear}>{"Reset"}</Button>
+        {/* <Button onClick={onCancel}>{"Cancel"}</Button> */}
+        <Button onClick={onAccept}>{"Apply"}</Button>
+      </DialogActions>
+    );
+  };
+
   return (
 
     <div className='rowdatapopup'>
@@ -19,19 +29,28 @@ const RawDataComponent = ({ handleClose }) => {
           <button type='button' className='closebtn'>
             <img src={Closebtn} alt='close btn' onClick={() => handleClose()} />
           </button>
-          <h2>{"Summery Report"}</h2>
+          <h2>{"Raw Data"}</h2>
         </div>
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             {/* From DateTime Picker */}
             <DateTimePicker
-              slotProps={{
-                field: { clearable: true },
-                actionBar: { actions: ['cancel', 'accept'] },
+              // slotProps={{
+
+              //   field: { clearable: true, },
+              //   actionBar: { actions: ['cancel', 'accept'] },
+
+              // }}
+              slots={{
+                actionBar: CustomActionBar, // Use the custom ActionBar
               }}
+              componentsProps={{
+                actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
+              }}
+
               label="Select From Date & Time in UTC"
               timeSteps={{ minutes: 1, seconds: 1 }}  // Show seconds
-              format="DD-MM-YYYY HH:mm:ss"  // Show seconds in format
+              format="DD-MM-YYYY HH:mm"  // Show seconds in format
               ampm={false}
               value={fromDate}
               onChange={(newValue) => setFromDate(newValue)}
@@ -39,18 +58,27 @@ const RawDataComponent = ({ handleClose }) => {
               minDate={dayjs(today).subtract(6, 'months')}  // Allow dates up to 6 months ago
               maxDate={toDate || dayjs(today)}  // Max date for "From Date"
               closeOnSelect={false}
+
               renderInput={(params) => <TextField {...params} />}
+
             />
 
             {/* To DateTime Picker */}
             <DateTimePicker
-              slotProps={{
-                field: { clearable: true },
-                actionBar: { actions: ['cancel', 'accept'] },
+              // slotProps={{
+              //   field: { clearable: true },
+              //   actionBar: { actions: ['cancel', 'accept'] },
+              // }}
+              slots={{
+                actionBar: CustomActionBar, // Use the custom ActionBar
               }}
+              componentsProps={{
+                actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
+              }}
+
               label="Select To Date & Time in UTC"
               timeSteps={{ minutes: 1, seconds: 1 }}  // Show seconds
-              format="DD-MM-YYYY HH:mm:ss"  // Show seconds in format
+              format="DD-MM-YYYY HH:mm"  // Show seconds in format
               ampm={false}
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}

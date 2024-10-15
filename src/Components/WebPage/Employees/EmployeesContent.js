@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import EmployeeTable from './EmployeeTable'
 import ReactPaginate from 'react-paginate';
-import { roles, statusOptions } from '../../utils/Constants';
+import { noEmployeeIcon, roles, statusOptions } from '../../utils/Constants';
 import close from '../../Astes/close.svg';
 import DropDownStatus from '../ReusableComponents/DropDownStatus';
 import EmployeeNoResults from './EmployeeNoResults';
@@ -24,7 +24,7 @@ const EmployeesContent = ({ setAddEmployeePopup, icon7, employeesBlack, employee
 
 			{(employeeData?.users?.length === 0 && searchItem === "" && status !== "")
 				? <div className='addcusbox my-3'>
-					<img src={employeesBlack} alt='icon8 img' />
+					<img src={noEmployeeIcon} alt='icon8 img' />
 					<p>{"No employee added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddEmployeePopup(true)}> {"Invite User"} </button>}
 				</div> : (employeeData?.users?.length === 0 && searchItem)

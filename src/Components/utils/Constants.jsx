@@ -75,3 +75,5 @@ export const profileBlack = require("../Astes/profile-black.svg").default;
 export const profileWhite = require("../Astes/profile-white.svg").default;
 export const informationIcon = require("../Astes/information.svg").default;
 export const greyDownloadIcon = require("../Astes/greyDownload.svg").default;
+export const noCustomerIcon = require("../Astes/customerNo.svg").default;
+export const noEmployeeIcon = require("../Astes/employeeNo.svg").default;

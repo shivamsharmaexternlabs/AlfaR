@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomerTable from './CustomerTable';
-import { customerBlack, roles } from '../../utils/Constants';
+import { customerBlack, noCustomerIcon, roles } from '../../utils/Constants';
 import close from '../../Astes/close.svg';
 import CustomerNoResults from './CustomerNoResults';
 import SearchTab from '../ReusableComponents/SearchTab';
@@ -18,7 +18,7 @@ const CustomerContent = ({ setAddCustomerPopup, customerData, icon7, icon8, setE
 			</div>
 			{(customerData?.customers?.length === 0 && searchItem === "")
 				? <div className='addcusbox my-3'>
-					<img src={customerBlack} alt='icon8 img' />
+					<img src={noCustomerIcon} alt='icon8 img' />
 					<p>{"No customer added so far"}</p>
 					{roleName === roles.ADMIN && <button type='button' className='addcusbtn' onClick={() => setAddCustomerPopup(true)}> {"Add Customer"} </button>}
 				</div> : (searchItem && customerData?.customers?.length === 0)

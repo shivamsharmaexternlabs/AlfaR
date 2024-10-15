@@ -1,5 +1,5 @@
 import React from 'react'
-import { employeesBlack } from '../../utils/Constants'
+import { employeesBlack, noEmployeeIcon } from '../../utils/Constants'
 
 const EmployeeNoResults = ({closeIcon,searchItem}) => {
 	return (
@@ -25,7 +25,7 @@ const EmployeeNoResults = ({closeIcon,searchItem}) => {
 						<tr >
 							<td colspan="5">
 								<div className='d-flex align-items-center justify-content-center flex-column' style={{ height: '500px', textAlign: 'center' }}>
-									<img src={employeesBlack} alt='icon8 img' />
+									<img src={noEmployeeIcon} alt='icon8 img' />
 									<p>{"No search results found"}</p>
 								</div>
 							</td>

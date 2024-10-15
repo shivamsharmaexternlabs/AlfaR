@@ -850,6 +850,10 @@ input::-webkit-contacts-auto-fill-button {
   bottom: 120%;
 }
 
+.MuiPickersLayout-root {
+display: block !important;
+}
+
 .clbtn.editbtn:hover::after {
   content: "Edit Customer";
   width: 132px;
@@ -1486,10 +1490,10 @@ overflow-x: hidden;
 .rowdatapopup.rowdatadayendpopup .dateTimeRange {
   justify-content: center;
 }
-.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
-.css-ux17pc-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected  {
+.Mui-selected  {
   background-color: #000 !important;
 }
+
 
 /* ------------------------------------------ pagination -------------------------------*/
 
@@ -1638,7 +1642,7 @@ overflow-x: hidden;
 .dasboardpage>.content::-webkit-scrollbar,
 .accountbox>.rightpart::-webkit-scrollbar,
 .verifyOuterbox::-webkit-scrollbar ,
-.css-8fykvn-MuiMultiSectionDigitalClock-root .MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar{
+.MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar{
   width: 5px;
   box-shadow: inset 0 0 5px #b0b0b0;
   border-radius: 100px;
@@ -1650,7 +1654,7 @@ overflow-x: hidden;
 .dasboardpage>.content::-webkit-scrollbar-thumb,
 .accountbox>.rightpart::-webkit-scrollbar-thumb,
 .verifyOuterbox::-webkit-scrollbar-thumb ,
-.css-8fykvn-MuiMultiSectionDigitalClock-root .MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar-thumb  {
+.MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar-thumb  {
   background: #b0b0b0;
   border-radius: 100px;
 

@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import Closebtn from '../Astes/close.svg'
 import dayjs from "dayjs"
-import { TextField } from '@mui/material';
+import { Button, DialogActions, TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
 
 const DayEndBalanceComponent = ({ handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const today = new Date()
+  const today = new Date();
+
+  const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
+  return (
+    <DialogActions style={{ justifyContent: 'flex-end' }}>
+      <Button onClick={onClear}>{"Reset"}</Button>
+      {/* <Button onClick={onCancel}>{"Cancel"}</Button> */}
+      <Button onClick={onAccept}>{"Apply"}</Button>
+    </DialogActions>
+  );
+};
 
   return (
 
@@ -26,10 +36,18 @@ const DayEndBalanceComponent = ({ handleClose }) => {
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-              slotProps={{
-                field: { clearable: true }, actionBar: {
-                  actions: ['cancel', 'accept'],
-                },
+              // slotProps={{
+              //   field: { clearable: true }, actionBar: {
+              //     actions: ['cancel', 'accept'],
+
+              //   },
+              // }}
+
+              slots={{
+                actionBar: CustomActionBar, // Use the custom ActionBar
+              }}
+              componentsProps={{
+                actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
               }}
 
               label="Select Date & Time in UTC"
@@ -64,13 +82,13 @@ const DayEndBalanceComponent = ({ handleClose }) => {
           <button type='button' className='btnWh me-4'
             onClick={() => handleClose()}
           >{"Cancel"} </button>
-         {
-          selectedDate  ?
-          <button type='button' className='btnBl'
-          //    onClick={sheetsXlsxFunctions}
-          >{"Download"}</button>:
-          <></>
-         }
+          {
+            selectedDate ?
+              <button type='button' className='btnBl'
+              //    onClick={sheetsXlsxFunctions}
+              >{"Download"}</button> :
+              <></>
+          }
         </div>
       </div>
     </div>
