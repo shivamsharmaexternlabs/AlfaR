@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PopupDetails from './PopupDetails'
 import Closebtn from '../Astes/close.svg'
 import * as yup from "yup";
@@ -6,6 +6,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { CUSTOMERS, exchanges, exchangesOptions } from '../utils/Constants';
 import { CreateCustomer, EditCustomer, GetCustomerDetails } from '../Redux/slices/CustomerSlice';
 import { useDispatch } from 'react-redux';
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const AddCustomer = ({
   addCustomerPopup,
@@ -108,6 +110,35 @@ const AddCustomer = ({
     setEditCustomerData("");
   }
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const selectRef = useRef(null); // Ref for the select element
+
+  const handleDropdownClick = (e) => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Detect when the dropdown is closed by clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setIsDropdownOpen(false); // Close the dropdown if clicked outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Whenever selectedExchange is updated, close the dropdown
+    if (selectedExchange || editCustomerData?.platform) {
+      setIsDropdownOpen(false);
+    }
+  }, [selectedExchange, editCustomerData]);
+
   return (
     <>
       <PopupDetails PopupToggle={addCustomerPopup} classNameProp='addCustomer'>
@@ -143,32 +174,67 @@ const AddCustomer = ({
                 </div> */}
 
 
-                <div className="formbox mt-3">
+                <FormControl fullWidth >
+                  <InputLabel id="demo-simple-select-label">{"Exchange"}</InputLabel>
+                  <Select
+                    sx={{ borderRadius: "100px",borderColor:"black" }}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectedExchange || editCustomerData?.platform}
+                    label="Exchange"
+                    onChange={(e) => {
+                      setFieldValue("platform", e.target.value)
+                      setSelectedExcahnge(e.target.value)
+                    }}
+                    onMouseDown={(e) => e.stopPropagation()}
+                  >
+                    {exchangesOptions.map((option) => (<MenuItem value={option.value}>{option.name}</MenuItem>
+                    ))}
+
+                  </Select>
+                </FormControl>
+
+
+                {/* <div className="formbox mt-3">
                   <div className='forminnerbox addselectbox'>
                     <label>{"Exchange"}</label>
-                    <select
-                      name="platform"
-                      value={selectedExchange || editCustomerData?.platform}
+                    <div className="select-wrapper" onClick={()=>console.log('oooooooooooooooooooooooooooooooooooooooooooooooooooo')} style={{ position: "relative" }} ref={selectRef}>
+                      <select
+                        name="platform"
+                        value={selectedExchange || editCustomerData?.platform}
 
-                      onChange={(e) => {
-                        setFieldValue("platform", e.target.value)
-                        setSelectedExcahnge(e.target.value)
-                      }}
-                      // onBlur={field.onBlur}
-                      className="form-control"
-                    >
-                      <option value="" label="Select Exchange" />
-                      {exchangesOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.name}
-                        </option>
-                      ))}
-                    </select>
+                        onChange={(e) => {
+                          setFieldValue("platform", e.target.value)
+                          setSelectedExcahnge(e.target.value)
+                        }}
+                        onClick={(e)=>{ handleDropdownClick()
+                          // console.log("bhjsdjsd",e.target)
+                          // if(e.target.name==="platform"){
+                          //   setIsDropdownOpen(false)
+                          // }
+                        }}
+
+                        // onFocus={() => {console.log("yaha aaya kya"); setIsDropdownOpen(true)}} // When the dropdown opens
+                        // onBlur={() => setIsDropdownOpen(false)} // When the dropdown closes
+                        // onBlur={field.onBlur}
+                        className="form-control"
+                      >
+                        <option value="" label="Select Exchange" />
+                        {exchangesOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.name}
+                          </option>
+                        ))}
+                      </select>
+                      <span style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)" }}>
+                        {isDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
+                      </span>
+                    </div>
                     <p className="text-danger  small  mb-0 small">
                       <ErrorMessage name="platform" />
                     </p>
                   </div>
-                </div>
+                </div> */}
 
                 <>
 
@@ -211,7 +277,7 @@ const AddCustomer = ({
 
                   </>}
 
-                
+
 
                   {(selectedExchange || editCustomerData?.platform) === exchanges.OKX && <div className="formbox mt-3">
                     <div className={`forminnerbox  ${errors.apiPassword && touched.apiPassword ? 'border-danger' : ""}`}>
@@ -229,8 +295,7 @@ const AddCustomer = ({
 
                   </div>}
 
-                  {serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
-
+                  {(Object.keys(errors).length === 0) ? (serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>) : ""}
                 </>
                 <div className='text-end mt-5 mb-3'>
                   <button type='button' className='btnWh me-3' onClick={handleClosePopup}>{"Cancel"}</button>

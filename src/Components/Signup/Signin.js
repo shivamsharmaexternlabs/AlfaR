@@ -40,7 +40,7 @@ const Signin = () => {
   };
 
 
- useEffect(() => {
+  useEffect(() => {
     // Check if the user is already signed in by checking for the token
     const accessToken = localStorage.getItem("Token");
     const Role = localStorage.getItem("Role");
@@ -84,9 +84,9 @@ const Signin = () => {
             navigate(routes.ADMIN)
           }
           else {
-              if (res?.payload?.response?.data?.message) {
-                setServerErrorMessage(res?.payload?.response?.data?.message)
-              }
+            if (res?.payload?.response?.data?.message) {
+              setServerErrorMessage(res?.payload?.response?.data?.message)
+            }
           }
 
         }
@@ -105,7 +105,7 @@ const Signin = () => {
   useEffect(() => {
     if (routeData?.state?.changePasswordScreen) {
       setChangePasswordScreen(true)
-      if(routeData?.state?.token){
+      if (routeData?.state?.token) {
         localStorage.setItem("Token", routeData?.state?.token)
       }
     }
@@ -141,7 +141,7 @@ const Signin = () => {
             setShowSucessMessagePopup(true);
             // setChangePasswordScreen(false);
             toast.warn("Please Login Again");
-          }else{
+          } else {
             if (res?.payload?.response?.data?.message) {
               setServerErrorMessage("Temporary password incorrect")
             }
@@ -191,8 +191,9 @@ const Signin = () => {
                   validationSchema={Validate}
                   onSubmit={handleSubmit}>
 
-                  {({ values, handleChange,errors,touched }) => (
-                    <Form >
+                  {({ values, handleChange, errors, touched }) => {
+                    console.log("errorsjkj", errors)
+                    return <Form >
                       <div className="formbox mt-3">
                         {/* <div className='forminnerbox'>
                           <Field
@@ -206,7 +207,7 @@ const Signin = () => {
                         <span className="text-danger  small  mb-0">
                           <ErrorMessage name="email" />
                         </span> */}
-                        <div className={`forminnerbox input-group ${errors.email && touched.email ? 'border-danger' : ""}`}>
+                        <div className={`forminnerbox input-group ${((errors.email && touched.email) || serverErrorMessage === "User not found") ? 'border-danger' : ""}`}>
                           <Field
                             name="email"
                             type="text"
@@ -229,7 +230,7 @@ const Signin = () => {
                         </span>
                       </div>
                       <div className="formbox mt-3">
-                        <div className={`forminnerbox passwordBox ${errors.password && touched.password ? 'border-danger' : ""}`}>
+                        <div className={`forminnerbox passwordBox ${((errors.password && touched.password) || serverErrorMessage === "Invalid password") ? 'border-danger' : ""}`}>
                           <Field
                             name="password"
                             // type="password"
@@ -250,14 +251,15 @@ const Signin = () => {
                           <ErrorMessage name="password" />
                         </span>
                       </div>
-                      {serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
+                      {(Object.keys(errors).length === 0) ? (serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>) : ""}
 
                       <div className="text-center">
                         <button type="submit" className="signbtn">
                           {"Sign in"}
                         </button>
                       </div>
-                    </Form>)}
+                    </Form>
+                  }}
                 </Formik>
 
                 <div className='text-center'>
@@ -355,7 +357,8 @@ const Signin = () => {
                       </div>
                     )}
 
-                    {serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
+                  {(Object.keys(errors).length === 0) ? (serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>) : ""}
+
                     <div className="text-center">
                       <button type="submit" className="signbtn">
                         {"Change Password"}

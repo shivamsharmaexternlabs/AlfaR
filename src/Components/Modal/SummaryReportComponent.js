@@ -14,8 +14,8 @@ const SummaryReportComponent = ({ handleClose }) => {
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
-        <Button onClick={onClear}>{"Reset"}</Button>
-        {/* <Button onClick={onCancel}>{"Cancel"}</Button> */}
+        {/* <Button onClick={onClear}>{"Reset"}</Button> */}
+        <Button onClick={onCancel}>{"Cancel"}</Button>
         <Button onClick={onAccept}>{"Apply"}</Button>
       </DialogActions>
     );
@@ -28,7 +28,7 @@ const SummaryReportComponent = ({ handleClose }) => {
           <button type='button' className='closebtn'>
             <img src={Closebtn} alt='close btn' onClick={() => handleClose()} />
           </button>
-          <h2>{"Summery Report"}</h2>
+          <h2>{"Summary Report"}</h2>
         </div>
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>

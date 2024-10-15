@@ -7,6 +7,7 @@ import { CreateEmployees, GetEmployeeDetails } from '../Redux/slices/EmployeeSli
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DEPARTMENTS, DEPARTMENTS_NAME } from '../utils/Constants';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup, setMessage }) => {
@@ -132,7 +133,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 										<ErrorMessage name="title" />
 									</p>
 								</div>
-								<div className="formbox mt-3">
+								{/* <div className="formbox mt-3">
 									<div className='forminnerbox addselectbox'>
 										<label>{"Department"}</label>
 										<select
@@ -159,8 +160,35 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 									</div>
 
 									{serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>}
+								</div> */}
+
+
+								<div className='mt-3'>
+									<FormControl fullWidth>
+										<InputLabel id="demo-simple-select-label">{"Department"}</InputLabel>
+										<Select
+											sx={{ borderRadius: "100px", borderColor: "#E5E6F3", }}
+											labelId="demo-simple-select-label"
+											id="demo-simple-select"
+											value={selectedDepartment}
+											label="Department"
+
+											onChange={(e) => {
+												setFieldValue("department", e.target.value)
+												setSelectedDepartment(e.target.value)
+											}}
+											onMouseDown={(e) => e.stopPropagation()}
+										>
+											{[{ name: "Operations", value: "Operations" },].map((option) => (<MenuItem value={option.value}>{option.name}</MenuItem>
+											))}
+
+										</Select>
+									</FormControl>
 								</div>
 
+
+
+								{(Object.keys(errors).length === 0) ? (serverErrorMessage ? <p className='text-danger small mt-2'>{serverErrorMessage}</p> : <></>) : ""}
 
 
 

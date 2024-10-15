@@ -36,7 +36,7 @@ const SuccessMessageComponent = ({ message, handleSubmitResendLink,handleRemoveP
 							</div>
 						</div> : ""}
 
-			{(message !== "Reset" && message !== "created") && <div className='newadd'>{"Back to"}  <button type='button' onClick={() => navigate(routes.ROOT)}>{"Sign In"}</button></div>}
+			{(message !== "Reset" && message !== "created") && <div className='newadd'>{"Back to"}  <button type='button' onClick={() => navigate(routes.ROOT)}>{"Sign in"}</button></div>}
 		</div>
 	)
 }

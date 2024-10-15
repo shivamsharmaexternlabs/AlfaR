@@ -977,6 +977,18 @@ display: block !important;
 
 .addCustomer .formbox .forminnerbox {
   border-radius: 100px;
+  overflow: hidden;
+
+}
+.MuiDialogActions-root .MuiButtonBase-root.btnWh {
+  border: 1px solid #E5E6F3;
+  padding: 8px 12px 8px 12px;
+  border-radius: 71px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 400;
+  min-width: 157px;
+  background-color: transparent;
 
 }
 
@@ -990,7 +1002,8 @@ display: block !important;
   min-width: 157px;
 }
 
-.btnWh:hover {
+.btnWh:hover ,
+.MuiDialogActions-root .MuiButtonBase-root.btnWh:hover{
   background: #000000;
   color: #fff;
 }
@@ -1012,7 +1025,7 @@ display: block !important;
   color: #000;
 }
 
-.addCustomer.main-popup .formbox .forminnerbox.addselectbox:after {
+/* .addCustomer.main-popup .formbox .forminnerbox.addselectbox:after {
   position: absolute;
   content: "";
   top: 22px;
@@ -1021,7 +1034,7 @@ display: block !important;
   height: 9px;
   background: url(./Components/Astes/arrow2.svg) top center no-repeat;
   background-size: contain;
-}
+} */
 
 .addCustomer.main-popup .formbox .forminnerbox.addselectbox .form-control {
   padding-right: 50px;
@@ -1032,6 +1045,10 @@ display: block !important;
   top: 8px;
   left: 15px;
   color: #737B88;
+}
+
+.Mui-selected{
+  color: white !important;
 }
 
 .successpopup h3 {

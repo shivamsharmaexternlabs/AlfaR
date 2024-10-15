@@ -13,8 +13,8 @@ const DayEndBalanceComponent = ({ handleClose }) => {
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
   return (
     <DialogActions style={{ justifyContent: 'flex-end' }}>
-      <Button onClick={onClear}>{"Reset"}</Button>
-      {/* <Button onClick={onCancel}>{"Cancel"}</Button> */}
+      {/* <Button onClick={onClear}>{"Reset"}</Button> */}
+      <Button onClick={onCancel}>{"Cancel"}</Button>
       <Button onClick={onAccept}>{"Apply"}</Button>
     </DialogActions>
   );
