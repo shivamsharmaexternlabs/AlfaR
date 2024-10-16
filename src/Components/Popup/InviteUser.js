@@ -169,7 +169,7 @@ const InviteUser = ({ addEmployeePopup, setAddEmployeePopup, setSuccessfulPopup,
 									<FormControl fullWidth>
 										<InputLabel id="demo-simple-select-label">{"Department"}</InputLabel>
 										<Select
-											sx={{ borderRadius: "100px", borderColor: "#E5E6F3",  border: "1px solid #E5E6F3",paddingRight:'10px'}}
+											sx={{ borderRadius: "100px", borderColor: "#E5E6F3",  border: "1px solid #E5E6F3",paddingRight:'20px'}}
 											labelId="demo-simple-select-label"
 											id="demo-simple-select"
 											value={selectedDepartment}

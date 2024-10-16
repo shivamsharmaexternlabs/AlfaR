@@ -127,6 +127,14 @@ input[type="search"]::-webkit-search-results-decoration {
   line-height: 26px;
 }
 
+.accountinfo.sucesss p{
+  font-size: 14px;
+  font-weight: 400;
+  color: #737B88;
+  font-family: "Poppins", system-ui;
+  line-height: 26px;
+}
+
 .formbox {
   height: auto;
 }
@@ -1656,6 +1664,11 @@ overflow-x: hidden;
   background-color: #000;
 }
 
+.addCustomer .popupinner form>div>div>label{
+  color: #737B88!important;
+
+}
+ 
 /* 
 .popupinner .endDate .rmdp-top-class {
   width: 100%;

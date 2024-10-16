@@ -179,7 +179,7 @@ const AddCustomer = ({
                   <FormControl fullWidth >
                     <InputLabel id="demo-simple-select-label">{"Exchange"}</InputLabel>
                     <Select
-                      sx={{ borderRadius: "100px", borderColor: "black", border: "1px solid #E5E6F3",paddingRight:'10px' }}
+                      sx={{ borderRadius: "100px", borderColor: "black", border: "1px solid #E5E6F3",paddingRight:'20px' }}
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={selectedExchange || editCustomerData?.platform}
