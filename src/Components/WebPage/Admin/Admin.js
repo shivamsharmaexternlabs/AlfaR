@@ -16,6 +16,10 @@ import * as XLSX from 'xlsx/xlsx.mjs';
 import { CUSTOMERS } from '../../utils/Constants';
 import DateTimePickerComponent from '../ReusableComponents/DateTimePickerComponent';
 import { ref } from 'yup';
+import startCase from "lodash.startcase"
+import isObject from 'lodash.isobject';
+import mapKeys from 'lodash.mapkeys';
+import mapValues  from 'lodash.mapvalues';
 import DynamicModal from '../../Modal/mui-modal';
 
 const Admin = () => {
@@ -127,18 +131,12 @@ const Admin = () => {
 
   const handleRawData = (customerId) => {
     setRawDataPopup(true)
+    setCustomerId(customerId)
     let payload = {
       customerId: customerId,
       Token: Token
     }
-    if (Token) {
-      dispatch(GetRawData(payload)).then((res) => {
-        // if (res?.payload?.status == 200) {
-        //   sheetsXlsxFunctions(res?.payload?.data?.rawData)
-        // }
-        // setRawDataPopup(true)
-      })
-    }
+
   }
 
   const handlRefreshDay = (customerId) => {
@@ -152,18 +150,33 @@ const Admin = () => {
     }
   }
 
+  const convertKeysToTitleCase = (obj) => {
+    if (Array.isArray(obj)) {
+      // If it's an array, recursively apply the function to each element
+      return obj.map(convertKeysToTitleCase);
+    } else if (isObject(obj)) {
+      // If it's an object, apply the transformation to its keys
+      return mapValues(
+        mapKeys(obj, (value, key) => startCase(key)),
+        value => convertKeysToTitleCase(value) // Recurse into nested objects/arrays
+      );
+    }
+    return String(obj); // Return the value if it's neither an object nor an array
+  };
+
   const handleDownloadRawData = () => {
-    // Convert the rawData object to a string (plain text)
-    const textStr = JSON.stringify(rawData, null, 2); // Keeps the JSON format readable in the text file
-    const blob = new Blob([textStr], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
+    const output = convertKeysToTitleCase(rawData);
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'rawData.txt'; // Set the file extension to .txt
-    a.click();
+    const wb = XLSX.utils.book_new();
 
-    URL.revokeObjectURL(url); // Clean up the URL after download
+    for(let key in output){
+      const sheetData = output[key].length ? XLSX.utils.json_to_sheet(output[key]) : XLSX.utils.json_to_sheet([{ "No Data": "" }])
+      XLSX.utils.book_append_sheet(wb, sheetData, key);
+    }
+    const formattedDate = new Date()?.toISOString()?.split('T')?.[0]; // YYYY-MM-DD format
+    const filename = `raw_data_${formattedDate}.xlsx`;
+    XLSX.writeFile(wb, filename);
+
   }
 
 
@@ -418,11 +431,13 @@ const Admin = () => {
           setRawDataPopup(false)
         }}
         rawDataPopup={rawDataPopup}
-        handleDownload={handleDownloadRawData}
+        handleDownloadRawData={handleDownloadRawData}
         sheetsXlsxFunctions={sheetsXlsxFunctions}
         selectedDate={selectedDate}
         handleDateChange={handleDateChange}
         handleClick={handleClick}
+        customerId={customerId}
+
       />}
 
       {dayBalancePopup && <DynamicModal
@@ -437,6 +452,8 @@ const Admin = () => {
         selectedDate={selectedDate}
         handleDateChange={handleDateChange}
         handleClick={handleClick}
+        customerId={customerId}
+
       />}
 
       {summeryReportToggle && <DynamicModal
@@ -445,7 +462,7 @@ const Admin = () => {
         handleClose={() => {
           setSummeryReportToggle(false)
         }}
-        CustomerId={customerId}
+        customerId={customerId}
         handleDownloadSummaryCsv={downloadCSV}
       // selectedDate={selectedDate}
       // handleDateChange={handleDateChange}
