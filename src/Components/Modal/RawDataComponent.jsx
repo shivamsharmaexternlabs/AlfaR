@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Closebtn from '../Astes/close.svg'
 import { Button, DialogActions, TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
+import { GetRawData } from '../Redux/slices/CustomerSlice';
+
 import dayjs from 'dayjs';
 
-const RawDataComponent = ({ handleClose }) => {
+const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData }) => {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+  const dispatch = useDispatch()
   const today = new Date();
+  const handleDownload = async  () => {
+    console.log(fromDate, dayjs(fromDate).toISOString(), dayjs().utcOffset())
 
+    const fromDateUTC = new Date(Date.UTC(fromDate.$y, fromDate.$M, fromDate.$D, fromDate.$H, fromDate.$m,0)).toISOString()
+    const toDateUTC = new Date(Date.UTC(toDate.$y, toDate.$M, toDate.$D, toDate.$H, toDate.$m,0)).toISOString()
+    console.log(fromDateUTC, toDateUTC)
+    await dispatch(GetRawData({fromDateUTC, toDateUTC,customerId}))
+    handleDownloadRawData()
+  }
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
@@ -95,7 +107,7 @@ const RawDataComponent = ({ handleClose }) => {
             {"Cancel"}
           </button>
           {fromDate && toDate ? (
-            <button type='button' className='btnBl'>
+            <button type='button' className='btnBl'  onClick={() => handleDownload()}>
               {"Download"}
             </button>
           ) : null}
