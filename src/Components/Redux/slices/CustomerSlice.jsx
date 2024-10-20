@@ -34,7 +34,7 @@ export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (
 		queryParams.append('_page', pageParam);
 		queryParams.append('_search', searchItem);
 	} else {
-		
+
 	}
 
 	try {
@@ -77,7 +77,7 @@ export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { reje
 
 // GET DAY END BALANCE
 export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body, { rejectWithValue }) => {
-	
+
 	let Token = localStorage.getItem("Token");
 	// console.log('.........................',Token)
 
@@ -101,12 +101,12 @@ export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body
 
 // GET RAW DATA
 export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWithValue }) => {
-	
+
 	let Token = localStorage.getItem("Token");
-	// console.log('.........................',Token)
+	const {fromDateUTC:fromDate, toDateUTC:toDate, customerId} = body
 
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${body?.customerId}`, {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${customerId}&fromDate=${fromDate}&toDate=${toDate}`, {
 			headers: {
 				"Accept": "*/*",
 				"Authorization": `Bearer ${Token}`
@@ -125,7 +125,7 @@ export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWi
 
 // GET SUMMARY REPORT
 export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body, { rejectWithValue }) => {
-	
+
 	let Token = localStorage.getItem("Token");
 	// console.log('.........................',Token)
 
@@ -147,7 +147,7 @@ export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body
 );
 
 export const RefreshDayBalance = createAsyncThunk("refreshDayBalance", async (body, { rejectWithValue }) => {
-	
+
 	let Token = localStorage.getItem("Token");
 	// console.log('.........................',Token)
 
