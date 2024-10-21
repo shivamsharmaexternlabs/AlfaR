@@ -1689,7 +1689,7 @@ overflow-x: hidden;
 
 
 .loadPopup .main-popup {
-  z-index: 999999999999999999999999999;
+  z-index: 9999;
 }
 
 
