@@ -5,7 +5,7 @@ import RawDataComponent from './RawDataComponent';
 import DayEndBalance from '../Popup/DayEndBalance';
 import DayEndBalanceComponent from './DayEndBalanceComponent';
 import SummaryReportComponent from './SummaryReportComponent';
-const DynamicModal = ({ open, handleClose, ContentComponent,handleDownloadRawData,rawDataPopup,dayBalancePopup,summeryReportToggle, customerId }) => {
+const DynamicModal = ({ open, handleClose, ContentComponent,handleDownloadRawData,handleDownloadSummaryCsv,rawDataPopup,dayBalancePopup,summeryReportToggle, customerId , loadingValue}) => {
   console.log(customerId)
     const stopPropagation = (event) => {
         event.stopPropagation();
@@ -23,9 +23,9 @@ const DynamicModal = ({ open, handleClose, ContentComponent,handleDownloadRawDat
           p: 1,
         }}
       >
-        {rawDataPopup && <RawDataComponent handleClose={handleClose} handleDownloadRawData={handleDownloadRawData} customerId={customerId} />}
+        {rawDataPopup && <RawDataComponent handleClose={handleClose} handleDownloadRawData={handleDownloadRawData} customerId={customerId} loadingValue={loadingValue} />}
         {dayBalancePopup && <DayEndBalanceComponent handleClose={handleClose}  />}
-        {summeryReportToggle && <SummaryReportComponent handleClose={handleClose}  />}
+        {summeryReportToggle && <SummaryReportComponent handleClose={handleClose} handleDownloadSummaryCsv={handleDownloadSummaryCsv} customerId={customerId} loadingValue={loadingValue} />}
       </Box>
     </Modal>
   );

@@ -125,12 +125,11 @@ export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWi
 
 // GET SUMMARY REPORT
 export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body, { rejectWithValue }) => {
-
 	let Token = localStorage.getItem("Token");
-	// console.log('.........................',Token)
+	const {fromDateUTC:fromDate, toDateUTC:toDate, customerId} = body
 
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report?customerId=${body?.customerId}`, {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report?customerId=${customerId}&fromDate=${fromDate}&toDate=${toDate}`, {
 			headers: {
 				"Accept": "*/*",
 				"Authorization": `Bearer ${Token}`

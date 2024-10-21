@@ -19,8 +19,9 @@ import { ref } from 'yup';
 import startCase from "lodash.startcase"
 import isObject from 'lodash.isobject';
 import mapKeys from 'lodash.mapkeys';
-import mapValues  from 'lodash.mapvalues';
+import mapValues from 'lodash.mapvalues';
 import DynamicModal from '../../Modal/mui-modal';
+import ModelLoader from '../ReusableComponents/ModelLoader';
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -164,17 +165,17 @@ const Admin = () => {
     return String(obj); // Return the value if it's neither an object nor an array
   };
 
-  const handleDownloadRawData = (newData) => {
+  const handleDownloadRawData = (newData, keyVal) => {
     const output = convertKeysToTitleCase(newData);
 
     const wb = XLSX.utils.book_new();
 
-    for(let key in output){
+    for (let key in output) {
       const sheetData = output[key].length ? XLSX.utils.json_to_sheet(output[key]) : XLSX.utils.json_to_sheet([{ "No Data": "" }])
       XLSX.utils.book_append_sheet(wb, sheetData, key);
     }
     const formattedDate = new Date()?.toISOString()?.split('T')?.[0]; // YYYY-MM-DD format
-    const filename = `raw_data_${formattedDate}.xlsx`;
+    const filename = keyVal === "rawData" ? `raw_data_${formattedDate}.xlsx` : `summary_report_${formattedDate}.xlsx`;
     XLSX.writeFile(wb, filename);
 
   }
@@ -376,6 +377,7 @@ const Admin = () => {
         summeryReportFun={summeryReportFun}
         customerId={customerId}
         setCustomerId={setCustomerId}
+
       />
 
       {(addCustomerPopup || editCustomerPopup) ? (
@@ -437,7 +439,7 @@ const Admin = () => {
         handleDateChange={handleDateChange}
         handleClick={handleClick}
         customerId={customerId}
-
+        loadingValue={loading}
       />}
 
       {dayBalancePopup && <DynamicModal
@@ -463,13 +465,13 @@ const Admin = () => {
           setSummeryReportToggle(false)
         }}
         customerId={customerId}
-        handleDownloadSummaryCsv={downloadCSV}
+        handleDownloadSummaryCsv={handleDownloadRawData}
       // selectedDate={selectedDate}
       // handleDateChange={handleDateChange}
       // handleClick={handleClick}
       />}
 
-      <LoadingSpinner loadingValue={loading} />
+      <ModelLoader loadingValue={loading} />
     </>
   );
 };
