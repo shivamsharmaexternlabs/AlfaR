@@ -17,11 +17,11 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, load
   const dispatch = useDispatch()
   const today = new Date();
   const handleDownload = async () => {
-    console.log(fromDate, dayjs(fromDate).toISOString(), dayjs().utcOffset())
+    // console.log(fromDate, dayjs(fromDate).toISOString(), dayjs().utcOffset())
 
     const fromDateUTC = new Date(Date.UTC(fromDate.$y, fromDate.$M, fromDate.$D, fromDate.$H, fromDate.$m, 0)).toISOString()
     const toDateUTC = new Date(Date.UTC(toDate.$y, toDate.$M, toDate.$D, toDate.$H, toDate.$m, 0)).toISOString()
-    console.log(fromDateUTC, toDateUTC)
+    // console.log(fromDateUTC, toDateUTC)
     await dispatch(GetRawData({ fromDateUTC, toDateUTC, customerId })).then((res) => {
       // console.log("resPosne", res)
       if (res?.payload?.status === 200) {

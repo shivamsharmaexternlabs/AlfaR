@@ -176,7 +176,7 @@ const Admin = () => {
       XLSX.utils.book_append_sheet(wb, sheetData, key);
     }
     const formattedDate = new Date()?.toISOString()?.split('T')?.[0]; // YYYY-MM-DD format
-    const filename = keyVal === "rawData" ? `raw_data_${formattedDate}.xlsx` : `summary_report_${formattedDate}.xlsx`;
+    const filename = keyVal === "rawData" ? `raw_data_${formattedDate}.xlsx` : `day_end_balance_${formattedDate}.xlsx`;
     XLSX.writeFile(wb, filename);
 
   }
@@ -216,7 +216,7 @@ const Admin = () => {
     // Check if spot_data exists
     if (newData.spot_data && newData.spot_data.length > 0) {
       // Log the original data for spot_data
-      console.log("Original spot_data:", newData.spot_data);
+      // console.log("Original spot_data:", newData.spot_data);
 
       // Reorder and convert keys to title case for spot_data
       const reorderedSpotData = newData.spot_data.map(item => {
@@ -225,7 +225,7 @@ const Admin = () => {
       });
 
       // Log the reordered data for spot_data
-      console.log("Reordered spot_data:", reorderedSpotData);
+      // console.log("Reordered spot_data:", reorderedSpotData);
 
       // Create a sheet for the reordered spot_data
       const sheetData = reorderedSpotData.length
@@ -295,6 +295,7 @@ const Admin = () => {
 
 
   const downloadCSV = (dataToDownload) => {
+    // console.log("dataToDownload",dataToDownload)
     let csvData = prepareFinalData(dataToDownload);
 
     if (csvData?.length > 0) {
@@ -532,8 +533,9 @@ const Admin = () => {
           setDayBalancePopup(false)
         }}
         dayBalancePopup={dayBalancePopup}
-        dayEndBalanceData={dayEndBalanceData?.dailyBalance}
+        dayEndBalanceData={dayEndBalanceData}
         setDayBalancePopup={setDayBalancePopup}
+        handleDownloadRawData={handleDownloadRawData}
         downloadCSV={downloadCSV}
         selectedDate={selectedDate}
         handleDateChange={handleDateChange}

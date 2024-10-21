@@ -1516,6 +1516,64 @@ overflow-x: hidden;
   justify-content: center;
 }
 
+.rowdatadayendpopup .dayendTable {
+  width: 100%;
+}
+.rowdatadayendpopup .dayendTable table { 
+  width: 100%;
+}
+.rowdatadayendpopup .dayendTable table tr:nth-child(2n+1) {
+  background: #F9FAFB;
+}
+
+.rowdatadayendpopup .popupinner {
+  max-width: 778px;
+}
+
+.rowdatadayendpopup .dayendTable table {
+  margin-top: 32px;
+}
+
+
+.rowdatadayendpopup .dayendTable table th {
+  font-family: "Poppins", system-ui;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #6B7280;
+  padding: 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.rowdatadayendpopup .dayendTable table td {
+font-size: 15px;
+font-family: "Poppins", system-ui;
+padding: 16px;
+font-weight: 400;
+line-height: 22px;
+text-align: left;
+color: #000000;
+
+}
+
+
+.rowdatadayendpopup .dayendTable table th:first-child,
+.rowdatadayendpopup .dayendTable table tD:first-child {
+  width: 38%;
+}
+
+.rowdatadayendpopup .dayendTable table th:nth-child(2),
+.rowdatadayendpopup .dayendTable table tD:nth-child(2) {
+  width: 31%;
+}
+
+.rowdatadayendpopup .dayendTable table th:last-child(3),
+.rowdatadayendpopup .dayendTable table tD:last-child(3) {
+  /* width: 25%; */
+}
+
+
+
 .Mui-selected  {
   background-color: #000 !important;
 }

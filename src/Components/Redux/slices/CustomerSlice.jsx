@@ -79,10 +79,11 @@ export const EditCustomer = createAsyncThunk("EditCustomer", async (body, { reje
 export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body, { rejectWithValue }) => {
 
 	let Token = localStorage.getItem("Token");
+	const { selectedDateUTC: fromDate, customerId } = body;
 	// console.log('.........................',Token)
 
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-day-end-balance?customerId=${body?.customerId}`, {
+		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-day-end-balance?customerId=${customerId}&date=${fromDate}`, {
 			headers: {
 				"Accept": "*/*",
 				"Authorization": `Bearer ${Token}`
@@ -103,7 +104,7 @@ export const GetDayEndBalance = createAsyncThunk("GetDayEndBalance", async (body
 export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWithValue }) => {
 
 	let Token = localStorage.getItem("Token");
-	const {fromDateUTC:fromDate, toDateUTC:toDate, customerId} = body
+	const { fromDateUTC: fromDate, toDateUTC: toDate, customerId } = body
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report-raw?customerId=${customerId}&fromDate=${fromDate}&toDate=${toDate}`, {
@@ -126,7 +127,7 @@ export const GetRawData = createAsyncThunk("GetRawData", async (body, { rejectWi
 // GET SUMMARY REPORT
 export const GetSummaryReport = createAsyncThunk("GetSummaryReport", async (body, { rejectWithValue }) => {
 	let Token = localStorage.getItem("Token");
-	const {fromDateUTC:fromDate, toDateUTC:toDate, customerId} = body
+	const { fromDateUTC: fromDate, toDateUTC: toDate, customerId } = body
 
 	try {
 		const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/get-summary-report?customerId=${customerId}&fromDate=${fromDate}&toDate=${toDate}`, {
@@ -172,7 +173,7 @@ export const UpdateStatus = createAsyncThunk("updateStatus", async (body, { reje
 	// console.log('UpdateStatusUpdateStatus',{Token , body})
 
 	try {
-		const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}customer/update-status/?status=${body.status}&id=${body?.id}`,body, {
+		const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}customer/update-status/?status=${body.status}&id=${body?.id}`, body, {
 			headers: {
 				"Accept": "*/*",
 				"Authorization": `Bearer ${Token}`
@@ -194,11 +195,11 @@ export const customerSlice = createSlice({
 		customerDetailsData: [],
 		createdCustomer: [],
 		updatedCustomer: [],
-		dayEndBalanceData:[],
-		updatedStatus:[],
-		rawData:[],
-		summaryReportData:[],
-		refreshDayBalanceData:[],
+		dayEndBalanceData: [],
+		updatedStatus: [],
+		rawData: [],
+		summaryReportData: [],
+		refreshDayBalanceData: [],
 		loading: false,
 		error: null,
 	},
