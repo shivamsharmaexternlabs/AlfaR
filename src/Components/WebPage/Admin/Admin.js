@@ -113,20 +113,20 @@ const Admin = () => {
       Token: Token
     }
 
-    if (customerId && keyVal === "donwload-btn") {
-      dispatch(GetDayEndBalance(payload)).then((res) => {
-        if (res?.payload?.status == 200) {
-          let dayEndFinalData = res?.payload?.data?.dailyBalance?.[0]?.data
-          if (dayEndFinalData?.length) {
-            downloadCSV(dayEndFinalData)
-          }
-        }
-      })
-    } else {
-      if (Token) {
-        dispatch(GetDayEndBalance(payload))
-      }
-    }
+    // if (customerId && keyVal === "donwload-btn") {
+    //   dispatch(GetDayEndBalance(payload)).then((res) => {
+    //     if (res?.payload?.status == 200) {
+    //       let dayEndFinalData = res?.payload?.data?.dailyBalance?.[0]?.data
+    //       if (dayEndFinalData?.length) {
+    //         downloadCSV(dayEndFinalData)
+    //       }
+    //     }
+    //   })
+    // } else {
+    //   if (Token) {
+    //     dispatch(GetDayEndBalance(payload))
+    //   }
+    // }
   }
 
   const handleRawData = (customerId) => {
@@ -164,8 +164,8 @@ const Admin = () => {
     return String(obj); // Return the value if it's neither an object nor an array
   };
 
-  const handleDownloadRawData = () => {
-    const output = convertKeysToTitleCase(rawData);
+  const handleDownloadRawData = (newData) => {
+    const output = convertKeysToTitleCase(newData);
 
     const wb = XLSX.utils.book_new();
 
