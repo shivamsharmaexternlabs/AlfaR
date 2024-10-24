@@ -28,13 +28,14 @@ export const GetCustomerDetails = createAsyncThunk("GetCustomerDetails", async (
 	const pageParam = body && body.page !== undefined && body.page !== '' ? `${body.page}` : '1';
 	const searchItem = body && body.search !== undefined && body.search !== '' ? `${body.search}` : '';
 
+	let roleName = localStorage.getItem("Role");
 	// Append page parameter
-
+	if(roleName === "user"){
+		queryParams.append('active', true);
+	}
 	if (body?.page || body?.search) {
 		queryParams.append('_page', pageParam);
 		queryParams.append('_search', searchItem);
-	} else {
-
 	}
 
 	try {
