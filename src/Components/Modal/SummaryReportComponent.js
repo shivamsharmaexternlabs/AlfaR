@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { GetSummaryReport } from '../Redux/slices/CustomerSlice';
 import { useDispatch } from 'react-redux';
 
-const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryCsv, loadingValue  }) => {
+const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryCsv, loadingValue ,customerAddedAt }) => {
   const dispatch = useDispatch();
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);

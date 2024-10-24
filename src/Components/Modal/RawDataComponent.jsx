@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import LoadingSpinner from '../WebPage/ReusableComponents/LoadingSpinner';
 import PopupDetails from '../Popup/PopupDetails';
 
-const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, loadingValue }) => {
+const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, customerAddedAt }) => {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const dispatch = useDispatch()

@@ -41,7 +41,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 											: <td>
 												{/* <button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img'/> </button> */}
 												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button> */}
-												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id)} /> </button>
+												<button type='button' className='clbtn dlbtn'> <img src={downloadIcon} alt='img' onClick={() => handleRawData(item?._id, item?.inserted_at)} /> </button>
 											</td>}
 										{item?.lastCallStatus === "progress"
 											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img' /> </button></td>

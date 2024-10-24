@@ -130,8 +130,9 @@ const Admin = () => {
     // }
   }
 
-  const handleRawData = (customerId) => {
+  const handleRawData = (customerId, insertedAt) => {
     setRawDataPopup(true)
+    setCustomerAddedAt(insertedAt)
     setCustomerId(customerId)
     let payload = {
       customerId: customerId,
@@ -429,6 +430,7 @@ const Admin = () => {
 
   const [summeryReportToggle, setSummeryReportToggle] = useState(false)
   const [customerId, setCustomerId] = useState(null);
+  const [customerAddedAt, setCustomerAddedAt] = useState(null);
   const summeryReportFun = (e) => {
     setSummeryReportToggle(o => !o)
   }

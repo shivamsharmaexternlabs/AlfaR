@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also
 import { GetDayEndBalance } from '../Redux/slices/CustomerSlice';
 import { useDispatch } from 'react-redux';
 
-const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndBalance, downloadCSV, dayEndBalanceData }) => {
+const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndBalance, downloadCSV, dayEndBalanceData, customerAddedAt  }) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState(null);
   const today = new Date();

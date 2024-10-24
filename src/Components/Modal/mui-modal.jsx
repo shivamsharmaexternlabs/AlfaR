@@ -5,8 +5,7 @@ import RawDataComponent from './RawDataComponent';
 import DayEndBalance from '../Popup/DayEndBalance';
 import DayEndBalanceComponent from './DayEndBalanceComponent';
 import SummaryReportComponent from './SummaryReportComponent';
-const DynamicModal = ({ open, handleClose, ContentComponent,handleDownloadRawData,handleDownloadSummaryCsv,rawDataPopup,dayBalancePopup,summeryReportToggle, customerId , loadingValue,downloadCSV,dayEndBalanceData}) => {
-  // console.log("customerId",customerId)
+const DynamicModal = ({ open, handleClose, ContentComponent,handleDownloadRawData,handleDownloadSummaryCsv,rawDataPopup,dayBalancePopup,summeryReportToggle, customerId , loadingValue,downloadCSV,dayEndBalanceData,customerAddedAt}) => {
     const stopPropagation = (event) => {
         event.stopPropagation();
       };
@@ -23,9 +22,9 @@ const DynamicModal = ({ open, handleClose, ContentComponent,handleDownloadRawDat
           p: 1,
         }}
       >
-        {rawDataPopup && <RawDataComponent handleClose={handleClose} handleDownloadRawData={handleDownloadRawData} customerId={customerId} loadingValue={loadingValue} />}
-        {dayBalancePopup && <DayEndBalanceComponent handleClose={handleClose} downloadCSV={downloadCSV} customerId={customerId} dayEndBalanceData={dayEndBalanceData} />}
-        {summeryReportToggle && <SummaryReportComponent handleClose={handleClose} handleDownloadSummaryCsv={handleDownloadSummaryCsv} customerId={customerId} loadingValue={loadingValue} />}
+        {rawDataPopup && <RawDataComponent handleClose={handleClose} handleDownloadRawData={handleDownloadRawData} customerId={customerId} loadingValue={loadingValue} customerAddedAt={customerAddedAt} />}
+        {dayBalancePopup && <DayEndBalanceComponent handleClose={handleClose} downloadCSV={downloadCSV} customerId={customerId} dayEndBalanceData={dayEndBalanceData} customerAddedAt={customerAddedAt} />}
+        {summeryReportToggle && <SummaryReportComponent handleClose={handleClose} handleDownloadSummaryCsv={handleDownloadSummaryCsv} customerId={customerId} loadingValue={loadingValue} customerAddedAt={customerAddedAt} />}
       </Box>
     </Modal>
   );
