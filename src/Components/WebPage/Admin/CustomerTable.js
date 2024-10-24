@@ -57,8 +57,8 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 											{/* <button type='button' className='clbtn me-2 dpbtn ' ><img src={downloadIcon} alt='img' onClick={() => handleDayEndBalance(item?._id, 'donwload-btn')} /></button> */}
 											{/* <button type='button' className='clbtn rebtn'> <img src={refreshIcon} alt='img' onClick={() => handlRefreshDay(item?._id)} /> </button> */}
 										</td>
-										{roleName == "admin" ?
-											<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.status === 'active' ? 'toggleActive' : 'toggleNotActive'}></span>{" "} {item.status === 'active' ? "Active" : "Inactive"} </td>
+										{roleName === "admin" ?
+											<td> <span onClick={() => handleCustomerStatus(item._id, item.status)} className={item.active ? 'toggleActive' : 'toggleNotActive'}></span>{" "} {item.active ? "Active" : "Inactive"} </td>
 											: <></>}
 										{/* <td>
 										<button type='button' className='clbtn me-2 editbtn'> <img src={editIcon} alt='img' onClick={() => {
