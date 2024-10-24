@@ -12,7 +12,10 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
   const dispatch = useDispatch();
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const today = new Date();
+  const insertedAt = new Date(customerAddedAt)
+  const now = new Date();
+  const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const maxUTCDate = dayjs(utcNow)
 
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
     return (
@@ -31,7 +34,7 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
     const toDateUTC = new Date(Date.UTC(toDate.$y, toDate.$M, toDate.$D, toDate.$H, toDate.$m, 0)).toISOString()
     // console.log(fromDateUTC, toDateUTC)
     await dispatch(GetSummaryReport({ fromDateUTC, toDateUTC, customerId })).then((res) => {
-    
+
       if (res?.payload?.status === 200) {
         handleDownloadSummaryCsv(res?.payload?.data,'summaryReport')
       }
@@ -69,9 +72,8 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               ampm={false}
               value={fromDate}
               onChange={(newValue) => setFromDate(newValue)}
-              disableFuture
-              minDate={dayjs(today).subtract(6, 'months')}  // Allow dates up to 6 months ago
-              maxDate={toDate || dayjs(today)}  // Max date for "From Date"
+              minDateTime={dayjs(insertedAt)}  // Allow dates up to 6 months ago
+              maxDateTime={toDate || maxUTCDate}// Max date for "From Date"
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -94,9 +96,8 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               ampm={false}
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}
-              disableFuture
-              minDateTime={fromDate ? dayjs(fromDate).add(1, 'second') : dayjs(today).subtract(6, 'months')}  // Disable times before or equal to From date time
-              maxDate={dayjs(today)}  // Max date is today
+              minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
+              maxDateTime={maxUTCDate}  // Max date is today
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
             />

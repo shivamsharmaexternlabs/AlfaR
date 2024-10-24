@@ -11,8 +11,10 @@ import { useDispatch } from 'react-redux';
 const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndBalance, downloadCSV, dayEndBalanceData, customerAddedAt  }) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState(null);
-  const today = new Date();
-
+  const insertedAt = new Date(customerAddedAt)
+  const now = new Date();
+  const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const maxUTCDate = dayjs(utcNow)
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
@@ -86,9 +88,9 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
               value={selectedDate}
               onAccept={(newValue) => setSelectedDate(newValue)}
               closeOnSelect={false}
-              minDate={dayjs(new Date(today.setMonth(today.getMonth() - 6)))}
+              minDateTime={dayjs(insertedAt)}
               renderInput={(params) => <TextField {...params} />}
-              maxDate={dayjs(new Date())}
+              maxDateTime={maxUTCDate }
             />
 
             {/* <DateTimePicker

@@ -1,34 +1,31 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Closebtn from '../Astes/close.svg'
 import { Button, DialogActions, TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also use AdapterDateFns or others
 import { GetRawData } from '../Redux/slices/CustomerSlice';
-
 import dayjs from 'dayjs';
-import LoadingSpinner from '../WebPage/ReusableComponents/LoadingSpinner';
-import PopupDetails from '../Popup/PopupDetails';
 
 const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, customerAddedAt }) => {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const dispatch = useDispatch()
-  const today = new Date();
+  const insertedAt = new Date(customerAddedAt)
+  const now = new Date();
+  const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const maxUTCDate = dayjs(utcNow)
   const handleDownload = async () => {
-    // console.log(fromDate, dayjs(fromDate).toISOString(), dayjs().utcOffset())
 
     const fromDateUTC = new Date(Date.UTC(fromDate.$y, fromDate.$M, fromDate.$D, fromDate.$H, fromDate.$m, 0)).toISOString()
     const toDateUTC = new Date(Date.UTC(toDate.$y, toDate.$M, toDate.$D, toDate.$H, toDate.$m, 0)).toISOString()
     // console.log(fromDateUTC, toDateUTC)
     await dispatch(GetRawData({ fromDateUTC, toDateUTC, customerId })).then((res) => {
-      // console.log("resPosne", res)
       if (res?.payload?.status === 200) {
         handleDownloadRawData(res?.payload?.data,'rawData')
       }
     })
-    // handleDownloadRawData()
   }
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
     return (
@@ -53,29 +50,22 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               {/* From DateTime Picker */}
               <DateTimePicker
-                // slotProps={{
-
-                //   field: { clearable: true, },
-                //   actionBar: { actions: ['cancel', 'accept'] },
-
-                // }}
                 slots={{
                   actionBar: CustomActionBar, // Use the custom ActionBar
                 }}
                 componentsProps={{
                   actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
                 }}
-
                 label="Select From Date & Time in UTC"
                 timeSteps={{ minutes: 1, seconds: 1 }}  // Show seconds
                 format="DD-MM-YYYY HH:mm"  // Show seconds in format
                 ampm={false}
                 value={fromDate}
                 onChange={(newValue) => setFromDate(newValue)}
-                disableFuture
-                minDate={dayjs(today).subtract(6, 'months')}  // Allow dates up to 6 months ago
-                maxDate={toDate || dayjs(today)}  // Max date for "From Date"
+                // disableFuture
                 closeOnSelect={false}
+                minDateTime={dayjs(insertedAt)}  // Allow dates up to 6 months ago
+                maxDateTime={toDate || maxUTCDate}
 
                 renderInput={(params) => <TextField {...params} />}
 
@@ -83,10 +73,6 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
 
               {/* To DateTime Picker */}
               <DateTimePicker
-                // slotProps={{
-                //   field: { clearable: true },
-                //   actionBar: { actions: ['cancel', 'accept'] },
-                // }}
                 slots={{
                   actionBar: CustomActionBar, // Use the custom ActionBar
                 }}
@@ -100,9 +86,8 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
                 ampm={false}
                 value={toDate}
                 onChange={(newValue) => setToDate(newValue)}
-                disableFuture
-                minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(today).subtract(6, 'months')}  // Disable times before or equal to From date time
-                maxDate={dayjs(today)}  // Max date is today
+                minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
+                maxDateTime={maxUTCDate}  // Max date is today
                 closeOnSelect={false}
                 renderInput={(params) => <TextField {...params} />}
               />
