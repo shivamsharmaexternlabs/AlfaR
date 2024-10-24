@@ -34,7 +34,7 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 
 									// console.log("jhsdjbds", item)
 									return (<tr key={item._id}>
-										<td>  {item.customerUId} </td>
+										<td>  {item.binance_user_id} </td>
 										<td>{item.platform}</td>
 										{item?.lastCallStatus === "progress"
 											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img' /> </button></td>
