@@ -86,7 +86,7 @@ const Admin = () => {
   };
 
   const handleCustomerStatus = (customerId, state) => {
-    let status = state === 'active' ? 'inactive' : 'active'
+    let status = !state
     let payload = { status, id: customerId };
     if (customerId) {
       dispatch(UpdateStatus(payload));
