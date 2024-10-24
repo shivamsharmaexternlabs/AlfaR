@@ -526,6 +526,7 @@ const Admin = () => {
         handleDateChange={handleDateChange}
         handleClick={handleClick}
         customerId={customerId}
+        customerAddedAt={customerAddedAt}
         loadingValue={loading}
       />}
 
@@ -542,6 +543,7 @@ const Admin = () => {
         selectedDate={selectedDate}
         handleDateChange={handleDateChange}
         handleClick={handleClick}
+        customerAddedAt={customerAddedAt}
         customerId={customerId}
 
       />}
@@ -552,6 +554,7 @@ const Admin = () => {
         handleClose={() => {
           setSummeryReportToggle(false)
         }}
+        customerAddedAt={customerAddedAt}
         customerId={customerId}
         handleDownloadSummaryCsv={handleSummaryReportDownloadData}
       // selectedDate={selectedDate}
