@@ -41,9 +41,10 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}
         <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
-        {(shouldHideApply || shouldHideToApply) ?
-          <Button onClick={onAccept} disabled={shouldHideApply || shouldHideToApply} style={{ backgroundColor: 'lightgrey' }}>{"Apply"}</Button>
-          : <Button onClick={onAccept} >{"Apply"}</Button>}
+        {/* {(shouldHideApply || shouldHideToApply) ? */}
+          {/* <Button onClick={onAccept} disabled={shouldHideApply || shouldHideToApply} style={{ backgroundColor: 'lightgrey' }}>{"Apply"}</Button> : */}
+           <Button onClick={onAccept} >{"Apply"}</Button>
+           {/* } */}
       </DialogActions>
     );
   };
@@ -146,7 +147,7 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
               maxDateTime={maxUTCDate}  // Max date is today
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
-              disabled={fromDate === null ? true : false}
+              // disabled={fromDate === null ? true : false}
             // minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
             // maxDateTime={maxUTCDate}  // Max date is today
             // closeOnSelect={false}

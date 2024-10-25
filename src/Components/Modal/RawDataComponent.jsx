@@ -46,9 +46,10 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}
         <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
-        {(shouldHideApply || shouldHideToApply) ?
-          <Button onClick={onAccept} disabled={shouldHideApply || shouldHideToApply} style={{ backgroundColor: 'lightgrey' }}>{"Apply"}</Button>
-          : <Button onClick={onAccept} >{"Apply"}</Button>}
+        {/* {(shouldHideApply || shouldHideToApply) ? */}
+          {/* <Button onClick={onAccept} disabled={shouldHideApply || shouldHideToApply} style={{ backgroundColor: 'lightgrey' }}>{"Apply"}</Button> : */}
+           <Button onClick={onAccept} >{"Apply"}</Button>
+          {/* } */}
       </DialogActions>
     );
   };
@@ -148,7 +149,7 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
               maxDateTime={maxUTCDate}  // Max date is today
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
-              disabled={fromDate === null ? true : false}
+              // disabled={fromDate === null ? true : false}
             />
           </LocalizationProvider>
         </div>
