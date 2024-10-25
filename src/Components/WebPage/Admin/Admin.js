@@ -107,8 +107,10 @@ const Admin = () => {
 
   // console.log("dayEndBalanceData", dayEndBalanceData)
 
-  const handleDayEndBalance = (customerId, keyVal) => {
-    keyVal === "donwload-btn" ? setDayBalancePopup(false) : setDayBalancePopup(true)
+  const handleDayEndBalance = (customerId, insertedAt) => {
+    setCustomerAddedAt(insertedAt)
+
+    setDayBalancePopup(true)
     let payload = {
       customerId: customerId,
       Token: Token
@@ -350,73 +352,6 @@ const Admin = () => {
   };
 
 
-  // let withDrawData, tradesData, depositedData, subAccountTransferData, unrealisedPnlData, spotFeesData;
-
-  // const sheetsXlsxFunctions = (rawDataa) => {
-  //   withDrawData = rawDataa?.find((el) => el?.apiEndpoint === '/sapi/v1/capital/withdraw/history');
-  //   depositedData = rawDataa?.find((el) => el?.apiEndpoint === '/sapi/v1/capital/deposit/hisrec');
-  //   subAccountTransferData = rawDataa?.find((el) => el?.apiEndpoint === '/sapi/v1/sub-account/universalTransfer');
-  //   unrealisedPnlData = rawDataa?.find((el) => el?.apiEndpoint === '/fapi/v3/positionRisk');
-  //   spotFeesData = rawDataa?.find((el) => el?.apiEndpoint === '/api/v3/account/commission');
-
-
-  //   const wb = XLSX.utils.book_new(); // Create a new workbook
-  //   if (withDrawData?.rawData?.length > 2) {
-  //     const withdrawSheet = XLSX.utils.json_to_sheet(JSON.parse(withDrawData.rawData));
-  //     XLSX.utils.book_append_sheet(wb, withdrawSheet, "Withdraw");
-  //   } else {
-
-  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-  //     XLSX.utils.book_append_sheet(wb, emptyData, "Withdraw");
-  //   }
-
-  //   if (tradesData?.rawData?.length > 2) {
-  //     const tradesDataSheet = XLSX.utils.json_to_sheet(JSON.parse(tradesData.rawData));
-  //     XLSX.utils.book_append_sheet(wb, tradesDataSheet, "Trades");
-  //   } else {
-  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-  //     XLSX.utils.book_append_sheet(wb, emptyData, "Trades");
-  //   }
-
-  //   if (depositedData?.rawData?.length > 2) {
-  //     const depositedSheet = XLSX.utils.json_to_sheet(JSON.parse(depositedData.rawData));
-  //     XLSX.utils.book_append_sheet(wb, depositedSheet, "Deposits");
-  //   } else {
-  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-  //     XLSX.utils.book_append_sheet(wb, emptyData, "Deposits");
-  //   }
-
-  //   if (subAccountTransferData?.rawData?.length > 2) {
-  //     const subAccountTransferSheet = XLSX.utils.json_to_sheet(JSON.parse(subAccountTransferData.rawData));
-  //     XLSX.utils.book_append_sheet(wb, subAccountTransferSheet, "Sub Account Transfer");
-  //   } else {
-  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-  //     XLSX.utils.book_append_sheet(wb, emptyData, "Sub Account Transfer");
-  //   }
-
-  //   if (unrealisedPnlData?.rawData?.length > 2) {
-  //     const unrealisedPnlDataSheet = XLSX.utils.json_to_sheet(JSON.parse(unrealisedPnlData.rawData));
-  //     XLSX.utils.book_append_sheet(wb, unrealisedPnlDataSheet, "Unrealised Pnl");
-  //   } else {
-  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-  //     XLSX.utils.book_append_sheet(wb, emptyData, "Unrealised Pnl");
-  //   }
-  //   if (spotFeesData?.rawData?.length > 2) {
-  //     const spotFeesDataSheet = XLSX.utils.json_to_sheet(JSON.parse(spotFeesData.rawData));
-  //     XLSX.utils.book_append_sheet(wb, spotFeesDataSheet, "Spot Fees");
-  //   } else {
-  //     const emptyData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-  //     XLSX.utils.book_append_sheet(wb, emptyData, "Spot Fees");
-  //   }
-
-  //   const today = new Date();
-  //   const formattedDate = today.toISOString().split('T')[0]; // Extract the date part in YYYY-MM-DD format
-
-  //   const filename = `raw_data_${formattedDate}.xlsx`;
-
-  //   XLSX.writeFile(wb, filename);
-  // }
-
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateChange = (newValue) => {
     // console.log("yaha aa gaya", newValue)
@@ -431,7 +366,8 @@ const Admin = () => {
   const [summeryReportToggle, setSummeryReportToggle] = useState(false)
   const [customerId, setCustomerId] = useState(null);
   const [customerAddedAt, setCustomerAddedAt] = useState(null);
-  const summeryReportFun = (e) => {
+  const summeryReportFun = (e, insertedAt) => {
+    setCustomerAddedAt(insertedAt)
     setSummeryReportToggle(o => !o)
   }
 

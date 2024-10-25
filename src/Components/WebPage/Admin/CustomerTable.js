@@ -47,11 +47,11 @@ const CustomerTable = ({ customerData, setEditCustomerPopup, setEditItemData, ha
 											? <td><button type='button' className='clbtn dlNewbtn'> <img src={greyDownloadIcon} alt='img' /> </button></td>
 											: <td>
 												{/* <button type='button' className='clbtn me-2 viewbtn' > <img src={eyeIcon} alt='img' /> </button> */}
-												<button type='button' className='clbtn dlbtn' onClick={(e) => { summeryReportFun(item?._id); setCustomerId((item?._id)) }}> <img src={downloadIcon} alt='img' /> </button>
+												<button type='button' className='clbtn dlbtn' onClick={(e) => { summeryReportFun(item?._id,item?.inserted_at); setCustomerId((item?._id)) }}> <img src={downloadIcon} alt='img' /> </button>
 											</td>}
 										<td>
 											<button type='button' className='clbtn me-2 vpbtn'> <img src={eyeIcon} alt='img' onClick={() => {
-												handleDayEndBalance(item?._id);
+												handleDayEndBalance(item?._id, item?.inserted_at);
 												setCustomerId((item?._id))
 											}} /> </button>
 											{/* <button type='button' className='clbtn me-2 dpbtn ' ><img src={downloadIcon} alt='img' onClick={() => handleDayEndBalance(item?._id, 'donwload-btn')} /></button> */}
