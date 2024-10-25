@@ -17,14 +17,30 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
   const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   const maxUTCDate = dayjs(utcNow)
 
-  const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
+  // const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
+  //   const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
+  //   return (
+  //     <DialogActions style={{ justifyContent: 'flex-end' }}>
+  //       {/* <Button onClick={onClear}>{"Reset"}</Button> */}
+  //       <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
+  //       {shouldHideApply ?
+  //         <Button onClick={onAccept} disabled={shouldHideApply} style={{backgroundColor:'lightgrey'}}>{"Apply"}</Button>
+  //         : <Button onClick={onAccept} >{"Apply"}</Button>}
+  //     </DialogActions>
+  //   );
+  // };
+
+  const CustomActionBar = ({ onAccept, onClear, onCancel, selectDate }) => {
     const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
+    const shouldHideToApply = toDate && dayjs(toDate).isSame(dayjs(fromDate || insertedAt), 'minute'); // Condition to hide "Apply" button
+
+    console.log("shouldHideToApply", shouldHideToApply)
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}
         <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
-        {shouldHideApply ?
-          <Button onClick={onAccept} disabled={shouldHideApply} style={{backgroundColor:'lightgrey'}}>{"Apply"}</Button>
+        {(shouldHideApply || shouldHideToApply) ?
+          <Button onClick={onAccept} disabled={shouldHideApply || shouldHideToApply} style={{ backgroundColor: 'lightgrey' }}>{"Apply"}</Button>
           : <Button onClick={onAccept} >{"Apply"}</Button>}
       </DialogActions>
     );
@@ -106,10 +122,22 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               ampm={false}
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}
-              minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
+
+              minDateTime={
+                // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
+                fromDate && dayjs(fromDate).isSame(dayjs(fromDate || insertedAt), 'minute')
+                  ? dayjs(insertedAt).add(1, 'minute')
+                  : dayjs(insertedAt)
+              } // Disable times before or equal to From date time
               maxDateTime={maxUTCDate}  // Max date is today
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
+              disabled={fromDate === null ? true : false}
+              // minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
+              // maxDateTime={maxUTCDate}  // Max date is today
+              // closeOnSelect={false}
+              // renderInput={(params) => <TextField {...params} />}
+              
             />
           </LocalizationProvider>
         </div>
