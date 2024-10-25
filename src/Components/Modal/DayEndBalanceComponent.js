@@ -16,11 +16,11 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
   const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   const maxUTCDate = dayjs(utcNow)
 
-  console.log("selectedDate", selectedDate)
+  // console.log("selectedDate", selectedDate)
 
   const CustomActionBar = ({ onAccept, onClear, onCancel, onChange }) => {
     const shouldHideApply = selectedDate && dayjs(selectedDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
-    console.log("shouldHideApply", shouldHideApply)
+    // console.log("shouldHideApply", shouldHideApply)
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}

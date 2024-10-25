@@ -31,9 +31,9 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
     })
   }
 
-  console.log("insertedAtnmdm", insertedAt);
-  console.log("fixedDate", fixedDate);
-  console.log("fromDate", fromDate);
+  // console.log("insertedAtnmdm", insertedAt);
+  // console.log("fixedDate", fixedDate);
+  // console.log("fromDate", fromDate);
 
 
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
