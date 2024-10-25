@@ -297,7 +297,7 @@ const Admin = () => {
         'closing_balance', 'balance_snapshot', 'difference', 'other_transfer'
       ],
       margin_data: [
-        'asset','opening_balance', 'margin_trades', 'fees','margin_interest', 'transfers','closing_balance',
+        'asset','opening_balance', 'margin_trades', 'fees','margin_interest', 'transfers','others','closing_balance',
         'balance_snapshot','difference'
       ],
       future_data: [
