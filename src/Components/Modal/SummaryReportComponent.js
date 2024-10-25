@@ -16,6 +16,8 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
   const now = new Date();
   const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   const maxUTCDate = dayjs(utcNow)
+  const [fromdateErrorMessage, setFromDateErrorMessage] = useState(null)
+  const [todateErrorMessage, setToDateErrorMessage] = useState(null)
 
   // const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
   //   const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
@@ -84,7 +86,13 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               componentsProps={{
                 actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
               }}
-
+              onError={ (e) => {
+                if(e){
+                  setFromDateErrorMessage("Please select from date in available range")
+                }else{
+                  setFromDateErrorMessage(null)
+                }
+              }}
               label="Select From Date & Time in UTC"
               timeSteps={{ minutes: 15, seconds: 1 }}  // Show seconds
               format="DD-MM-YYYY HH:mm"  // Show seconds in format
@@ -97,9 +105,9 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
                 fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute')
                   ? dayjs(insertedAt).add(1, 'minute')
                   : dayjs(insertedAt)
-              } 
+              }
               maxDateTime={toDate || maxUTCDate}// Max date for "From Date"
-             
+
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -122,7 +130,13 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               ampm={false}
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}
-
+              onError={ (e) => {
+                if(e){
+                  setToDateErrorMessage("Please select to date in available range")
+                }else{
+                  setToDateErrorMessage(null)
+                }
+              }}
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
                 fromDate && dayjs(fromDate).isSame(dayjs(fromDate || insertedAt), 'minute')
@@ -137,15 +151,17 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               // maxDateTime={maxUTCDate}  // Max date is today
               // closeOnSelect={false}
               // renderInput={(params) => <TextField {...params} />}
-              
+
             />
           </LocalizationProvider>
         </div>
+        {fromdateErrorMessage &&  <p className="text-danger  small ">{fromdateErrorMessage}</p>}
+        {todateErrorMessage  &&  <p className="text-danger  small ">{todateErrorMessage}</p>}
         <div className='text-end mt-5 mb-3'>
           <button type='button' className='btnWh me-4' onClick={() => handleClose()}>
             {"Cancel"}
           </button>
-          {fromDate && toDate ? (
+          {fromDate && toDate && !(fromdateErrorMessage || todateErrorMessage)  ? (
               <button type='button' className='btnBl' onClick={() => handleDownload()}>
                 {"Download"}
               </button>

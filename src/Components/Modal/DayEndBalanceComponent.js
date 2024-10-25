@@ -69,7 +69,7 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
               onClick={() => handleClose()}
             />
           </button>
-          <h2>{`Day End Balance ${dayEndBalanceData?.data?.snapshot?.length > 0 ? `${'(' + new Date(dayEndBalanceData?.data?.snapshot_time).toUTCString().replace('GMT', 'UTC') + ')'}` : ""}`}</h2>
+          <h2>{`Day End Balance`}</h2>
         </div>
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -126,7 +126,7 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
 
           </LocalizationProvider>
         </div>
-
+        {dayEndBalanceData?.data?.snapshot?.length > 0 ? ` The wallet balance fetched on ${ new Date(dayEndBalanceData?.data?.snapshot_time).toLocaleString()} UTC is :` : ""}
         {dayEndBalanceData?.data?.snapshot?.length > 0 && <div className='dayendTable'>
           <table>
             <tr>

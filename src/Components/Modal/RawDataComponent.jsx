@@ -13,7 +13,8 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
   const [toDate, setToDate] = useState(null);
   const dispatch = useDispatch()
   const insertedAt = new Date(customerAddedAt)
-
+  const [fromdateErrorMessage, setFromDateErrorMessage] = useState(null)
+  const [todateErrorMessage, setToDateErrorMessage] = useState(null)
   let fixedDate = dayjs(insertedAt).add(0, 'minute');
 
   const now = new Date();
@@ -93,6 +94,13 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
               componentsProps={{
                 actionBar: { actions: ['cancel', 'accept'] },
               }}
+              onError={ (e) => {
+                if(e){
+                  setFromDateErrorMessage("Please select from date in available range")
+                }else{
+                  setFromDateErrorMessage(null)
+                }
+              }}
               label="Select From Date & Time in UTC"
               timeSteps={{ minutes: 15, seconds: 1 }}
               format="DD-MM-YYYY HH:mm"
@@ -107,7 +115,7 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
                   : dayjs(insertedAt)
               }  // Restrict selection strictly after insertedAt
               maxDateTime={toDate || maxUTCDate}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField {...params} error helperText="select time range"/>}
             />
 
             {/* To DateTime Picker */}
@@ -118,7 +126,13 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
               componentsProps={{
                 actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
               }}
-
+              onError={ (e) => {
+                if(e){
+                  setToDateErrorMessage("Please select to date in available range")
+                }else{
+                  setToDateErrorMessage(null)
+                }
+              }}
               label="Select To Date & Time in UTC"
               timeSteps={{ minutes: 15, seconds: 1 }}  // Show seconds
               format="DD-MM-YYYY HH:mm"  // Show seconds in format
@@ -138,11 +152,13 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
             />
           </LocalizationProvider>
         </div>
+        {fromdateErrorMessage &&  <p className="text-danger  small ">{fromdateErrorMessage}</p>}
+        {todateErrorMessage  &&  <p className="text-danger  small ">{todateErrorMessage}</p>}
         <div className='text-end mt-5 mb-3'>
           <button type='button' className='btnWh me-4' onClick={() => handleClose()}>
             {"Cancel"}
           </button>
-          {fromDate && toDate ? (
+          {fromDate && toDate  && !(fromdateErrorMessage || todateErrorMessage) ? (
             <button type='button' className='btnBl' onClick={() => handleDownload()}>
               {"Download"}
             </button>
