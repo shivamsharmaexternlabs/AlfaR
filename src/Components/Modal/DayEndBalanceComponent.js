@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndBalance, downloadCSV, dayEndBalanceData, customerAddedAt }) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState(null);
+  const [shouldHideApply, setShouldHideApply] = useState(null)
   const insertedAt = new Date(customerAddedAt)
   const now = new Date();
   const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
@@ -19,7 +20,9 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
   // console.log("selectedDate", selectedDate)
 
   const CustomActionBar = ({ onAccept, onClear, onCancel, onChange }) => {
-    const shouldHideApply = selectedDate && dayjs(selectedDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
+    if(selectedDate && dayjs(selectedDate).isSame(dayjs(insertedAt), 'minute')){
+      setShouldHideApply(true)
+    } // Condition to hide "Apply" button
     // console.log("shouldHideApply", shouldHideApply)
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
@@ -99,6 +102,13 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
                 const selectedDateUTC = new Date(Date.UTC(newValue.$y, newValue.$M, newValue.$D, newValue.$H, newValue.$m, 0)).toISOString()
                 dispatch(GetDayEndBalance({ selectedDateUTC, customerId }))
               }}
+              onError={(e) => {
+                if(e){
+                  setShouldHideApply(true)
+                }else{
+                  setShouldHideApply(false)
+                }
+              }}
               closeOnSelect={false}
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
@@ -126,7 +136,7 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
 
           </LocalizationProvider>
         </div>
-        {dayEndBalanceData?.data?.snapshot?.length > 0 ? ` The wallet balance fetched on ${ new Date(dayEndBalanceData?.data?.snapshot_time).toLocaleString()} UTC is :` : ""}
+        {dayEndBalanceData?.data?.snapshot?.length > 0 ? <p style={{marginTop:'16px', marginBottom:'-15px'}}>{` The wallet balance fetched on ${ new Date(dayEndBalanceData?.data?.snapshot_time).toLocaleString()} UTC`} </p>: ""}
         {dayEndBalanceData?.data?.snapshot?.length > 0 && <div className='dayendTable'>
           <table>
             <tr>
@@ -153,7 +163,7 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
             }}
           >{"Cancel"} </button>
           {
-            selectedDate ?
+            selectedDate && !shouldHideApply ?
               <button type='button' className='btnBl'
                 onClick={handleDownload}
               >{"Download"}</button> :
