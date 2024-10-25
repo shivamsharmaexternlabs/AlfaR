@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { GetSummaryReport } from '../Redux/slices/CustomerSlice';
 import { useDispatch } from 'react-redux';
 
-const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryCsv, loadingValue ,customerAddedAt }) => {
+const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummaryCsv, loadingValue, customerAddedAt }) => {
   const dispatch = useDispatch();
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -57,7 +57,7 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
     await dispatch(GetSummaryReport({ fromDateUTC, toDateUTC, customerId })).then((res) => {
 
       if (res?.payload?.status === 200) {
-        handleDownloadSummaryCsv(res?.payload?.data,'summaryReport')
+        handleDownloadSummaryCsv(res?.payload?.data, 'summaryReport')
       }
     })
     // handleDownloadRawData()
@@ -86,10 +86,10 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               componentsProps={{
                 actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
               }}
-              onError={ (e) => {
-                if(e){
+              onError={(e) => {
+                if (e) {
                   setFromDateErrorMessage("Please select from date in available range")
-                }else{
+                } else {
                   setFromDateErrorMessage(null)
                 }
               }}
@@ -130,16 +130,16 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               ampm={false}
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}
-              onError={ (e) => {
-                if(e){
+              onError={(e) => {
+                if (e) {
                   setToDateErrorMessage("Please select to date in available range")
-                }else{
+                } else {
                   setToDateErrorMessage(null)
                 }
               }}
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
-                fromDate && dayjs(fromDate).isSame(dayjs(fromDate || insertedAt), 'minute')
+                (fromDate || toDate) && dayjs(fromDate || toDate).isSame(dayjs(fromDate || insertedAt), 'minute')
                   ? dayjs(insertedAt).add(1, 'minute')
                   : dayjs(insertedAt)
               } // Disable times before or equal to From date time
@@ -147,25 +147,28 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
               disabled={fromDate === null ? true : false}
-              // minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
-              // maxDateTime={maxUTCDate}  // Max date is today
-              // closeOnSelect={false}
-              // renderInput={(params) => <TextField {...params} />}
+            // minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
+            // maxDateTime={maxUTCDate}  // Max date is today
+            // closeOnSelect={false}
+            // renderInput={(params) => <TextField {...params} />}
 
             />
           </LocalizationProvider>
         </div>
-        {fromdateErrorMessage &&  <p className="text-danger  small ">{fromdateErrorMessage}</p>}
-        {todateErrorMessage  &&  <p className="text-danger  small ">{todateErrorMessage}</p>}
+        <div className='row'>
+
+          {fromdateErrorMessage && <p className="text-danger  small col-6">{fromdateErrorMessage}</p>}
+          {todateErrorMessage && <p className="text-danger  small col-6">{todateErrorMessage}</p>}
+        </div>
         <div className='text-end mt-5 mb-3'>
           <button type='button' className='btnWh me-4' onClick={() => handleClose()}>
             {"Cancel"}
           </button>
-          {fromDate && toDate && !(fromdateErrorMessage || todateErrorMessage)  ? (
-              <button type='button' className='btnBl' onClick={() => handleDownload()}>
-                {"Download"}
-              </button>
-            ) : null}
+          {fromDate && toDate && !(fromdateErrorMessage || todateErrorMessage) ? (
+            <button type='button' className='btnBl' onClick={() => handleDownload()}>
+              {"Download"}
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

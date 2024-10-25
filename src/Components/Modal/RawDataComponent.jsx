@@ -152,8 +152,11 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
             />
           </LocalizationProvider>
         </div>
-        {fromdateErrorMessage &&  <p className="text-danger  small ">{fromdateErrorMessage}</p>}
-        {todateErrorMessage  &&  <p className="text-danger  small ">{todateErrorMessage}</p>}
+        <div className='row'>
+
+        {fromdateErrorMessage &&  <p className="text-danger  small col-6">{fromdateErrorMessage}</p>}
+        {todateErrorMessage  &&  <p className="text-danger  small col-6">{todateErrorMessage}</p>}
+        </div>
         <div className='text-end mt-5 mb-3'>
           <button type='button' className='btnWh me-4' onClick={() => handleClose()}>
             {"Cancel"}
