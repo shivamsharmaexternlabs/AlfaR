@@ -18,11 +18,14 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
   const maxUTCDate = dayjs(utcNow)
 
   const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
+    const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}
         <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
-        <Button onClick={onAccept}>{"Apply"}</Button>
+        {shouldHideApply ?
+          <Button onClick={onAccept} disabled={shouldHideApply} style={{backgroundColor:'lightgrey'}}>{"Apply"}</Button>
+          : <Button onClick={onAccept} >{"Apply"}</Button>}
       </DialogActions>
     );
   };
@@ -72,8 +75,15 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               ampm={false}
               value={fromDate}
               onChange={(newValue) => setFromDate(newValue)}
-              minDateTime={dayjs(insertedAt)}  // Allow dates up to 6 months ago
+              // minDateTime={dayjs(insertedAt)}  // Allow dates up to 6 months ago
+              minDateTime={
+                // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
+                fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute')
+                  ? dayjs(insertedAt).add(1, 'minute')
+                  : dayjs(insertedAt)
+              } 
               maxDateTime={toDate || maxUTCDate}// Max date for "From Date"
+             
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
             />

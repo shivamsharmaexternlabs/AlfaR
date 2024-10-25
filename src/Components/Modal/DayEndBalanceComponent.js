@@ -8,32 +8,39 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // You can also
 import { GetDayEndBalance } from '../Redux/slices/CustomerSlice';
 import { useDispatch } from 'react-redux';
 
-const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndBalance, downloadCSV, dayEndBalanceData, customerAddedAt  }) => {
+const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndBalance, downloadCSV, dayEndBalanceData, customerAddedAt }) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState(null);
   const insertedAt = new Date(customerAddedAt)
   const now = new Date();
   const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   const maxUTCDate = dayjs(utcNow)
-  const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
+
+  console.log("selectedDate", selectedDate)
+
+  const CustomActionBar = ({ onAccept, onClear, onCancel, onChange }) => {
+    const shouldHideApply = selectedDate && dayjs(selectedDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
+    console.log("shouldHideApply", shouldHideApply)
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}
         <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
-        <Button onClick={onAccept}>{"Apply"}</Button>
+        {shouldHideApply ?
+          <Button disabled={shouldHideApply} style={{ backgroundColor: 'lightgrey' }}>{"Apply"}</Button>
+          : <Button onClick={onAccept} >{"Apply"}</Button>}
       </DialogActions>
     );
   };
 
 
 
-  useEffect(() => {
-    if (selectedDate) {
-      const selectedDateUTC = new Date(Date.UTC(selectedDate.$y, selectedDate.$M, selectedDate.$D, selectedDate.$H, selectedDate.$m, 0)).toISOString()
-      dispatch(GetDayEndBalance({ selectedDateUTC, customerId }))
-    }
+  // useEffect(() => {
+  //   if (selectedDate) {
+  //     const selectedDateUTC = new Date(Date.UTC(selectedDate.$y, selectedDate.$M, selectedDate.$D, selectedDate.$H, selectedDate.$m, 0)).toISOString()
+  //     dispatch(GetDayEndBalance({ selectedDateUTC, customerId }))
+  //   }
 
-  }, [selectedDate, customerId, dispatch])
+  // }, [selectedDate, customerId, dispatch])
 
   const handleDownload = async () => {
     // console.log(selectedDate, dayjs(selectedDate).toISOString(), dayjs().utcOffset())
@@ -86,11 +93,21 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
               format="DD-MM-YYYY HH:mm"
               ampm={false}
               value={selectedDate}
-              onAccept={(newValue) => setSelectedDate(newValue)}
+              onChange={(newValue) => setSelectedDate(newValue)}
+              onAccept={(newValue) => {
+                setSelectedDate(newValue)
+                const selectedDateUTC = new Date(Date.UTC(newValue.$y, newValue.$M, newValue.$D, newValue.$H, newValue.$m, 0)).toISOString()
+                dispatch(GetDayEndBalance({ selectedDateUTC, customerId }))
+              }}
               closeOnSelect={false}
-              minDateTime={dayjs(insertedAt)}
+              minDateTime={
+                // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
+                selectedDate && dayjs(selectedDate).isSame(dayjs(insertedAt), 'minute')
+                  ? dayjs(insertedAt).add(1, 'minute')
+                  : dayjs(insertedAt)
+              }
               renderInput={(params) => <TextField {...params} />}
-              maxDateTime={maxUTCDate }
+              maxDateTime={maxUTCDate}
             />
 
             {/* <DateTimePicker
