@@ -34,7 +34,7 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
     const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
     const shouldHideToApply = toDate && dayjs(toDate).isSame(dayjs(fromDate || insertedAt), 'minute'); // Condition to hide "Apply" button
 
-    console.log("shouldHideToApply", shouldHideToApply)
+    // console.log("shouldHideToApply", shouldHideToApply)
     return (
       <DialogActions style={{ justifyContent: 'flex-end' }}>
         {/* <Button onClick={onClear}>{"Reset"}</Button> */}
