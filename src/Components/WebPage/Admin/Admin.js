@@ -202,24 +202,113 @@ const Admin = () => {
   };
   
 
+  // const handleSummaryReportDownloadData = (newData, keyVal) => {
+  //   const wb = XLSX.utils.book_new();
+
+  //   // Desired order for the spot_data columns
+  //   const desiredOrder = [
+  //     'token',
+  //     'opening_balance',
+  //     'spot_trade',
+  //     'spot_fee',
+  //     'sub_account_transfer',
+  //     'withdrawal',
+  //     'deposit',
+  //     'others',
+  //     'closing_balance',
+  //     'balance_snapshot',
+  //     'difference',
+  //     'other_transfer'
+  //   ];
+
+  //   // Function to reorder an object based on the desired keys
+  //   const reorderObjectKeys = (obj, order) => {
+  //     let reordered = {};
+  //     order.forEach(key => {
+  //       if (key in obj) reordered[key] = obj[key];  // Only include keys that exist in the object
+  //     });
+  //     return reordered;
+  //   };
+
+  //   // Convert a string to title case
+  //   const toTitleCase = str => str.replace(/_/g, ' ')
+  //     .replace(/\b\w/g, char => char.toUpperCase());
+
+  //   // Check if spot_data exists
+  //   if (newData.spot_data && newData.spot_data.length > 0) {
+  //     // Log the original data for spot_data
+  //     // console.log("Original spot_data:", newData.spot_data);
+
+  //     // Reorder and convert keys to title case for spot_data
+  //     const reorderedSpotData = newData.spot_data.map(item => {
+  //       const reorderedItem = reorderObjectKeys(item, desiredOrder);
+  //       return convertKeysToTitleCase(reorderedItem); // Convert keys to title case
+  //     });
+
+  //     // Log the reordered data for spot_data
+  //     // console.log("Reordered spot_data:", reorderedSpotData);
+
+  //     // Create a sheet for the reordered spot_data
+  //     const sheetData = reorderedSpotData.length
+  //       ? XLSX.utils.json_to_sheet(reorderedSpotData)
+  //       : XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+
+  //     // Convert the sheet name to title case
+  //     const sheetName = toTitleCase('spot_data');
+  //     XLSX.utils.book_append_sheet(wb, sheetData, sheetName);
+  //   } else {
+  //     console.error("spot_data is empty or undefined");
+  //   }
+
+  //   // Handle other sheets and convert their keys to title case
+  //   for (let key in newData) {
+  //     if (key !== 'spot_data') {
+  //       const formattedData = convertKeysToTitleCase(newData[key]); // Convert keys to title case
+  //       const sheetData = formattedData.length
+  //         ? XLSX.utils.json_to_sheet(formattedData)
+  //         : XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+
+  //       // Convert the sheet name to title case
+  //       const sheetName = toTitleCase(key);
+  //       XLSX.utils.book_append_sheet(wb, sheetData, sheetName);
+  //     }
+  //   }
+
+  //   // Format the date for the filename (YYYY-MM-DD format)
+  //   const formattedDate = new Date().toISOString().split('T')[0];
+
+  //   // Set the filename based on the keyVal
+  //   const filename = keyVal === "rawData"
+  //     ? `raw_data_${formattedDate}.xlsx`
+  //     : `summary_report_${formattedDate}.xlsx`;
+
+  //   // Write the workbook to a file and trigger download
+  //   XLSX.writeFile(wb, filename);
+  // };
+
   const handleSummaryReportDownloadData = (newData, keyVal) => {
     const wb = XLSX.utils.book_new();
 
-    // Desired order for the spot_data columns
-    const desiredOrder = [
-      'token',
-      'opening_balance',
-      'spot_trade',
-      'spot_fee',
-      'sub_account_transfer',
-      'withdrawal',
-      'deposit',
-      'others',
-      'closing_balance',
-      'balance_snapshot',
-      'difference',
-      'other_transfer'
-    ];
+    // Desired order mappings for each dataset
+    const desiredOrders = {
+      spot_data: [
+        'token', 'opening_balance', 'spot_trade', 'spot_fee',
+        'sub_account_transfer', 'withdrawal', 'deposit', 'others',
+        'closing_balance', 'balance_snapshot', 'difference', 'other_transfer'
+      ],
+      margin_data: [
+        'asset','opening_balance', 'margin_trades', 'fees','margin_interest', 'transfers','closing_balance',
+        'balance_snapshot','difference'
+      ],
+      future_data: [
+        'asset', 'opening_balance', 'realised_pnl', 'fee','funding_fee','transfers','closing_balance',
+        'balance_snapshot', 'difference'
+      ],
+      options_data: [
+        'asset', 'opening_balance', 'option_trades', 'fees','settlement_delivery','others',
+        'closing_balance', 'balance_snapshot', 'difference'
+      ]
+    };
 
     // Function to reorder an object based on the desired keys
     const reorderObjectKeys = (obj, order) => {
@@ -234,57 +323,46 @@ const Admin = () => {
     const toTitleCase = str => str.replace(/_/g, ' ')
       .replace(/\b\w/g, char => char.toUpperCase());
 
-    // Check if spot_data exists
-    if (newData.spot_data && newData.spot_data.length > 0) {
-      // Log the original data for spot_data
-      // console.log("Original spot_data:", newData.spot_data);
+    // Function to reorder and convert keys to title case for each dataset
+    const processSheetData = (data, sheetName) => {
+      const order = desiredOrders[sheetName] || []; // Select order based on sheet name
+      if (data && data.length > 0) {
+        const reorderedData = data.map(item => {
+          const reorderedItem = reorderObjectKeys(item, order);
+          return convertKeysToTitleCase(reorderedItem);
+        });
 
-      // Reorder and convert keys to title case for spot_data
-      const reorderedSpotData = newData.spot_data.map(item => {
-        const reorderedItem = reorderObjectKeys(item, desiredOrder);
-        return convertKeysToTitleCase(reorderedItem); // Convert keys to title case
-      });
-
-      // Log the reordered data for spot_data
-      // console.log("Reordered spot_data:", reorderedSpotData);
-
-      // Create a sheet for the reordered spot_data
-      const sheetData = reorderedSpotData.length
-        ? XLSX.utils.json_to_sheet(reorderedSpotData)
-        : XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-
-      // Convert the sheet name to title case
-      const sheetName = toTitleCase('spot_data');
-      XLSX.utils.book_append_sheet(wb, sheetData, sheetName);
-    } else {
-      console.error("spot_data is empty or undefined");
-    }
-
-    // Handle other sheets and convert their keys to title case
-    for (let key in newData) {
-      if (key !== 'spot_data') {
-        const formattedData = convertKeysToTitleCase(newData[key]); // Convert keys to title case
-        const sheetData = formattedData.length
-          ? XLSX.utils.json_to_sheet(formattedData)
-          : XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-
-        // Convert the sheet name to title case
-        const sheetName = toTitleCase(key);
-        XLSX.utils.book_append_sheet(wb, sheetData, sheetName);
+        const sheetData = XLSX.utils.json_to_sheet(reorderedData);
+        XLSX.utils.book_append_sheet(wb, sheetData, toTitleCase(sheetName));
+      } else {
+        console.error(`${sheetName} is empty or undefined`);
+        const sheetData = XLSX.utils.json_to_sheet([{ "No Data": "" }]);
+        XLSX.utils.book_append_sheet(wb, sheetData, toTitleCase(sheetName));
       }
-    }
+    };
+
+    // Process each dataset
+    const dataSets = {
+      spot_data: newData.spot_data,
+      margin_data: newData.margin_data,
+      future_data: newData.futures_data,
+      options_data: newData.options_data
+    };
+
+    Object.entries(dataSets).forEach(([sheetName, data]) => {
+      processSheetData(data, sheetName);
+    });
 
     // Format the date for the filename (YYYY-MM-DD format)
     const formattedDate = new Date().toISOString().split('T')[0];
 
     // Set the filename based on the keyVal
-    const filename = keyVal === "rawData"
-      ? `raw_data_${formattedDate}.xlsx`
-      : `summary_report_${formattedDate}.xlsx`;
+    const filename =`summary_report_${formattedDate}.xlsx`;
 
     // Write the workbook to a file and trigger download
     XLSX.writeFile(wb, filename);
   };
+
 
   const convertToCSV = (objArray) => {
     const array = Array.isArray(objArray) ? objArray : JSON.parse(objArray);
