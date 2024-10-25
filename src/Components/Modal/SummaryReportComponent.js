@@ -86,7 +86,7 @@ const SummaryReportComponent = ({ handleClose,customerId, handleDownloadSummaryC
               }}
 
               label="Select From Date & Time in UTC"
-              timeSteps={{ minutes: 1, seconds: 1 }}  // Show seconds
+              timeSteps={{ minutes: 15, seconds: 1 }}  // Show seconds
               format="DD-MM-YYYY HH:mm"  // Show seconds in format
               ampm={false}
               value={fromDate}

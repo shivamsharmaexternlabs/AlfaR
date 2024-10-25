@@ -45,6 +45,8 @@ const Admin = () => {
   const [dayBalancePopup, setDayBalancePopup] = useState(false);
   const [rawDataPopup, setRawDataPopup] = useState(false);
 
+  const [dayEndBalanceDataFinal, setDayEndBalanceDataFinal] = useState();
+
   const [refreshTrue, setRefreshTrue] = useState(false);
 
   // console.log("customerDetailsData", customerDetailsData)
@@ -66,6 +68,14 @@ const Admin = () => {
       setCloseIcon(false)
     }
   }, [dispatch, searchItem, currentPage, updatedStatus]);
+
+  useEffect(() => {
+    if (dayEndBalanceData) {
+      setDayEndBalanceDataFinal(dayEndBalanceData)
+    }
+
+  }, [dayEndBalanceData])
+
 
 
 
@@ -273,14 +283,15 @@ const Admin = () => {
     let str = '';
 
     // Add custom headers
-    const headers = ['Status', 'Balance', 'Wallet'];
+    const headers = ['WALLET NAME','STATUS', 'BALANCE', ];
     str += headers.join(',') + '\r\n';
 
     array.forEach(item => {
       const line = [
-        item.activate,    // Status
+        item.walletName, // Wallet
+        item.activate,    // Statusj
         item.balance,     // Balance
-        item.walletName   // Wallet
+        
       ].join(',');
       str += line + '\r\n';
     });
@@ -370,6 +381,8 @@ const Admin = () => {
     setCustomerAddedAt(insertedAt)
     setSummeryReportToggle(o => !o)
   }
+
+  console.log("dayEndBalanceDataFinal",dayEndBalanceDataFinal)
 
 
   return (
@@ -470,9 +483,10 @@ const Admin = () => {
         open={dayBalancePopup}
         handleClose={() => {
           setDayBalancePopup(false)
+          setDayEndBalanceDataFinal([])
         }}
         dayBalancePopup={dayBalancePopup}
-        dayEndBalanceData={dayEndBalanceData}
+        dayEndBalanceData={dayEndBalanceDataFinal}
         setDayBalancePopup={setDayBalancePopup}
         handleDownloadRawData={handleDownloadRawData}
         downloadCSV={downloadCSV}
@@ -489,6 +503,7 @@ const Admin = () => {
         summeryReportToggle={summeryReportToggle}
         handleClose={() => {
           setSummeryReportToggle(false)
+
         }}
         customerAddedAt={customerAddedAt}
         customerId={customerId}

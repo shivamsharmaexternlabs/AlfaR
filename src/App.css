@@ -771,6 +771,35 @@ input::-webkit-contacts-auto-fill-button {
   font-size: 15px;
   font-weight: 400;
 }
+.alfartable table th:first-child,
+.alfartable table td:first-child{
+ width:280px; 
+}
+
+.alfartable table th:nth-child(2),
+.alfartable table td:nth-child(2){
+  width:180px; 
+}
+
+.alfartable table th:nth-child(3),
+.alfartable table td:nth-child(3){
+  width:250px; 
+  text-align: center;
+}
+.alfartable table th:nth-child(4),
+.alfartable table td:nth-child(4){
+
+  width:250px; 
+  text-align: center;
+
+}
+.alfartable table th:nth-child(5),
+.alfartable table td:nth-child(5) {
+  /* text-align: ; */
+  width:290px; 
+  text-align: center;
+}
+
 
 .alfartable table .clbtn {
   width: 32px;

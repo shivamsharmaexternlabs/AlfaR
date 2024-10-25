@@ -94,7 +94,7 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
                 actionBar: { actions: ['cancel', 'accept'] },
               }}
               label="Select From Date & Time in UTC"
-              timeSteps={{ minutes: 1, seconds: 1 }}
+              timeSteps={{ minutes: 15, seconds: 1 }}
               format="DD-MM-YYYY HH:mm"
               ampm={false}
               value={fromDate}

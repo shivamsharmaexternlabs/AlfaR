@@ -69,7 +69,7 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
               onClick={() => handleClose()}
             />
           </button>
-          <h2>{"Day End Balance"}</h2>
+          <h2>{`Day End Balance ${dayEndBalanceData?.data?.snapshot?.length > 0 ? `${'(' + new Date(dayEndBalanceData?.data?.snapshot_time).toUTCString().replace('GMT', 'UTC') + ')'}` : ""}`}</h2>
         </div>
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -89,7 +89,7 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
               }}
 
               label="Select Date & Time in UTC"
-              timeSteps={{ minutes: 1 }}
+              timeSteps={{ minutes: 15 }}
               format="DD-MM-YYYY HH:mm"
               ampm={false}
               value={selectedDate}
@@ -147,7 +147,10 @@ const DayEndBalanceComponent = ({ handleClose, customerId, handleDownloadDayEndB
 
         <div className='text-end mt-5 mb-3'>
           <button type='button' className='btnWh me-4'
-            onClick={() => handleClose()}
+            onClick={() => {
+              handleClose()
+
+            }}
           >{"Cancel"} </button>
           {
             selectedDate ?
