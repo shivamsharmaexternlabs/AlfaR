@@ -181,26 +181,26 @@ const Admin = () => {
 
   const handleDownloadRawData = (newData, keyVal) => {
     const output = convertKeysToTitleCase(newData);
-  
+
     const wb = XLSX.utils.book_new();
-  
+
     for (let key in output) {
       // Ensure sheet name is at most 31 characters
       const sheetName = key.length > 31 ? key.slice(0, 31) : key;
-  
+
       // Check if output[key] is an array; if not, wrap it in an array
       const sheetData = Array.isArray(output[key]) && output[key].length
         ? XLSX.utils.json_to_sheet(output[key])
         : XLSX.utils.json_to_sheet([{ "No Data": "" }]);
-        
+
       XLSX.utils.book_append_sheet(wb, sheetData, sheetName);
     }
-  
+
     const formattedDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
     const filename = keyVal === "rawData" ? `raw_data_${formattedDate}.xlsx` : `day_end_balance_${formattedDate}.xlsx`;
     XLSX.writeFile(wb, filename);
   };
-  
+
 
   // const handleSummaryReportDownloadData = (newData, keyVal) => {
   //   const wb = XLSX.utils.book_new();
@@ -305,7 +305,7 @@ const Admin = () => {
         'balance_snapshot', 'difference'
       ],
       options_data: [
-        'asset', 'opening_balance', 'option_trades', 'fees','settlement_delivery','others',
+        'asset', 'opening_balance', 'option_trades', 'fees','settlement_delivery', 'transfers','others',
         'closing_balance', 'balance_snapshot', 'difference'
       ]
     };
@@ -377,7 +377,7 @@ const Admin = () => {
         item.walletName, // Wallet
         item.activate,    // Statusj
         item.balance,     // Balance
-        
+
       ].join(',');
       str += line + '\r\n';
     });
