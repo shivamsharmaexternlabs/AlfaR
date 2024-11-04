@@ -19,19 +19,6 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
   const [fromdateErrorMessage, setFromDateErrorMessage] = useState(null)
   const [todateErrorMessage, setToDateErrorMessage] = useState(null)
 
-  // const CustomActionBar = ({ onAccept, onClear, onCancel }) => {
-  //   const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
-  //   return (
-  //     <DialogActions style={{ justifyContent: 'flex-end' }}>
-  //       {/* <Button onClick={onClear}>{"Reset"}</Button> */}
-  //       <Button className='btnWh' onClick={onCancel}>{"Cancel"}</Button>
-  //       {shouldHideApply ?
-  //         <Button onClick={onAccept} disabled={shouldHideApply} style={{backgroundColor:'lightgrey'}}>{"Apply"}</Button>
-  //         : <Button onClick={onAccept} >{"Apply"}</Button>}
-  //     </DialogActions>
-  //   );
-  // };
-
   const CustomActionBar = ({ onAccept, onClear, onCancel, selectDate }) => {
     const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
     const shouldHideToApply = toDate && dayjs(toDate).isSame(dayjs(fromDate || insertedAt), 'minute'); // Condition to hide "Apply" button
@@ -77,10 +64,6 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             {/* From DateTime Picker */}
             <DateTimePicker
-              // slotProps={{
-              //   field: { clearable: true },
-              //   actionBar: { actions: ['cancel', 'accept'] },
-              // }}
               slots={{
                 actionBar: CustomActionBar, // Use the custom ActionBar
               }}
@@ -103,11 +86,9 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
               // minDateTime={dayjs(insertedAt)}  // Allow dates up to 6 months ago
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
-                fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute')
-                  ? dayjs(insertedAt).add(1, 'minute')
-                  : dayjs(insertedAt)
+               dayjs(insertedAt)
               }
-              maxDateTime={toDate || maxUTCDate}// Max date for "From Date"
+              maxDateTime={dayjs(toDate).subtract(1, 'minute') || maxUTCDate}// Max date for "From Date"
 
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
@@ -115,10 +96,6 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
 
             {/* To DateTime Picker */}
             <DateTimePicker
-              // slotProps={{
-              //   field: { clearable: true },
-              //   actionBar: { actions: ['cancel', 'accept'] },
-              // }}
               slots={{
                 actionBar: CustomActionBar, // Use the custom ActionBar
               }}
@@ -140,18 +117,12 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
               }}
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
-                (fromDate || toDate) && dayjs(fromDate || toDate).isSame(dayjs(fromDate || insertedAt), 'minute')
-                  ? dayjs(insertedAt).add(1, 'minute')
-                  : dayjs(insertedAt)
+                dayjs(fromDate).add(1, 'minute') || dayjs(insertedAt)
               } // Disable times before or equal to From date time
               maxDateTime={maxUTCDate}  // Max date is today
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
-              // disabled={fromDate === null ? true : false}
-            // minDateTime={fromDate ? dayjs(fromDate).add(1, 'minute') : dayjs(insertedAt)}  // Disable times before or equal to From date time
-            // maxDateTime={maxUTCDate}  // Max date is today
-            // closeOnSelect={false}
-            // renderInput={(params) => <TextField {...params} />}
+
 
             />
           </LocalizationProvider>

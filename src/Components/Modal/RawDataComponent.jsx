@@ -15,7 +15,6 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
   const insertedAt = new Date(customerAddedAt)
   const [fromdateErrorMessage, setFromDateErrorMessage] = useState(null)
   const [todateErrorMessage, setToDateErrorMessage] = useState(null)
-  let fixedDate = dayjs(insertedAt).add(0, 'minute');
 
   const now = new Date();
   const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
@@ -31,11 +30,6 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
       }
     })
   }
-
-  // console.log("insertedAtnmdm", insertedAt);
-  // console.log("fixedDate", fixedDate);
-  // console.log("fromDate", fromDate);
-
 
   const CustomActionBar = ({ onAccept, onClear, onCancel, selectDate }) => {
     const shouldHideApply = fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute'); // Condition to hide "Apply" button
@@ -65,28 +59,6 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
         </div>
         <div className='dateTimeRange'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            {/* From DateTime Picker */}
-            {/* <DateTimePicker
-                slots={{
-                  actionBar: CustomActionBar, // Use the custom ActionBar
-                }}
-                componentsProps={{
-                  actionBar: { actions: ['cancel', 'accept'] }, // Use action bar props
-                }}
-                label="Select From Date & Time in UTC"
-                timeSteps={{ minutes: 1, seconds: 1 }}  // Show seconds
-                format="DD-MM-YYYY HH:mm"  // Show seconds in format
-                ampm={false}
-                value={fromDate}
-                onChange={(newValue) => setFromDate(newValue)}
-                // disableFuture
-                closeOnSelect={false}
-                minDateTime={dayjs(insertedAt)}  // Allow dates up to 6 months ago
-                maxDateTime={toDate || maxUTCDate}
-
-                renderInput={(params) => <TextField {...params} />}
-
-              /> */}
 
             <DateTimePicker
               slots={{
@@ -111,11 +83,9 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
               closeOnSelect={false}
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
-                fromDate && dayjs(fromDate).isSame(dayjs(insertedAt), 'minute')
-                  ? dayjs(insertedAt).add(1, 'minute')
-                  : dayjs(insertedAt)
+                dayjs(insertedAt)
               }  // Restrict selection strictly after insertedAt
-              maxDateTime={toDate || maxUTCDate}
+              maxDateTime={dayjs(toDate).subtract(1, 'minute') || maxUTCDate}
               renderInput={(params) => <TextField {...params} error helperText="select time range"/>}
             />
 
@@ -141,15 +111,11 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}
               minDateTime={
-                // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
-                fromDate && dayjs(fromDate).isSame(dayjs(fromDate || insertedAt), 'minute')
-                  ? dayjs(insertedAt).add(1, 'minute')
-                  : dayjs(insertedAt)
-              } // Disable times before or equal to From date time
-              maxDateTime={maxUTCDate}  // Max date is today
+                dayjs(fromDate).add(1, 'minute') || dayjs(insertedAt)
+              }
+              maxDateTime={maxUTCDate}
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
-              // disabled={fromDate === null ? true : false}
             />
           </LocalizationProvider>
         </div>
