@@ -395,23 +395,60 @@ const Admin = () => {
 
 
   const downloadCSV = (dataToDownload) => {
-    // console.log("dataToDownload",dataToDownload)
+    // Prepare the final data, as in your code
     let csvData = prepareFinalData(dataToDownload);
-
-    if (csvData?.length > 0) {
-      const csvContent = convertToCSV(csvData);
-      const blob = new Blob([csvContent], { type: 'text/csv' });
-      const csvURL = URL.createObjectURL(blob);
-
-      const today = new Date()?.toISOString()?.split('T')[0]; // Format YYYY-MM-DD
-      const link = document.createElement('a');
-      link.href = csvURL;
-      link.download = `day_end_balance_${today}.xlsx`; // Change the file extension to .xlsx
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+  
+    // Define headers for the Excel sheet
+    const headers = ['WALLET NAME', 'STATUS', 'BALANCE'];
+    
+    // Add the headers as the first row in the data
+    const excelData = [headers, ...csvData.map(item => [
+      item.walletName,
+      item.activate,
+      item.balance
+    ])];
+  
+    // Create a new workbook and a worksheet
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet(excelData);
+  
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  
+    // Convert the workbook to a binary blob
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  
+    // Download the file
+    const today = new Date()?.toISOString()?.split('T')[0];
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `day_end_balance_${today}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+
+
+  // const downloadCSV = (dataToDownload) => {
+  //   // console.log("dataToDownload",dataToDownload)
+  //   let csvData = prepareFinalData(dataToDownload);
+
+  //   if (csvData?.length > 0) {
+  //     const csvContent = convertToCSV(csvData);
+  //     const blob = new Blob([csvContent], { type: 'text/csv' });
+  //     const csvURL = URL.createObjectURL(blob);
+
+  //     const today = new Date()?.toISOString()?.split('T')[0]; // Format YYYY-MM-DD
+  //     const link = document.createElement('a');
+  //     link.href = csvURL;
+  //     link.download = `day_end_balance_${today}.csv`;
+  //     // Change the file extension to .xlsx
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   }
+  // };
 
   let withDrawData, tradesData, depositedData, subAccountTransferData, unrealisedPnlData, spotFeesData, snapshotData;
 
