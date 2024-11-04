@@ -88,7 +88,7 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
                dayjs(insertedAt)
               }
-              maxDateTime={dayjs(toDate).subtract(1, 'minute') || maxUTCDate}// Max date for "From Date"
+              maxDateTime={(toDate && dayjs(toDate).subtract(1, 'minute')) || maxUTCDate}// Max date for "From Date"
 
               closeOnSelect={false}
               renderInput={(params) => <TextField {...params} />}
@@ -117,7 +117,7 @@ const SummaryReportComponent = ({ handleClose, customerId, handleDownloadSummary
               }}
               minDateTime={
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
-                dayjs(fromDate).add(1, 'minute') || dayjs(insertedAt)
+                (fromDate && dayjs(fromDate).add(1, 'minute')) || dayjs(insertedAt)
               } // Disable times before or equal to From date time
               maxDateTime={maxUTCDate}  // Max date is today
               closeOnSelect={false}

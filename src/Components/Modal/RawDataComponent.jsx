@@ -85,7 +85,7 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
                 // Check if fromDate equals insertedAt, if so start from 10:27, otherwise allow from insertedAt
                 dayjs(insertedAt)
               }  // Restrict selection strictly after insertedAt
-              maxDateTime={dayjs(toDate).subtract(1, 'minute') || maxUTCDate}
+              maxDateTime={ (toDate && dayjs(toDate).subtract(1, 'minute')) || maxUTCDate}
               renderInput={(params) => <TextField {...params} error helperText="select time range"/>}
             />
 
@@ -111,7 +111,7 @@ const RawDataComponent = ({ handleClose, customerId, handleDownloadRawData, cust
               value={toDate}
               onChange={(newValue) => setToDate(newValue)}
               minDateTime={
-                dayjs(fromDate).add(1, 'minute') || dayjs(insertedAt)
+                (fromDate && dayjs(fromDate).add(1, 'minute')) || dayjs(insertedAt)
               }
               maxDateTime={maxUTCDate}
               closeOnSelect={false}
